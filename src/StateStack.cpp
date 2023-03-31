@@ -53,6 +53,7 @@ void StateStack::applyPendingChange() {
             break;
         }
     }
+    mPendingList.clear();
 }
 
 State::Ptr StateStack::createState(StateIDs stateID) {
