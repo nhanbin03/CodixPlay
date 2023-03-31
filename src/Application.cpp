@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "StateIdentifiers.h"
 
 #include "raylib.h"
 
@@ -6,6 +7,7 @@ Application::Application()
 : mStateStack(State::Context()) {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     SetTargetFPS(60);
+
 }
 
 Application::~Application() {
@@ -14,9 +16,17 @@ Application::~Application() {
 
 void Application::run() {
     while (!WindowShouldClose()) {
-        mStateStack.update(GetFrameTime());
-        BeginDrawing();
-            mStateStack.draw();
-        EndDrawing();
+        update(GetFrameTime());
+        render();
     }
+}
+
+void Application::update(float dt) {
+    mStateStack.update(dt);
+}
+
+void Application::render() {
+    BeginDrawing();
+        mStateStack.draw();
+    EndDrawing();
 }
