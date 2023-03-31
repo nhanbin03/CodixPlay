@@ -25,6 +25,8 @@ private:
     void update(float dt);
     void render();
 
+    void registerStates();
+
 private:
     StateStack mStateStack;
 };
