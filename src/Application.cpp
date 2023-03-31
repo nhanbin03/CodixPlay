@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include "raylib.h"
+
 Application::Application()
 : mStateStack(State::Context()) {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
@@ -12,12 +14,9 @@ Application::~Application() {
 
 void Application::run() {
     while (!WindowShouldClose()) {
+        mStateStack.update(GetFrameTime());
         BeginDrawing();
-
-            ClearBackground(RAYWHITE);
-
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
+            mStateStack.draw();
         EndDrawing();
     }
 }
