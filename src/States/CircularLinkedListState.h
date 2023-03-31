@@ -3,8 +3,7 @@
 
 #include "../State.h"
 
-class CircularLinkedListState : public State
-{
+class CircularLinkedListState : public State {
 public:
     CircularLinkedListState(StateStack &stack, Context context);
 

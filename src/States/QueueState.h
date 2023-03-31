@@ -3,8 +3,7 @@
 
 #include "../State.h"
 
-class QueueState : public State
-{
+class QueueState : public State {
 public:
     QueueState(StateStack &stack, Context context);
 

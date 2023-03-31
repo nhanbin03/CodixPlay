@@ -3,8 +3,7 @@
 
 #include "../State.h"
 
-class SinglyLinkedListState : public State
-{
+class SinglyLinkedListState : public State {
 public:
     SinglyLinkedListState(StateStack &stack, Context context);
 

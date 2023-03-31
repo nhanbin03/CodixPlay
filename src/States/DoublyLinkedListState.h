@@ -3,8 +3,7 @@
 
 #include "../State.h"
 
-class DoublyLinkedListState : public State
-{
+class DoublyLinkedListState : public State {
 public:
     DoublyLinkedListState(StateStack &stack, Context context);
 

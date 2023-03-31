@@ -3,8 +3,7 @@
 
 #include "../State.h"
 
-class DynamicArrayState : public State
-{
+class DynamicArrayState : public State {
 public:
     DynamicArrayState(StateStack &stack, Context context);
 

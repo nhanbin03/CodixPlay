@@ -3,8 +3,7 @@
 
 #include "../State.h"
 
-class HomeState : public State
-{
+class HomeState : public State {
 public:
     HomeState(StateStack &stack, Context context);
 
