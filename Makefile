@@ -1,11 +1,18 @@
-all: compile link
-	game
+TARGET := release/game
 
-compile: $(shell find ./ -type f -name '*.cpp')
-	g++ -w -Iinclude -c $^
+SRC := src
+BUILD := build
 
-link:
-	g++ *.o -o game -Llib -lraylib -lopengl32 -lgdi32 -lwinmm
+SRCS := $(shell find $(SRC) -type f -name '*.cpp')
+OBJS := $(subst $(SRC)/,$(BUILD)/,$(addsuffix .o,$(basename $(SRCS))))
 
-clean:
-	rm *.o game
+all: $(TARGET)
+	$(TARGET)
+
+$(TARGET): $(OBJS)
+	mkdir -p $(dir $@)
+	g++ $(OBJS) -o $@ -Llib -lraylib -lopengl32 -lgdi32 -lwinmm
+
+$(BUILD)/%.o: $(SRC)/%.cpp
+	mkdir -p $(dir $@)
+	g++ -w -Iinclude -c -o $@ $<

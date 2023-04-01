@@ -31,8 +31,11 @@
 *.out
 *.app
 
+# Folders
+
 include
-
 .vscode
-
 examples
+build
+release
+lib
