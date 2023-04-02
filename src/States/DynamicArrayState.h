@@ -1,5 +1,5 @@
-#ifndef DYNAMICARRAYSTATE_H
-#define DYNAMICARRAYSTATE_H
+#ifndef STATES_DYNAMICARRAYSTATE_H
+#define STATES_DYNAMICARRAYSTATE_H
 
 #include "../State.h"
 
@@ -11,4 +11,4 @@ public:
     void draw();
 };
 
-#endif // DYNAMICARRAYSTATE_H
+#endif // STATES_DYNAMICARRAYSTATE_H

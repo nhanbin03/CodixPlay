@@ -1,5 +1,5 @@
-#ifndef STACKSTATE_H
-#define STACKSTATE_H
+#ifndef STATES_STACKSTATE_H
+#define STATES_STACKSTATE_H
 
 #include "../State.h"
 
@@ -11,4 +11,4 @@ public:
     void draw();
 };
 
-#endif // STACKSTATE_H
+#endif // STATES_STACKSTATE_H

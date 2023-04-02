@@ -1,5 +1,5 @@
-#ifndef STATICARRAYSTATE_H
-#define STATICARRAYSTATE_H
+#ifndef STATES_STATICARRAYSTATE_H
+#define STATES_STATICARRAYSTATE_H
 
 #include "../State.h"
 
@@ -11,6 +11,4 @@ public:
     void draw();
 };
 
-#endif // STATICARRAYSTATE_H
-
-
+#endif // STATES_STATICARRAYSTATE_H

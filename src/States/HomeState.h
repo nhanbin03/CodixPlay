@@ -1,5 +1,5 @@
-#ifndef HOMESTATE_H
-#define HOMESTATE_H
+#ifndef STATES_HOMESTATE_H
+#define STATES_HOMESTATE_H
 
 #include "../State.h"
 
@@ -11,4 +11,4 @@ public:
     void draw();
 };
 
-#endif // HOMESTATE_H
+#endif // STATES_HOMESTATE_H

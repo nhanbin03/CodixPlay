@@ -1,5 +1,5 @@
-#ifndef QUEUESTATE_H
-#define QUEUESTATE_H
+#ifndef STATES_QUEUESTATE_H
+#define STATES_QUEUESTATE_H
 
 #include "../State.h"
 
@@ -11,4 +11,4 @@ public:
     void draw();
 };
 
-#endif // QUEUESTATE_H
+#endif // STATES_QUEUESTATE_H
