@@ -1,7 +1,5 @@
 #include "Button.h"
 
-#include <iostream>
-
 Button::Button(Rectangle rec)
 : mState(ButtonState::None),
 mButton(rec),
