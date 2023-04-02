@@ -1,12 +1,12 @@
 #include "Button.h"
 
-Button::Button(Rectangle rec)
+Button::Button(Rectangle bounds)
 : mState(ButtonState::None),
-mButton(rec),
+mButton(bounds),
 mColor(BLACK),
 mTextColor(WHITE) {
-    setPosition({rec.x, rec.y});
-    setSize({rec.width, rec.height});
+    setPosition({bounds.x, bounds.y});
+    setSize({bounds.width, bounds.height});
 }
 
 Button::~Button() {

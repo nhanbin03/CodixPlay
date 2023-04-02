@@ -18,7 +18,7 @@ public:
         Active
     };
 public:
-    Button(Rectangle rec);
+    Button(Rectangle bounds);
     ~Button();
 
     void update(float dt);
