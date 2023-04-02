@@ -16,3 +16,7 @@ $(TARGET): $(OBJS)
 $(BUILD)/%.o: $(SRC)/%.cpp
 	mkdir -p $(dir $@)
 	g++ -w -Iinclude -c -o $@ $<
+
+.PHONY: clean
+clean:
+	rm -rf build
