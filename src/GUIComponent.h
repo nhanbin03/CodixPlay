@@ -5,6 +5,9 @@
 
 class GUIComponent {
 public:
+    GUIComponent();
+    virtual ~GUIComponent();
+
     virtual void update(float dt) = 0;
     virtual void draw() = 0;
 
@@ -14,7 +17,7 @@ public:
     Vector2 getSize() const;
     void setSize(Vector2 size);
 
-protected:
+private:
     Vector2 mPosition;
     Vector2 mSize;
 };

@@ -1,5 +1,11 @@
 #include "GUIComponent.h"
 
+GUIComponent::GUIComponent() {
+}
+
+GUIComponent::~GUIComponent() {
+}
+
 Vector2 GUIComponent::getPosition() const {
     return mPosition;
 }
