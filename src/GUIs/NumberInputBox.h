@@ -8,13 +8,13 @@
 
 #include <string>
 
-class TextInputBox : public GUIComponent {
+class NumberInputBox : public GUIComponent {
 public:
     const int MAX_LEN = 3;
 
 public:
-    TextInputBox(Rectangle bounds);
-    ~TextInputBox();
+    NumberInputBox(Rectangle bounds);
+    ~NumberInputBox();
 
     void update(float dt);
     void draw();
