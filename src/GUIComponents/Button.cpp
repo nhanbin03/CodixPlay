@@ -1,5 +1,8 @@
 #include "Button.h"
 
+Button::Button() {
+}
+
 Button::Button(Rectangle bounds)
 : mState(ButtonState::None)
 , mButton(bounds)
@@ -13,8 +16,6 @@ Button::~Button() {
 }
 
 void Button::update(float dt) {
-    mButton = {getPosition().x, getPosition().y, getSize().x, getSize().y};
-
     checkInteraction();
 }
 
@@ -23,6 +24,18 @@ void Button::draw() {
     DrawRectangleRec(mButton, mColor);
     DrawText(mText.c_str(), mButton.x + mButton.width / 2 - MeasureText(mText.c_str(), mTextSize) / 2,
                     mButton.y + mButton.height / 2 - mTextSize / 2, mTextSize, mTextColor);
+}
+
+void Button::setPosition(Vector2 position) {
+    GUIComponent::setPosition(position);
+    mButton.x = position.x;
+    mButton.y = position.y;
+}
+
+void Button::setSize(Vector2 size) {
+    GUIComponent::setSize(size);
+    mButton.width = size.x;
+    mButton.height = size.y;
 }
 
 void Button::setCallback(Callback callback) {

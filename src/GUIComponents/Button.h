@@ -18,11 +18,16 @@ public:
         Active
     };
 public:
-    Button(Rectangle bounds);
+    Button();
+    explicit Button(Rectangle bounds);
     ~Button();
 
     void update(float dt);
     void draw();
+
+    void setPosition(Vector2 position) override;
+    
+    void setSize(Vector2 size) override;
 
     void setCallback(Callback callback);
 

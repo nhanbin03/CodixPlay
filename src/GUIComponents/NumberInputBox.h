@@ -13,11 +13,16 @@ public:
     const int MAX_TEXT_LENGTH = 3;
 
 public:
-    NumberInputBox(Rectangle bounds);
+    NumberInputBox();
+    explicit NumberInputBox(Rectangle bounds);
     ~NumberInputBox();
 
     void update(float dt);
     void draw();
+
+    void setPosition(Vector2 position) override;
+
+    void setSize(Vector2 size) override;
 
     std::string getInputText();
 

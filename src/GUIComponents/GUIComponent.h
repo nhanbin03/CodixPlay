@@ -11,11 +11,11 @@ public:
     virtual void update(float dt) = 0;
     virtual void draw() = 0;
 
-    Vector2 getPosition() const;
-    void setPosition(Vector2 position);
+    virtual Vector2 getPosition() const;
+    virtual void setPosition(Vector2 position);
 
-    Vector2 getSize() const;
-    void setSize(Vector2 size);
+    virtual Vector2 getSize() const;
+    virtual void setSize(Vector2 size);
 
 private:
     Vector2 mPosition;
