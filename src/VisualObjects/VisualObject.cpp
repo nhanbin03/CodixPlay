@@ -13,3 +13,11 @@ void VisualObject::setPosition(Vector2 position) {
 Vector2 VisualObject::getPosition() {
     return mPosition;
 }
+
+void VisualObject::setScale(float scale)  {
+    mScale = scale;
+}
+
+float VisualObject::getScale() {
+    return mScale;
+}
