@@ -1,8 +1,8 @@
 #ifndef STATESTACK_H
 #define STATESTACK_H
 
-#include "State.h"
-#include "StateIdentifiers.h"
+#include "States/State.h"
+#include "States/StateIdentifiers.h"
 
 #include <map>
 #include <functional>

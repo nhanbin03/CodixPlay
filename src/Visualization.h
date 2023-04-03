@@ -1,7 +1,7 @@
 #ifndef VISUALIZATION_H
 #define VISUALIZATION_H
 
-#include "State.h"
+#include "States/State.h"
 #include "VisualObject.h"
 
 #include "raylib.h"
