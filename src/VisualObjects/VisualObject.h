@@ -19,10 +19,10 @@ public:
     virtual void draw() = 0;
 
     void setPosition(Vector2 position);
-    Vector2 getPosition();
+    Vector2 getPosition() const;
 
     void setScale(float scale);
-    float getScale();
+    float getScale() const;
 
 private:
     Vector2 mPosition;

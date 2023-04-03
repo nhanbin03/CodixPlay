@@ -11,7 +11,7 @@ void VisualObject::setPosition(Vector2 position) {
     mPosition = position;
 }
 
-Vector2 VisualObject::getPosition() {
+Vector2 VisualObject::getPosition() const {
     return mPosition;
 }
 
@@ -19,6 +19,6 @@ void VisualObject::setScale(float scale)  {
     mScale = scale;
 }
 
-float VisualObject::getScale() {
+float VisualObject::getScale() const {
     return mScale;
 }
