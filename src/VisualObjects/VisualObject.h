@@ -8,6 +8,10 @@ class VisualObject {
 public:
     typedef std::shared_ptr<VisualObject> Ptr;
 
+    const int ELEMENT_SIZE = 70;
+    const int ARROW_LENGTH = 140;
+
+public:
     VisualObject();
     virtual ~VisualObject();
 
