@@ -1,7 +1,7 @@
 #ifndef STATES_DOUBLYLINKEDLISTSTATE_H
 #define STATES_DOUBLYLINKEDLISTSTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class DoublyLinkedListState : public State {
 public:

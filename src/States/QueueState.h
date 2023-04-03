@@ -1,7 +1,7 @@
 #ifndef STATES_QUEUESTATE_H
 #define STATES_QUEUESTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class QueueState : public State {
 public:

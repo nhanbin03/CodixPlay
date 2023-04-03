@@ -1,7 +1,7 @@
 #ifndef STATES_DYNAMICARRAYSTATE_H
 #define STATES_DYNAMICARRAYSTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class DynamicArrayState : public State {
 public:

@@ -1,7 +1,7 @@
 #ifndef STATES_STACKSTATE_H
 #define STATES_STACKSTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class StackState : public State {
 public:

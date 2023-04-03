@@ -1,7 +1,7 @@
 #ifndef STATES_HOMESTATE_H
 #define STATES_HOMESTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class HomeState : public State {
 public:

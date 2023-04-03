@@ -1,7 +1,7 @@
 #ifndef STATES_SINGLYLINKEDLISTSTATE_H
 #define STATES_SINGLYLINKEDLISTSTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class SinglyLinkedListState : public State {
 public:

@@ -1,7 +1,7 @@
 #ifndef STATES_STATICARRAYSTATE_H
 #define STATES_STATICARRAYSTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class StaticArrayState : public State {
 public:

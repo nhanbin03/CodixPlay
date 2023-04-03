@@ -1,7 +1,7 @@
 #ifndef STATES_CIRCULARLINKEDLISTSTATE_H
 #define STATES_CIRCULARLINKEDLISTSTATE_H
 
-#include "../State.h"
+#include "State.h"
 
 class CircularLinkedListState : public State {
 public:
