@@ -25,7 +25,8 @@ void NumberInputBox::update(float dt) {
         int key = GetCharPressed();
         std::cout << char(key) << "\n";
         while (key > 0) {
-            if (isValid(key) && (mInputText.size() < MAX_LEN)) {
+            if (isValid(key) && (mInputText.size() < MAX_TEXT_LENGTH))
+            {
                 mInputText.push_back(key);
             }
             key = GetCharPressed();
