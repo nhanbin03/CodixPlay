@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "StateIdentifiers.h"
+#include "States/StateIdentifiers.h"
 #include "States/HomeState.h"
 #include "States/StaticArrayState.h"
 #include "States/DynamicArrayState.h"
@@ -17,7 +17,7 @@ Application::Application()
     SetTargetFPS(60);
 
     registerStates();
-    mStateStack.pushState(StateIDs::StaticArray);
+    mStateStack.pushState(StateIDs::SinglyLinkedList);
 }
 
 Application::~Application() {
