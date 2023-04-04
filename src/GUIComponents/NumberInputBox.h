@@ -10,7 +10,7 @@
 
 class NumberInputBox : public GUIComponent {
 public:
-    const int MAX_TEXT_LENGTH = 3;
+    const int MAX_TEXT_LENGTH = 2;
 
 public:
     NumberInputBox();
