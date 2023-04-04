@@ -1,5 +1,5 @@
-#ifndef STATE_H
-#define STATE_H
+#ifndef STATES_STATE_H
+#define STATES_STATE_H
 
 #include "StateIdentifiers.h"
 
@@ -30,4 +30,4 @@ private:
     Context mContext;
 };
 
-#endif // STATE_H
+#endif // STATES_STATE_H

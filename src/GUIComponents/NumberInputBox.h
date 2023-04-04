@@ -1,5 +1,5 @@
-#ifndef GUIS_TEXTINPUTBOX_H
-#define GUIS_TEXTINPUTBOX_H
+#ifndef GUICOMPONENTS_TEXTINPUTBOX_H
+#define GUICOMPONENTS_TEXTINPUTBOX_H
 
 #include <string>
 
@@ -44,4 +44,4 @@ private:
     bool mIsFocused{false};
 };
 
-#endif // GUIS_TEXTINPUTBOX_H
+#endif // GUICOMPONENTS_TEXTINPUTBOX_H

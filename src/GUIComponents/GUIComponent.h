@@ -1,5 +1,5 @@
-#ifndef GUICOMPONENT_H
-#define GUICOMPONENT_H
+#ifndef GUICOMPONENTS_GUICOMPONENT_H
+#define GUICOMPONENTS_GUICOMPONENT_H
 
 #include "raylib.h"
 
@@ -22,4 +22,4 @@ private:
     Vector2 mSize;
 };
 
-#endif // GUICOMPONENT_H
+#endif // GUICOMPONENTS_GUICOMPONENT_H

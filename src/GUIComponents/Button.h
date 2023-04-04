@@ -1,5 +1,5 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef GUICOMPONENTS_BUTTON_H
+#define GUICOMPONENTS_BUTTON_H
 
 #include "GUIComponent.h"
 
@@ -50,4 +50,4 @@ private:
     int mTextSize;
 };
 
-#endif // BUTTON_H
+#endif // GUICOMPONENTS_BUTTON_H
