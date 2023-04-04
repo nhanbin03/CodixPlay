@@ -1,7 +1,6 @@
 #include "VisualObject.h"
 
-VisualObject::VisualObject()
-: mScale(1) {
+VisualObject::VisualObject() {
 }
 
 VisualObject::~VisualObject() {

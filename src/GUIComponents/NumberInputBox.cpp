@@ -6,12 +6,7 @@ NumberInputBox::NumberInputBox() {
 }
 
 NumberInputBox::NumberInputBox(Rectangle bounds)
-: mBounds(bounds)
-, mColor(WHITE)
-, mBorderColor(BLACK)
-, mTextColor(BLACK)
-, mIsFocused(false)
-, mBorderThickness(1) {
+: mBounds(bounds) {
     setPosition({bounds.x, bounds.y});
     setSize({bounds.width, bounds.height});
 }

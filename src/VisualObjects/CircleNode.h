@@ -22,12 +22,12 @@ public:
     void setColor(Color color);
 
 private:
-    float mRadius;
+    float mRadius{ELEMENT_SIZE / 2};
 
-    int mValue;
-    Color mValueColor;
+    int mValue{0};
+    Color mValueColor{WHITE};
 
-    Color mColor;
+    Color mColor{BLACK};
 };
 
 #endif // VISUALOBJECTS_CIRCLENODE_H

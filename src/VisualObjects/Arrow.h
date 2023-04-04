@@ -20,9 +20,9 @@ public:
 
 private:
     Vector2 mSource, mDestination;
-    int mThickness;
+    int mThickness{DEFAULT_THICKNESS};
 
-    Color mColor;
+    Color mColor{BLACK};
 };
 
 #endif // VISUALOBJECTS_ARROW_H

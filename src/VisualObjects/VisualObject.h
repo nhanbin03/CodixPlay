@@ -24,7 +24,7 @@ public:
 
 private:
     Vector2 mPosition;
-    float mScale;
+    float mScale{1};
 };
 
 #endif // VISUALOBJECT_H

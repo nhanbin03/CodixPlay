@@ -1,10 +1,6 @@
 #include "CircleNode.h"
 
-CircleNode::CircleNode()
-: mRadius(ELEMENT_SIZE / 2)
-, mColor(BLACK)
-, mValue(0)
-, mValueColor(WHITE) {
+CircleNode::CircleNode() {
 }
 
 CircleNode::~CircleNode() {

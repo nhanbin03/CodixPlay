@@ -2,9 +2,7 @@
 
 #include <math.h>
 
-Arrow::Arrow()
-: mThickness(DEFAULT_THICKNESS)
-, mColor(BLACK) {
+Arrow::Arrow() {
 }
 
 Arrow::~Arrow() {

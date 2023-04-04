@@ -38,15 +38,15 @@ private:
     void checkInteraction();
 
 private:
-    ButtonState mState;
+    ButtonState mState{ButtonState::None};
 
     Rectangle mButton;
-    Color mColor;
+    Color mColor{BLACK};
 
     Callback mCallback;
 
     std::string mText;
-    Color mTextColor;
+    Color mTextColor{WHITE};
     int mTextSize;
 };
 

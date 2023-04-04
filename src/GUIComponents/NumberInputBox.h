@@ -34,13 +34,14 @@ private:
 
 private:
     Rectangle mBounds;
-    Color mColor, mBorderColor;
+    Color mColor{WHITE};
+    Color mBorderColor{BLACK};
     int mBorderThickness;
 
     std::string mInputText;
-    Color mTextColor;
+    Color mTextColor{BLACK};
 
-    bool mIsFocused;
+    bool mIsFocused{false};
 };
 
 #endif // GUIS_TEXTINPUTBOX_H
