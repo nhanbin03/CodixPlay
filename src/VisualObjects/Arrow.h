@@ -3,7 +3,7 @@
 
 #include "VisualObject.h"
 
-class Arrow {
+class Arrow : public VisualObject {
 public:
     const int DEFAULT_THICKNESS = 10;
 
