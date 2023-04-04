@@ -15,13 +15,12 @@ public:
     VisualObject();
     virtual ~VisualObject();
 
-    virtual void update(float dt) = 0;
     virtual void draw() = 0;
 
-    void setPosition(Vector2 position);
+    virtual void setPosition(Vector2 position);
     Vector2 getPosition() const;
 
-    void setScale(float scale);
+    virtual void setScale(float scale);
     float getScale() const;
 
 private:
