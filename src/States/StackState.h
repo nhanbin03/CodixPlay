@@ -1,7 +1,7 @@
-#ifndef STACKSTATE_H
-#define STACKSTATE_H
+#ifndef STATES_STACKSTATE_H
+#define STATES_STACKSTATE_H
 
-#include "States/State.h"
+#include "State.h"
 
 class StackState : public State {
 public:
@@ -11,4 +11,4 @@ public:
     void draw();
 };
 
-#endif // STACKSTATE_H
+#endif // STATES_STACKSTATE_H
