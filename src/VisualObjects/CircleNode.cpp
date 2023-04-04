@@ -13,7 +13,7 @@ void CircleNode::draw() {
     DrawCircle(x, y, mRadius * getScale(), mColor);
 
     const char *valueText = std::to_string(mValue).c_str();
-    int fontSize = ELEMENT_SIZE / 2;
+    int fontSize = mRadius;
     DrawText(valueText, x - MeasureText(valueText, fontSize) / 2,
              y - fontSize / 2, fontSize, mValueColor);
 }
