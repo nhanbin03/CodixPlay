@@ -10,9 +10,8 @@ class StateStack;
 class State {
 public:
     typedef std::unique_ptr<State> Ptr;
-    
-    struct Context {
-    };
+
+    struct Context {};
 
 public:
     State(StateStack &stack, Context context);

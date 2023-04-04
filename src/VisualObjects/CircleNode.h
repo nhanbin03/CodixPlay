@@ -28,7 +28,6 @@ private:
     Color mValueColor;
 
     Color mColor;
-    
 };
 
 #endif // VISUALOBJECTS_CIRCLENODE_H

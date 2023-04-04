@@ -28,8 +28,7 @@ void NumberInputBox::update(float dt) {
         int key = GetCharPressed();
         std::cout << char(key) << "\n";
         while (key > 0) {
-            if (isValid(key) && (mInputText.size() < MAX_TEXT_LENGTH))
-            {
+            if (isValid(key) && (mInputText.size() < MAX_TEXT_LENGTH)) {
                 mInputText.push_back(key);
             }
             key = GetCharPressed();
@@ -47,9 +46,13 @@ void NumberInputBox::draw() {
 
     int textSize = mBounds.height * 2 / 3;
     std::string displayText = mInputText;
-    if (mIsFocused) displayText += '_';
-    DrawText(displayText.c_str(), mBounds.x + mBounds.width / 2 - MeasureText(displayText.c_str(), textSize) / 2,
-             mBounds.y + mBounds.height / 2 - textSize / 2, textSize, mTextColor);
+    if (mIsFocused)
+        displayText += '_';
+    DrawText(displayText.c_str(),
+             mBounds.x + mBounds.width / 2
+                 - MeasureText(displayText.c_str(), textSize) / 2,
+             mBounds.y + mBounds.height / 2 - textSize / 2, textSize,
+             mTextColor);
 }
 
 void NumberInputBox::setPosition(Vector2 position) {
@@ -72,8 +75,7 @@ void NumberInputBox::setBorderThickness(int thickness) {
     mBorderThickness = thickness;
 }
 
-void NumberInputBox::checkInteraction()
-{
+void NumberInputBox::checkInteraction() {
     Vector2 mousePoint = GetMousePosition();
 
     if (CheckCollisionPointRec(mousePoint, mBounds)) {
@@ -90,7 +92,9 @@ void NumberInputBox::checkInteraction()
 }
 
 bool NumberInputBox::isValid(int key) {
-    if (!('0' <= key && key <= '9')) return false;
-    if (mInputText.size() == 0 && key == '0') return false;
+    if (!('0' <= key && key <= '9'))
+        return false;
+    if (mInputText.size() == 0 && key == '0')
+        return false;
     return true;
 }

@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-StateStack::StateStack(State::Context context) 
+StateStack::StateStack(State::Context context)
 : mContext(context) {
 }
 
@@ -38,19 +38,19 @@ bool StateStack::isEmpty() const {
 }
 
 void StateStack::applyPendingChange() {
-    for (auto &change: mPendingList) {
+    for (auto &change : mPendingList) {
         switch (change.action) {
-        case Action::Push:
-            mStack.push_back(createState(change.stateID));
-            break;
-        
-        case Action::Pop:
-            mStack.pop_back();
-            break;
+            case Action::Push:
+                mStack.push_back(createState(change.stateID));
+                break;
 
-        case Action::Clear:
-            mStack.clear();
-            break;
+            case Action::Pop:
+                mStack.pop_back();
+                break;
+
+            case Action::Clear:
+                mStack.clear();
+                break;
         }
     }
     mPendingList.clear();

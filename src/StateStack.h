@@ -4,8 +4,8 @@
 #include "States/State.h"
 #include "States/StateIdentifiers.h"
 
-#include <map>
 #include <functional>
+#include <map>
 
 class StateStack {
 public:
@@ -31,7 +31,8 @@ private:
     };
 
     struct PendingChange {
-        explicit PendingChange(Action action, StateIDs stateID = StateIDs::None);
+        explicit PendingChange(Action action,
+                               StateIDs stateID = StateIDs::None);
 
         Action action;
         StateIDs stateID;

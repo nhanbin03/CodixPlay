@@ -5,10 +5,10 @@
 
 #include "raylib.h"
 
-#include <string>
 #include <functional>
+#include <string>
 
-class Button: public GUIComponent {
+class Button : public GUIComponent {
 public:
     typedef std::function<void()> Callback;
 
@@ -17,6 +17,7 @@ public:
         Focused,
         Active
     };
+
 public:
     explicit Button(Rectangle bounds = {0, 0, 0, 0});
     ~Button();
@@ -25,7 +26,7 @@ public:
     void draw();
 
     void setPosition(Vector2 position) override;
-    
+
     void setSize(Vector2 size) override;
 
     void setCallback(Callback callback);
@@ -44,11 +45,9 @@ private:
 
     Callback mCallback;
 
-
     std::string mText;
     Color mTextColor;
     int mTextSize;
-
-};  
+};
 
 #endif // BUTTON_H

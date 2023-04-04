@@ -1,10 +1,9 @@
 #include "Application.h"
 
-#include "raylib.h"
 #include "raygui.h"
+#include "raylib.h"
 
-int main(void)
-{
+int main(void) {
     Application app;
     app.run();
     return 0;

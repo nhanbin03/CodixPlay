@@ -28,9 +28,11 @@ public:
     void removeNode(VisualObject::Ptr node);
 
     VisualObject::Ptr createArrow(VisualObject::Ptr from, VisualObject::Ptr to);
-    VisualObject::Ptr createCircularArrow(VisualObject::Ptr from, VisualObject::Ptr to);
+    VisualObject::Ptr createCircularArrow(VisualObject::Ptr from,
+                                          VisualObject::Ptr to);
 
-    VisualObject::Ptr createLabel(const std::string text, VisualObject::Ptr nearbyObject);
+    VisualObject::Ptr createLabel(const std::string text,
+                                  VisualObject::Ptr nearbyObject);
     void moveLabel(VisualObject::Ptr label);
     void updateLabel(VisualObject::Ptr label, const std::string text);
     void removeLabel(VisualObject::Ptr label);

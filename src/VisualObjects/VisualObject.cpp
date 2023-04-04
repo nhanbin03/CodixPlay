@@ -15,7 +15,7 @@ Vector2 VisualObject::getPosition() const {
     return mPosition;
 }
 
-void VisualObject::setScale(float scale)  {
+void VisualObject::setScale(float scale) {
     mScale = scale;
 }
 

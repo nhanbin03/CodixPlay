@@ -5,9 +5,7 @@
 
 #include "raylib.h"
 
-
 class Application {
-
 public:
     const float WINDOW_WIDTH = 1440;
     const float WINDOW_HEIGHT = 950;
@@ -18,7 +16,7 @@ public:
 public:
     Application();
     ~Application();
-    
+
     void run();
 
 private:

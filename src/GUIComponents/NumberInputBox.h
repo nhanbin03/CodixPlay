@@ -1,12 +1,11 @@
 #ifndef GUIS_TEXTINPUTBOX_H
 #define GUIS_TEXTINPUTBOX_H
 
-#include "GUIComponent.h"
-#include "Button.h"
-
-#include "raylib.h"
-
 #include <string>
+
+#include "Button.h"
+#include "GUIComponent.h"
+#include "raylib.h"
 
 class NumberInputBox : public GUIComponent {
 public:

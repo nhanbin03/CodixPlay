@@ -5,7 +5,6 @@ CircleNode::CircleNode()
 , mColor(BLACK)
 , mValue(0)
 , mValueColor(WHITE) {
-    
 }
 
 CircleNode::~CircleNode() {
@@ -20,7 +19,7 @@ void CircleNode::draw() {
     const char *valueText = std::to_string(mValue).c_str();
     int fontSize = ELEMENT_SIZE / 2;
     DrawText(valueText, x - MeasureText(valueText, fontSize) / 2,
-                        y - fontSize / 2, fontSize, mValueColor);
+             y - fontSize / 2, fontSize, mValueColor);
 }
 
 void CircleNode::setValue(int value) {

@@ -2,7 +2,8 @@
 
 #include "raylib.h"
 
-CircularLinkedListState::CircularLinkedListState(StateStack &stack, Context context)
+CircularLinkedListState::CircularLinkedListState(StateStack &stack,
+                                                 Context context)
 : State(stack, context) {
 }
 
