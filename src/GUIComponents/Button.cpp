@@ -1,11 +1,8 @@
 #include "Button.h"
 
-Button::Button() {
-}
-
 Button::Button(Rectangle bounds)
-: mState(ButtonState::None)
-, mButton(bounds)
+: mButton(bounds)
+, mState(ButtonState::None)
 , mColor(BLACK)
 , mTextColor(WHITE) {
     setPosition({bounds.x, bounds.y});
@@ -18,7 +15,6 @@ Button::~Button() {
 void Button::update(float dt) {
     checkInteraction();
 }
-
 
 void Button::draw() {
     DrawRectangleRec(mButton, mColor);

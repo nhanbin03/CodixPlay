@@ -18,8 +18,7 @@ public:
         Active
     };
 public:
-    Button();
-    explicit Button(Rectangle bounds);
+    explicit Button(Rectangle bounds = {0, 0, 0, 0});
     ~Button();
 
     void update(float dt);
