@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "raylib.h"
+
 class VisualObject {
 public:
     typedef std::shared_ptr<VisualObject> Ptr;
@@ -22,9 +23,14 @@ public:
     virtual void setScale(float scale);
     float getScale() const;
 
+    void setZIndex(int zIndex);
+    int getZIndex() const;
+
 private:
     Vector2 mPosition;
     float mScale{1};
+
+    int mZIndex{0};
 };
 
 #endif // VISUALOBJECT_H

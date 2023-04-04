@@ -21,3 +21,11 @@ void VisualObject::setScale(float scale) {
 float VisualObject::getScale() const {
     return mScale;
 }
+
+void VisualObject::setZIndex(int zIndex) {
+    mZIndex = zIndex;
+}
+
+int VisualObject::getZIndex() const {
+    return mZIndex;
+}
