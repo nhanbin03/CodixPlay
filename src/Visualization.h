@@ -17,13 +17,13 @@ public:
     void draw();
 
     void createArray(int size);
-    void highlightArrayElement(int index, Color color);
+    void colorArrayElement(int index, Color color);
     void updateArrayElement(int index, int value);
     void removeArray();
 
     int createNode(int value);
     void moveNode(int nodeID, Vector2 position);
-    void highlightNode(int nodeID, Color color);
+    void colorNode(int nodeID, Color color);
     void updateNode(int nodeID, int value);
     void removeNode(int nodeID);
 
