@@ -32,3 +32,7 @@ void VisualObject::setZIndex(int zIndex) {
 int VisualObject::getZIndex() const {
     return mZIndex;
 }
+
+int VisualObject::getObjectID() const {
+    return objectIDTracker;
+}

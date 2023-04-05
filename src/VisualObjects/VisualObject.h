@@ -26,6 +26,8 @@ public:
     void setZIndex(int zIndex);
     int getZIndex() const;
 
+    int getObjectID() const;
+
 private:
     Vector2 mPosition;
     float mScale{1};
