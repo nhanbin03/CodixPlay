@@ -21,21 +21,20 @@ public:
     void updateArrayElement(int index, int value);
     void removeArray();
 
-    VisualObject::Ptr createNode(int value);
-    void moveNode(VisualObject::Ptr node, Vector2 position);
-    void highlightNode(VisualObject::Ptr node, Color color);
-    void updateNode(VisualObject::Ptr node, int value);
-    void removeNode(VisualObject::Ptr node);
+    int createNode(int value);
+    void moveNode(int nodeID, Vector2 position);
+    void highlightNode(int nodeID, Color color);
+    void updateNode(int nodeID, int value);
+    void removeNode(int nodeID);
 
-    VisualObject::Ptr createArrow(VisualObject::Ptr from, VisualObject::Ptr to);
-    VisualObject::Ptr createCircularArrow(VisualObject::Ptr from,
-                                          VisualObject::Ptr to);
+    int createArrow(int sourceID, int destinationID);
+    int createCircularArrow(int sourceID, int destinationID);
+    void removeArrow(int arrowID);
 
-    VisualObject::Ptr createLabel(const std::string text,
-                                  VisualObject::Ptr nearbyObject);
-    void moveLabel(VisualObject::Ptr label);
-    void updateLabel(VisualObject::Ptr label, const std::string text);
-    void removeLabel(VisualObject::Ptr label);
+    int createLabel(const std::string text, int nearbyObjectID);
+    void moveLabel(int label, Vector2 position);
+    void updateLabel(int label, const std::string text);
+    void removeLabel(int label);
 };
 
 #endif // VISUALIZATION_H
