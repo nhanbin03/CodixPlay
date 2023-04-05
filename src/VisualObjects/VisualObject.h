@@ -7,7 +7,7 @@
 
 class VisualObject {
 public:
-    typedef std::shared_ptr<VisualObject> Ptr;
+    typedef std::unique_ptr<VisualObject> Ptr;
 
     const int ELEMENT_SIZE = 70;
 
