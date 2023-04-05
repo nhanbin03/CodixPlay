@@ -14,7 +14,7 @@
 Application::Application()
 : mStateStack(State::Context()) {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-    SetTargetFPS(60);
+    SetTargetFPS(FPS);
 
     registerStates();
     mStateStack.pushState(StateIDs::SinglyLinkedList);
