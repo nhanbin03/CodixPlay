@@ -1,6 +1,9 @@
 #include "VisualObject.h"
 
+int VisualObject::objectIDTracker = 0;
+
 VisualObject::VisualObject() {
+    objectIDTracker++;
 }
 
 VisualObject::~VisualObject() {

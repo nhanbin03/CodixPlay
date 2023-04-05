@@ -31,6 +31,8 @@ private:
     float mScale{1};
 
     int mZIndex{0};
+
+    static int objectIDTracker;
 };
 
 #endif // VISUALOBJECT_H
