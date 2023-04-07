@@ -3,14 +3,16 @@
 
 #include "States/State.h"
 #include "VisualObject.h"
+#include "VisualScene.h"
 
 #include "raylib.h"
 
 #include <string>
+#include <vector>
 
 class Visualization {
 public:
-    Visualization(State::Context context);
+    Visualization(VisualScene initScene);
     ~Visualization();
 
     bool update(float dt);
@@ -36,6 +38,10 @@ public:
     void moveLabel(int labelID, Vector2 position);
     void updateLabel(int labelID, const std::string text);
     void removeLabel(int labelID);
+
+private:
+    std::vector<VisualScene> mSceneTrack;
+    VisualScene mDisplayingScene;
 };
 
 #endif // VISUALIZATION_H
