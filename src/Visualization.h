@@ -15,8 +15,10 @@ public:
     Visualization(VisualScene initScene);
     ~Visualization();
 
-    bool update(float dt);
+    void update(float dt);
     void draw();
+
+    void createNewScene();
 
     void createArray(int size);
     void colorArrayElement(int index, Color color);
