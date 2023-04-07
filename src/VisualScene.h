@@ -30,11 +30,11 @@ public:
     void updateNode(int nodeID, int value);
     void removeNode(int nodeID);
 
-    int createArrow(int sourceID, int destinationID);
-    int createCircularArrow(int sourceID, int destinationID);
+    int createArrow(Vector2 source, Vector2 destination);
+    int createCircularArrow(Vector2 source, Vector2 destination);
     void removeArrow(int arrowID);
 
-    int createLabel(const std::string text, int nearbyObjectID);
+    int createLabel(const std::string text, Vector2 position);
     void moveLabel(int labelID, Vector2 position);
     void updateLabel(int labelID, const std::string text);
     void removeLabel(int labelID);
