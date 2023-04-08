@@ -8,9 +8,11 @@ CircularLinkedListState::CircularLinkedListState(StateStack &stack,
 }
 
 bool CircularLinkedListState::update(float dt) {
+    mVisualization.update(dt);
     return true;
 }
 
 void CircularLinkedListState::draw() {
     ClearBackground(RAYWHITE);
+    mVisualization.draw();
 }

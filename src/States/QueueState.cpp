@@ -7,9 +7,11 @@ QueueState::QueueState(StateStack &stack, Context context)
 }
 
 bool QueueState::update(float dt) {
+    mVisualization.update(dt);
     return true;
 }
 
 void QueueState::draw() {
     ClearBackground(RAYWHITE);
+    mVisualization.draw();
 }

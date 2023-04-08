@@ -7,9 +7,11 @@ DynamicArrayState::DynamicArrayState(StateStack &stack, Context context)
 }
 
 bool DynamicArrayState::update(float dt) {
+    mVisualization.update(dt);
     return true;
 }
 
 void DynamicArrayState::draw() {
     ClearBackground(RAYWHITE);
+    mVisualization.draw();
 }
