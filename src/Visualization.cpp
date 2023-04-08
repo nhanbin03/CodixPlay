@@ -1,7 +1,8 @@
 #include "Visualization.h"
 
-Visualization::Visualization(VisualScene initScene) {
-    mSceneTrack.push_back(initScene);
+Visualization::Visualization(VisualScene initScene)
+: mSceneTrack({initScene})
+, mControlBar(mSceneTrack, mDisplayingScene) {
     mDisplayingScene = initScene;
 }
 
@@ -9,10 +10,12 @@ Visualization::~Visualization() {
 }
 
 void Visualization::update(float dt) {
+    mControlBar.update(dt);
 }
 
 void Visualization::draw() {
     mDisplayingScene.draw();
+    mControlBar.draw();
 }
 
 void Visualization::createNewScene() {

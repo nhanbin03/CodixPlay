@@ -1,8 +1,8 @@
 #ifndef VISUALIZATION_H
 #define VISUALIZATION_H
 
-#include "States/State.h"
-#include "VisualObject.h"
+#include "ControlBar.h"
+#include "VisualObjects/VisualObject.h"
 #include "VisualScene.h"
 
 #include "raylib.h"
@@ -12,7 +12,7 @@
 
 class Visualization {
 public:
-    Visualization(VisualScene initScene);
+    Visualization(VisualScene initScene = VisualScene());
     ~Visualization();
 
     void update(float dt);
@@ -44,6 +44,8 @@ public:
 private:
     std::vector<VisualScene> mSceneTrack;
     VisualScene mDisplayingScene;
+
+    ControlBar mControlBar;
 };
 
 #endif // VISUALIZATION_H
