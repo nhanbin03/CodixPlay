@@ -1,6 +1,7 @@
 #ifndef STATES_STATE_H
 #define STATES_STATE_H
 
+#include "../Visualization.h"
 #include "StateIdentifiers.h"
 
 #include <memory>
@@ -19,6 +20,9 @@ public:
 
     virtual bool update(float dt) = 0;
     virtual void draw() = 0;
+
+protected:
+    Visualization mVisualization;
 
 protected:
     void requestStackPush(StateIDs stateID);

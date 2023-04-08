@@ -1,5 +1,6 @@
 #include "State.h"
 #include "../StateStack.h"
+#include "../Visualization.h"
 
 State::State(StateStack &stack, Context context)
 : mStack(&stack)
