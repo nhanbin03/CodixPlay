@@ -62,10 +62,11 @@ void Button::checkInteraction() {
             mCallback();
         }
     } else {
-        if (!IsMouseButtonDown(MOUSE_BUTTON_LEFT)
-            || mState != ButtonState::Active) {
+        if (!(IsMouseButtonDown(MOUSE_BUTTON_LEFT)
+              && mState == ButtonState::Active)) {
+            if (mState == ButtonState::Focused || mState == ButtonState::Active)
+                SetMouseCursor(MOUSE_CURSOR_DEFAULT);
             mState = ButtonState::None;
-            SetMouseCursor(MOUSE_CURSOR_DEFAULT);
         }
     }
 }
