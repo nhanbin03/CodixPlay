@@ -22,6 +22,10 @@ void Visualization::createNewScene() {
     mSceneTrack.push_back(mSceneTrack.back());
 }
 
+VisualScene Visualization::getLastScene() const {
+    return mSceneTrack.back();
+}
+
 int Visualization::createNode(int value) {
     return mSceneTrack.back().createNode(value);
 }

@@ -19,6 +19,7 @@ public:
     void draw();
 
     void createNewScene();
+    VisualScene getLastScene() const;
 
     void createArray(int size);
     void colorArrayElement(int index, Color color);
