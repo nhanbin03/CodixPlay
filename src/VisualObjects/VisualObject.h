@@ -9,7 +9,7 @@ class VisualObject {
 public:
     typedef std::unique_ptr<VisualObject> Ptr;
 
-    const int ELEMENT_SIZE = 70;
+    static const int ELEMENT_SIZE = 70;
 
 public:
     VisualObject();
