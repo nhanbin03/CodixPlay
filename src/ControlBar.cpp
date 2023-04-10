@@ -10,19 +10,19 @@ ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
     assert(mSceneTrack->size() > 0);
     *mDisplayingScene = mSceneTrack->front();
 
-    Button rewindBtn = Button({700, 100, 50, 50});
+    Button rewindBtn = Button({100, 700, 50, 50});
     rewindBtn.setCallback([this]() {
         this->rewindScene();
     });
-    Button prevBtn = Button({700, 200, 50, 50});
+    Button prevBtn = Button({200, 700, 50, 50});
     prevBtn.setCallback([this]() {
         this->prevScene();
     });
-    Button nextBtn = Button({700, 300, 50, 50});
+    Button nextBtn = Button({300, 700, 50, 50});
     nextBtn.setCallback([this]() {
         this->nextScene();
     });
-    Button fowardBtn = Button({700, 400, 50, 50});
+    Button fowardBtn = Button({400, 700, 50, 50});
     fowardBtn.setCallback([this]() {
         this->fowardScene();
     });
