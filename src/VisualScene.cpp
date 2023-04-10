@@ -91,7 +91,7 @@ int VisualScene::createNodeLabel(const std::string text, int idAttached) {
 
     int objectID = newObject.getObjectID();
     auto insertStatus = mLabelMap.emplace(objectID, newObject);
-    return 0;
+    return objectID;
 }
 
 void VisualScene::moveLabel(int labelID, Vector2 position) {
