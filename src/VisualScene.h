@@ -35,6 +35,7 @@ public:
     void removeArrow(int arrowID);
 
     int createLabel(const std::string text, Vector2 position);
+    int createNodeLabel(const std::string text, int idAttached);
     void moveLabel(int labelID, Vector2 position);
     void updateLabel(int labelID, const std::string text);
     void removeLabel(int labelID);
