@@ -1,5 +1,7 @@
 #include "Visualization.h"
 
+#include <iostream>
+
 Visualization::Visualization(VisualScene initScene)
 : mSceneTrack({initScene})
 , mControlBar(mSceneTrack, mDisplayingScene) {
@@ -16,6 +18,12 @@ void Visualization::update(float dt) {
 void Visualization::draw() {
     mDisplayingScene.draw();
     mControlBar.draw();
+}
+
+void Visualization::reset(VisualScene initScene) {
+    mSceneTrack.clear();
+    mSceneTrack.push_back(initScene);
+    mDisplayingScene = initScene;
 }
 
 void Visualization::createNewScene() {

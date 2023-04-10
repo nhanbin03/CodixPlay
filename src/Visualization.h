@@ -18,6 +18,8 @@ public:
     void update(float dt);
     void draw();
 
+    void reset(VisualScene initScene = VisualScene());
+
     void createNewScene();
     VisualScene getLastScene() const;
 
@@ -43,7 +45,7 @@ public:
     void updateLabel(int labelID, const std::string text);
     void removeLabel(int labelID);
 
-private:
+public:
     std::vector<VisualScene> mSceneTrack;
     VisualScene mDisplayingScene;
 
