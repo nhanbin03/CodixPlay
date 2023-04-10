@@ -13,7 +13,7 @@ public:
         typedef std::shared_ptr<Node> Ptr;
 
         struct NodePointer {
-            Node* node;
+            Node::Ptr node;
             int id;
         };
 
