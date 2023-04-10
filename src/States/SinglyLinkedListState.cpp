@@ -2,8 +2,11 @@
 
 #include "raylib.h"
 
+#include <iostream>
+
 SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
-: State(stack, context) {
+: State(stack, context)
+, mAlgo(mVisualization) {
 }
 
 bool SinglyLinkedListState::update(float dt) {
