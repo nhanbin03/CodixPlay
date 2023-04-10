@@ -86,7 +86,7 @@ int VisualScene::createLabel(const std::string text, Vector2 position) {
 int VisualScene::createNodeLabel(const std::string text, int idAttached) {
     Label newObject(text);
     Vector2 position = mNodeMap[idAttached].getPosition();
-    position.y -= VisualObject::ELEMENT_SIZE;
+    position.y += VisualObject::ELEMENT_SIZE;
     newObject.setPosition(position);
 
     int objectID = newObject.getObjectID();
