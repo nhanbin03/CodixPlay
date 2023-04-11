@@ -4,6 +4,8 @@
 #include <iostream>
 #include <memory>
 
+#include "Helper.h"
+
 VisualScene::VisualScene() {
 }
 
@@ -39,6 +41,11 @@ void VisualScene::moveNode(int nodeID, Vector2 position) {
     getNode(nodeID).setPosition(position);
 }
 
+void VisualScene::moveNodeDelta(int nodeID, Vector2 position) {
+    CircleNode& obj = getNode(nodeID);
+    obj.setPosition(obj.getPosition() + position);
+}
+
 void VisualScene::colorNode(int nodeID, Color color) {
     getNode(nodeID).setColor(color);
 }
@@ -70,6 +77,19 @@ int VisualScene::createArrow(Vector2 source, Vector2 destination) {
     assert(insertStatus.second == true);
 
     return objectID;
+}
+
+void VisualScene::moveArrow(int arrowID, Vector2 source, Vector2 destination) {
+    Arrow& obj = getArrow(arrowID);
+    obj.setSource(source);
+    obj.setDestination(destination);
+}
+
+void VisualScene::moveArrowDelta(int arrowID, Vector2 source,
+                                 Vector2 destination) {
+    Arrow& obj = getArrow(arrowID);
+    obj.setSource(obj.getSource() + source);
+    obj.setDestination(obj.getDestination() + destination);
 }
 
 void VisualScene::removeArrow(int arrowID) {

@@ -25,6 +25,7 @@ public:
 
     int createNode(int value);
     void moveNode(int nodeID, Vector2 position);
+    void moveNodeDelta(int nodeID, Vector2 position);
     void colorNode(int nodeID, Color color);
     void colorValueNode(int nodeID, Color color);
     void updateNode(int nodeID, int value);
@@ -33,6 +34,8 @@ public:
 
     int createArrow(Vector2 source, Vector2 destination);
     int createCircularArrow(Vector2 source, Vector2 destination);
+    void moveArrow(int arrowID, Vector2 source, Vector2 destination);
+    void moveArrowDelta(int arrowID, Vector2 source, Vector2 destination);
     void removeArrow(int arrowID);
 
     int createLabel(const std::string text, Vector2 position);

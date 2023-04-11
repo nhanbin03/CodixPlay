@@ -42,6 +42,10 @@ void Visualization::moveNode(int nodeID, Vector2 position) {
     mSceneTrack.back().moveNode(nodeID, position);
 }
 
+void Visualization::moveNodeDelta(int nodeID, Vector2 position) {
+    mSceneTrack.back().moveNodeDelta(nodeID, position);
+}
+
 void Visualization::colorNode(int nodeID, Color color) {
     mSceneTrack.back().colorNode(nodeID, color);
 }
@@ -64,6 +68,16 @@ Vector2 Visualization::getNodePosition(int nodeID) {
 
 int Visualization::createArrow(Vector2 source, Vector2 destination) {
     return mSceneTrack.back().createArrow(source, destination);
+}
+
+void Visualization::moveArrow(int arrowID, Vector2 source,
+                              Vector2 destination) {
+    mSceneTrack.back().moveArrow(arrowID, source, destination);
+}
+
+void Visualization::moveArrowDelta(int arrowID, Vector2 source,
+                                   Vector2 destination) {
+    mSceneTrack.back().moveArrowDelta(arrowID, source, destination);
 }
 
 void Visualization::removeArrow(int arrowID) {
