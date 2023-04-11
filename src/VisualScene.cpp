@@ -1,6 +1,7 @@
 #include "VisualScene.h"
 
 #include <cassert>
+#include <iostream>
 #include <memory>
 
 VisualScene::VisualScene() {
@@ -52,6 +53,10 @@ void VisualScene::updateNode(int nodeID, int value) {
 
 void VisualScene::removeNode(int nodeID) {
     mNodeMap.erase(nodeID);
+}
+
+Vector2 VisualScene::getNodePosition(int nodeID) {
+    return getNode(nodeID).getPosition();
 }
 
 int VisualScene::createArrow(Vector2 source, Vector2 destination) {
@@ -107,6 +112,7 @@ void VisualScene::removeLabel(int labelID) {
 }
 
 CircleNode& VisualScene::getNode(int nodeID) {
+    std::cout << nodeID << "\n";
     auto found = mNodeMap.find(nodeID);
     assert(found != mNodeMap.end());
 

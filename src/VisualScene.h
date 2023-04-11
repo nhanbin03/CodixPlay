@@ -29,6 +29,7 @@ public:
     void colorValueNode(int nodeID, Color color);
     void updateNode(int nodeID, int value);
     void removeNode(int nodeID);
+    Vector2 getNodePosition(int nodeID);
 
     int createArrow(Vector2 source, Vector2 destination);
     int createCircularArrow(Vector2 source, Vector2 destination);

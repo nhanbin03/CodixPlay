@@ -58,6 +58,10 @@ void Visualization::removeNode(int nodeID) {
     mSceneTrack.back().removeNode(nodeID);
 }
 
+Vector2 Visualization::getNodePosition(int nodeID) {
+    return mSceneTrack.back().getNodePosition(nodeID);
+}
+
 int Visualization::createArrow(Vector2 source, Vector2 destination) {
     return mSceneTrack.back().createArrow(source, destination);
 }
