@@ -14,7 +14,10 @@ public:
     void draw();
 
     void setSource(Vector2 position);
+    Vector2 getSource() const;
+
     void setDestination(Vector2 position);
+    Vector2 getDestination() const;
 
     void setThickness(int thickness);
 

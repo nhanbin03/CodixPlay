@@ -43,8 +43,16 @@ void Arrow::setSource(Vector2 position) {
     mSource = position;
 }
 
+Vector2 Arrow::getSource() const {
+    return mSource;
+}
+
 void Arrow::setDestination(Vector2 position) {
     mDestination = position;
+}
+
+Vector2 Arrow::getDestination() const {
+    return mDestination;
 }
 
 void Arrow::setThickness(int thickness) {
