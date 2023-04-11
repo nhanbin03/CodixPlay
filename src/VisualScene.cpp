@@ -132,7 +132,6 @@ void VisualScene::removeLabel(int labelID) {
 }
 
 CircleNode& VisualScene::getNode(int nodeID) {
-    std::cout << nodeID << "\n";
     auto found = mNodeMap.find(nodeID);
     assert(found != mNodeMap.end());
 
