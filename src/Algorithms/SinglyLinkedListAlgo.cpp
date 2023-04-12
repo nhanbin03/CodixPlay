@@ -66,9 +66,8 @@ void SinglyLinkedListAlgo::addFirst(int value) {
                                        mVisualization.getNodePosition(cur->id));
         mVisualization.moveArrowDelta(cur->next.id, {0, 0}, {200, 0});
         mVisualization.moveNodeDelta(cur->next.node->id, {200, 0});
-        if (cur->next.node->referencesId != -1)
-            mVisualization.attachNodeLabel(cur->next.node->referencesId,
-                                           cur->next.node->id);
+        mVisualization.attachNodeLabel(cur->next.node->referencesId,
+                                       cur->next.node->id);
     }
 
     // Clean up

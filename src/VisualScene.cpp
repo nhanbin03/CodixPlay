@@ -128,6 +128,8 @@ void VisualScene::moveLabel(int labelID, Vector2 position) {
 }
 
 void VisualScene::attachNodeLabel(int labelID, int idAttached) {
+    if (labelID == -1)
+        return;
     getLabel(labelID).setPosition(getNode(idAttached).getPosition()
                                   + Vector2({0, VisualObject::ELEMENT_SIZE}));
 }
