@@ -49,6 +49,10 @@ void ControlBar::draw() {
     }
 }
 
+void ControlBar::reset() {
+    rewindScene();
+}
+
 void ControlBar::rewindScene() {
     *mDisplayingScene = mSceneTrack->front();
     mTracker = 0;

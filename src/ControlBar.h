@@ -17,6 +17,8 @@ public:
     void update(float dt);
     void draw();
 
+    void reset();
+
     void setPosition(Vector2 position);
     Vector2 getPosition() const;
 

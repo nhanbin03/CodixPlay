@@ -23,7 +23,7 @@ void Visualization::draw() {
 void Visualization::reset(VisualScene initScene) {
     mSceneTrack.clear();
     mSceneTrack.push_back(initScene);
-    mDisplayingScene = initScene;
+    mControlBar.reset();
 }
 
 void Visualization::createNewScene() {
