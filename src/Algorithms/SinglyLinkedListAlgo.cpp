@@ -14,7 +14,6 @@ void SinglyLinkedListAlgo::addFirst(int value) {
     // head = node, tail = node;
     if (mDSHead == nullptr) {
         // Scene 1
-        mVisualization.createNewScene();
         Node::Ptr node = std::make_shared<Node>();
         node->value = value;
         node->id = mVisualization.createNode(value);
@@ -41,7 +40,6 @@ void SinglyLinkedListAlgo::addFirst(int value) {
     // head = node;
 
     // Scene 1
-    mVisualization.createNewScene();
     Node::Ptr node = std::make_shared<Node>();
     node->value = value;
     node->id = mVisualization.createNode(value);
