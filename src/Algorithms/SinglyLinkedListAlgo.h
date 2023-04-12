@@ -4,12 +4,13 @@
 #include "../Visualization.h"
 #include "Algorithm.h"
 
+#include <functional>
 #include <memory>
 #include <string>
 
 class SinglyLinkedListAlgo : public Algorithm {
 public:
-    SinglyLinkedListAlgo(Visualization &visualization);
+    SinglyLinkedListAlgo(Visualization& visualization);
 
     void initializeRandom();
 
@@ -26,10 +27,40 @@ public:
     void searchValue(int value);
 
 private:
+    class Node {
+    public:
+        typedef std::shared_ptr<Node> Ptr;
+
+        struct NodePointer {
+            Node::Ptr node;
+            int id;
+        };
+
+    public:
+        int value;
+        int id;
+
+        NodePointer next;
+
+        int referencesId{-1};
+        std::map<int, std::string> references; // pointers pointed to this node
+    public:
+        void addReference(int order, std::string reference);
+        void removeReference(std::string reference);
+
+        std::string referencesText();
+    };
+
+private:
     Node::Ptr mDSHead, mDSTail;
+
+    std::function<void()> mSceneCleanUp;
 
 private:
     void sceneInit();
+
+    void assignNodePtr(Node::Ptr& from, const Node::Ptr& to, int order,
+                       std::string name);
 };
 
 #endif // ALGORITHMS_SINGLYLINKEDLISTALGO_H

@@ -3,30 +3,12 @@
 
 #include "../Visualization.h"
 
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
 
 class Algorithm {
-public:
-    struct Node {
-        typedef std::shared_ptr<Node> Ptr;
-
-        struct NodePointer {
-            Node::Ptr node;
-            int id;
-        };
-
-        NodePointer next;
-
-        int referencesId;
-
-        int value;
-        int id;
-        // TODO: Keep track of labels and arrows, objectize pointers (arrow
-        // pointers and label pointers)
-    };
-
 public:
     Algorithm(Visualization& visualization);
 
