@@ -99,6 +99,10 @@ void Visualization::moveLabel(int labelID, Vector2 position) {
     mSceneTrack.back().moveLabel(labelID, position);
 }
 
+void Visualization::attachNodeLabel(int labelID, int idAttached) {
+    mSceneTrack.back().attachNodeLabel(labelID, idAttached);
+}
+
 void Visualization::updateLabel(int labelID, const std::string text) {
     mSceneTrack.back().updateLabel(labelID, text);
 }

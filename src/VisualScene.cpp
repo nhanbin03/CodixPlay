@@ -127,6 +127,11 @@ void VisualScene::moveLabel(int labelID, Vector2 position) {
     getLabel(labelID).setPosition(position);
 }
 
+void VisualScene::attachNodeLabel(int labelID, int idAttached) {
+    getLabel(labelID).setPosition(getNode(idAttached).getPosition()
+                                  + Vector2({0, VisualObject::ELEMENT_SIZE}));
+}
+
 void VisualScene::updateLabel(int labelID, const std::string text) {
     getLabel(labelID).setText(text);
 }
