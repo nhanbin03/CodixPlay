@@ -70,9 +70,12 @@ int Visualization::createArrow(Vector2 source, Vector2 destination) {
     return mSceneTrack.back().createArrow(source, destination);
 }
 
-void Visualization::moveArrow(int arrowID, Vector2 source,
-                              Vector2 destination) {
-    mSceneTrack.back().moveArrow(arrowID, source, destination);
+void Visualization::moveArrowSource(int arrowID, Vector2 source) {
+    mSceneTrack.back().moveArrowSource(arrowID, source);
+}
+
+void Visualization::moveArrowDestination(int arrowID, Vector2 destination) {
+    mSceneTrack.back().moveArrowDestination(arrowID, destination);
 }
 
 void Visualization::moveArrowDelta(int arrowID, Vector2 source,

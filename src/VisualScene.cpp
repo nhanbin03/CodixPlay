@@ -79,9 +79,13 @@ int VisualScene::createArrow(Vector2 source, Vector2 destination) {
     return objectID;
 }
 
-void VisualScene::moveArrow(int arrowID, Vector2 source, Vector2 destination) {
+void VisualScene::moveArrowSource(int arrowID, Vector2 source) {
     Arrow& obj = getArrow(arrowID);
     obj.setSource(source);
+}
+
+void VisualScene::moveArrowDestination(int arrowID, Vector2 destination) {
+    Arrow& obj = getArrow(arrowID);
     obj.setDestination(destination);
 }
 
