@@ -7,11 +7,11 @@
 
 class Application {
 public:
-    const float WINDOW_WIDTH = 1440;
-    const float WINDOW_HEIGHT = 950;
-    const char *WINDOW_TITLE = "VisuAlgo";
+    static constexpr float WINDOW_WIDTH = 1440;
+    static constexpr float WINDOW_HEIGHT = 950;
+    static constexpr char *WINDOW_TITLE = "VisuAlgo";
 
-    const int FPS = 60;
+    static constexpr int FPS = 60;
 
 public:
     Application();
