@@ -10,6 +10,9 @@
 
 class ControlBar {
 public:
+    static constexpr float ANIMATION_TIME = 0.5f;
+
+public:
     ControlBar(std::vector<VisualScene> &sceneTrack,
                VisualScene &displayingScene);
     ~ControlBar();
@@ -26,14 +29,24 @@ public:
     Vector2 getSize() const;
 
 private:
+    enum class Action {
+        None,
+        Prev,
+        Next
+    };
+
+private:
     Vector2 mPosition, mSize;
 
     std::vector<VisualScene> *mSceneTrack;
     VisualScene *mDisplayingScene;
 
-    int mTracker;
+    int mTracker{0};
 
     std::vector<Button> mBtnContainer;
+
+    Action mActionStatus{Action::None};
+    float mTimeCounter;
 
 private:
     void rewindScene();

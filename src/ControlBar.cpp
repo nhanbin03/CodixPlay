@@ -1,12 +1,12 @@
 #include "ControlBar.h"
 
 #include <cassert>
+#include <iostream>
 
 ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
                        VisualScene& displayingScene)
 : mSceneTrack(&sceneTrack)
-, mDisplayingScene(&displayingScene)
-, mTracker(0) {
+, mDisplayingScene(&displayingScene) {
     assert(mSceneTrack->size() > 0);
     *mDisplayingScene = mSceneTrack->front();
 
@@ -37,9 +37,25 @@ ControlBar::~ControlBar() {
 }
 
 void ControlBar::update(float dt) {
-    *mDisplayingScene = (*mSceneTrack)[mTracker];
     for (auto& btn : mBtnContainer) {
         btn.update(dt);
+    }
+    *mDisplayingScene = (*mSceneTrack)[mTracker];
+    if (mActionStatus != Action::None) {
+        mTimeCounter += dt;
+        if (mTimeCounter < ANIMATION_TIME) {
+            int lastTracker;
+            if (mActionStatus == Action::Prev) {
+                lastTracker = mTracker + 1;
+            } else {
+                lastTracker = mTracker - 1;
+            }
+            *mDisplayingScene = VisualScene::transitionScene(
+                (*mSceneTrack)[lastTracker], (*mSceneTrack)[mTracker],
+                mTimeCounter, ANIMATION_TIME);
+        } else {
+            Action::None;
+        }
     }
 }
 
@@ -60,13 +76,19 @@ void ControlBar::rewindScene() {
 
 void ControlBar::prevScene() {
     if (mTracker > 0) {
-        *mDisplayingScene = (*mSceneTrack)[--mTracker];
+        mActionStatus = Action::Prev;
+        *mDisplayingScene = (*mSceneTrack)[mTracker];
+        mTracker--;
+        mTimeCounter = 0;
     }
 }
 
 void ControlBar::nextScene() {
     if (mTracker + 1 < mSceneTrack->size()) {
-        *mDisplayingScene = (*mSceneTrack)[++mTracker];
+        mActionStatus = Action::Next;
+        *mDisplayingScene = (*mSceneTrack)[mTracker];
+        mTracker++;
+        mTimeCounter = 0;
     }
 }
 
