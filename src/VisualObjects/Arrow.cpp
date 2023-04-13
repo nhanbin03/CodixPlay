@@ -13,7 +13,8 @@ void Arrow::draw() {
     // Draw arrow head
     int x = mDestination.x - mSource.x;
     int y = mDestination.y - mSource.y;
-    assert(x * x + y * y != 0);
+    if (x * x + y * y == 0)
+        return;
     Vector2 unitVector = {mThickness * x / sqrt(x * x + y * y),
                           mThickness * y / sqrt(x * x + y * y)};
     Vector2 inverseVector = {unitVector.y, -unitVector.x};
