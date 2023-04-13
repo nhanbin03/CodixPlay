@@ -12,6 +12,17 @@ VisualScene::VisualScene() {
 VisualScene::~VisualScene() {
 }
 
+VisualScene VisualScene::transitionScene(const VisualScene& fromScene,
+                                         const VisualScene& toScene, float time,
+                                         float totalTime) {
+    VisualScene ret;
+
+    transitionNode(fromScene, toScene, time, totalTime, ret);
+    transitionArrow(fromScene, toScene, time, totalTime, ret);
+
+    return ret;
+}
+
 // Priority: label -> nodes/arrays -> arrow
 void VisualScene::draw() {
     for (auto obj : mArrowMap) {
@@ -161,4 +172,146 @@ Label& VisualScene::getLabel(int labelID) {
     assert(found != mLabelMap.end());
 
     return found->second;
+}
+
+float VisualScene::easeInOut(float from, float to, float time,
+                             float totalTime) {
+    return EaseCubicInOut(time, from, to - from, totalTime);
+}
+
+void VisualScene::transitionNode(const VisualScene& fromScene,
+                                 const VisualScene& toScene, float time,
+                                 float totalTime, VisualScene& visualScene) {
+    std::set<int> idSet;
+
+    for (const auto& p : fromScene.mNodeMap) {
+        idSet.insert(p.first);
+    }
+    for (const auto& p : toScene.mNodeMap) {
+        idSet.insert(p.first);
+    }
+
+    for (int id : idSet) {
+        CircleNode from, to;
+
+        auto fromFound = fromScene.mNodeMap.find(id);
+        auto toFound = toScene.mNodeMap.find(id);
+
+        assert(fromFound != fromScene.mNodeMap.end()
+               || toFound != toScene.mNodeMap.end());
+
+        if (fromFound != fromScene.mNodeMap.end()) {
+            from = fromFound->second;
+        }
+        if (toFound != toScene.mNodeMap.end()) {
+            to = toFound->second;
+        }
+        if (fromFound == fromScene.mNodeMap.end()) {
+            from.setPosition(to.getPosition());
+            from.setScale(0);
+            from.setValue(to.getValue());
+        }
+        if (toFound == toScene.mNodeMap.end()) {
+            to.setPosition(from.getPosition());
+            to.setScale(0);
+            to.setValue(from.getValue());
+        }
+
+        CircleNode newObject;
+        int objectID = newObject.getObjectID();
+
+        // Animate position
+        Vector2 newPos;
+        newPos.x = easeInOut(from.getPosition().x, to.getPosition().x, time,
+                             totalTime);
+        newPos.y = easeInOut(from.getPosition().y, to.getPosition().y, time,
+                             totalTime);
+        newObject.setPosition(newPos);
+
+        // Animate scale
+        newObject.setScale(
+            easeInOut(from.getScale(), to.getScale(), time, totalTime));
+
+        // Animate value
+        newObject.setValue(
+            easeInOut(from.getValue(), to.getValue(), time, totalTime));
+
+        // Animate color
+        Color newColor;
+        Color fromColor = from.getColor();
+        Color toColor = to.getColor();
+        newColor.r = easeInOut(fromColor.r, toColor.r, time, totalTime);
+        newColor.g = easeInOut(fromColor.g, toColor.g, time, totalTime);
+        newColor.b = easeInOut(fromColor.b, toColor.b, time, totalTime);
+        newColor.a = easeInOut(fromColor.a, toColor.a, time, totalTime);
+
+        auto insertStatus = visualScene.mNodeMap.emplace(objectID, newObject);
+        assert(insertStatus.second == true);
+    }
+}
+
+void VisualScene::transitionArrow(const VisualScene& fromScene,
+                                  const VisualScene& toScene, float time,
+                                  float totalTime, VisualScene& visualScene) {
+    std::set<int> idSet;
+
+    for (const auto& p : fromScene.mArrowMap) {
+        idSet.insert(p.first);
+    }
+    for (const auto& p : toScene.mArrowMap) {
+        idSet.insert(p.first);
+    }
+
+    for (int id : idSet) {
+        Arrow from, to;
+
+        auto fromFound = fromScene.mArrowMap.find(id);
+        auto toFound = toScene.mArrowMap.find(id);
+
+        assert(fromFound != fromScene.mArrowMap.end()
+               || toFound != toScene.mArrowMap.end());
+
+        if (fromFound != fromScene.mArrowMap.end()) {
+            from = fromFound->second;
+        }
+        if (toFound != toScene.mArrowMap.end()) {
+            to = toFound->second;
+        }
+        if (fromFound == fromScene.mArrowMap.end()) {
+            from.setSource(to.getSource());
+            from.setDestination(to.getDestination());
+            from.setScale(0);
+        }
+        if (toFound == toScene.mArrowMap.end()) {
+            to.setSource(from.getSource());
+            to.setDestination(from.getDestination());
+            to.setScale(0);
+        }
+
+        Arrow newObject;
+        int objectID = newObject.getObjectID();
+
+        // Animate source
+        Vector2 newSource;
+        newSource.x =
+            easeInOut(from.getSource().x, to.getSource().x, time, totalTime);
+        newSource.y =
+            easeInOut(from.getSource().y, to.getSource().y, time, totalTime);
+        newObject.setSource(newSource);
+
+        // Animate destination
+        Vector2 newDestination;
+        newDestination.x = easeInOut(from.getDestination().x,
+                                     to.getDestination().x, time, totalTime);
+        newDestination.y = easeInOut(from.getDestination().y,
+                                     to.getDestination().y, time, totalTime);
+        newObject.setDestination(newDestination);
+
+        // Animate scale
+        newObject.setScale(
+            easeInOut(from.getScale(), to.getScale(), time, totalTime));
+
+        auto insertStatus = visualScene.mArrowMap.emplace(objectID, newObject);
+        assert(insertStatus.second == true);
+    }
 }

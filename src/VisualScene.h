@@ -7,14 +7,20 @@
 #include "VisualObjects/VisualObject.h"
 
 #include "raylib.h"
+#include "reasings.h"
 
 #include <map>
+#include <set>
 #include <string>
 
 class VisualScene {
 public:
     VisualScene();
     ~VisualScene();
+
+    static VisualScene transitionScene(const VisualScene& fromScene,
+                                       const VisualScene& toScene, float time,
+                                       float totalTime);
 
     void draw();
 
@@ -50,6 +56,18 @@ private:
     CircleNode& getNode(int nodeID);
     Arrow& getArrow(int arrowID);
     Label& getLabel(int labelID);
+
+    static float easeInOut(float from, float to, float time, float totalTime);
+
+    static void transitionNode(const VisualScene& fromScene,
+                               const VisualScene& toScene, float time,
+                               float totalTime, VisualScene& visualScene);
+    static void transitionArrow(const VisualScene& fromScene,
+                                const VisualScene& toScene, float time,
+                                float totalTime, VisualScene& visualScene);
+    static void transitionLabel(const VisualScene& fromScene,
+                                const VisualScene& toScene, float time,
+                                float totalTime, VisualScene& visualScene);
 
 private:
     std::map<int, CircleNode> mNodeMap;
