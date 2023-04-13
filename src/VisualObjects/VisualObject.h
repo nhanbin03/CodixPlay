@@ -1,9 +1,9 @@
 #ifndef VISUALOBJECT_H
 #define VISUALOBJECT_H
 
-#include <memory>
-
 #include "raylib.h"
+
+#include <memory>
 
 class VisualObject {
 public:

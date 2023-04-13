@@ -3,6 +3,8 @@
 #include <math.h>
 #include <cassert>
 
+#include "../Helper.h"
+
 Arrow::Arrow() {
 }
 
@@ -17,6 +19,8 @@ void Arrow::draw() {
         return;
     Vector2 unitVector = {mThickness * x / sqrt(x * x + y * y),
                           mThickness * y / sqrt(x * x + y * y)};
+    unitVector = unitVector * getScale();
+
     Vector2 inverseVector = {unitVector.y, -unitVector.x};
 
     Vector2 headDestination = {
