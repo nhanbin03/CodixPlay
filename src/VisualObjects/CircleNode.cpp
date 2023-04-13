@@ -13,7 +13,7 @@ void CircleNode::draw() {
     DrawCircle(x, y, mRadius * getScale(), mColor);
 
     const char *valueText = std::to_string(mValue).c_str();
-    int fontSize = mRadius;
+    float fontSize = mRadius * getScale();
     DrawText(valueText, x - MeasureText(valueText, fontSize) / 2,
              y - fontSize / 2, fontSize, mValueColor);
 }
@@ -30,6 +30,14 @@ void CircleNode::setValueColor(Color color) {
     mValueColor = color;
 }
 
+Color CircleNode::getValueColor() const {
+    return mValueColor;
+}
+
 void CircleNode::setColor(Color color) {
     mColor = color;
+}
+
+Color CircleNode::getColor() const {
+    return mColor;
 }

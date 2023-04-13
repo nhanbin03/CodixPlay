@@ -18,8 +18,10 @@ public:
     int getValue() const;
 
     void setValueColor(Color color);
+    Color getValueColor() const;
 
     void setColor(Color color);
+    Color getColor() const;
 
 private:
     float mRadius{ELEMENT_SIZE / 2};
