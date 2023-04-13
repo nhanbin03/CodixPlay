@@ -19,6 +19,7 @@ VisualScene VisualScene::transitionScene(const VisualScene& fromScene,
 
     transitionNode(fromScene, toScene, time, totalTime, ret);
     transitionArrow(fromScene, toScene, time, totalTime, ret);
+    transitionLabel(fromScene, toScene, time, totalTime, ret);
 
     return ret;
 }
@@ -217,7 +218,7 @@ void VisualScene::transitionNode(const VisualScene& fromScene,
             to.setValue(from.getValue());
         }
 
-        CircleNode newObject;
+        CircleNode newObject = to;
         int objectID = newObject.getObjectID();
 
         // Animate position
@@ -288,7 +289,7 @@ void VisualScene::transitionArrow(const VisualScene& fromScene,
             to.setScale(0);
         }
 
-        Arrow newObject;
+        Arrow newObject = to;
         int objectID = newObject.getObjectID();
 
         // Animate source
@@ -312,6 +313,64 @@ void VisualScene::transitionArrow(const VisualScene& fromScene,
             easeInOut(from.getScale(), to.getScale(), time, totalTime));
 
         auto insertStatus = visualScene.mArrowMap.emplace(objectID, newObject);
+        assert(insertStatus.second == true);
+    }
+}
+
+void VisualScene::transitionLabel(const VisualScene& fromScene,
+                                  const VisualScene& toScene, float time,
+                                  float totalTime, VisualScene& visualScene) {
+    std::set<int> idSet;
+
+    for (const auto& p : fromScene.mLabelMap) {
+        idSet.insert(p.first);
+    }
+    for (const auto& p : toScene.mLabelMap) {
+        idSet.insert(p.first);
+    }
+
+    for (int id : idSet) {
+        Label from, to;
+
+        auto fromFound = fromScene.mLabelMap.find(id);
+        auto toFound = toScene.mLabelMap.find(id);
+
+        assert(fromFound != fromScene.mLabelMap.end()
+               || toFound != toScene.mLabelMap.end());
+
+        if (fromFound != fromScene.mLabelMap.end()) {
+            from = fromFound->second;
+        }
+        if (toFound != toScene.mLabelMap.end()) {
+            to = toFound->second;
+        }
+        if (fromFound == fromScene.mLabelMap.end()) {
+            from.setPosition(to.getPosition());
+            from.setScale(0);
+            from.setText("");
+        }
+        if (toFound == toScene.mLabelMap.end()) {
+            to.setPosition(from.getPosition());
+            to.setScale(0);
+            to.setText("");
+        }
+
+        Label newObject = to;
+        int objectID = newObject.getObjectID();
+
+        // Animate position
+        Vector2 newPos;
+        newPos.x = easeInOut(from.getPosition().x, to.getPosition().x, time,
+                             totalTime);
+        newPos.y = easeInOut(from.getPosition().y, to.getPosition().y, time,
+                             totalTime);
+        newObject.setPosition(newPos);
+
+        // Animate scale
+        newObject.setScale(
+            easeInOut(from.getScale(), to.getScale(), time, totalTime));
+
+        auto insertStatus = visualScene.mLabelMap.emplace(objectID, newObject);
         assert(insertStatus.second == true);
     }
 }
