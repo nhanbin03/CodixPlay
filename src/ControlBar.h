@@ -22,12 +22,6 @@ public:
 
     void reset();
 
-    void setPosition(Vector2 position);
-    Vector2 getPosition() const;
-
-    void setSize(Vector2 size);
-    Vector2 getSize() const;
-
 private:
     enum class Action {
         None,
@@ -36,8 +30,6 @@ private:
     };
 
 private:
-    Vector2 mPosition, mSize;
-
     std::vector<VisualScene> *mSceneTrack;
     VisualScene *mDisplayingScene;
 

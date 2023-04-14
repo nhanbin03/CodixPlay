@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-NumberInputBox::NumberInputBox() {
-}
-
 NumberInputBox::NumberInputBox(Rectangle bounds) {
-    setRect(bounds);
+    mRect = bounds;
+    mColor = WHITE;
+    mBorderColor = BLACK;
+    mBorderThickness = 1;
 }
 
 NumberInputBox::~NumberInputBox() {
@@ -31,32 +31,27 @@ void NumberInputBox::update(float dt) {
 }
 
 void NumberInputBox::draw() {
-    DrawRectangleRec(getRect(), mColor);
-    DrawRectangleLinesEx(getRect(), mBorderThickness, mBorderColor);
+    DrawRectangleRec(mRect, mColor);
+    DrawRectangleLinesEx(mRect, mBorderThickness, mBorderColor);
 
-    int textSize = getRect().height * 2 / 3;
+    int textSize = mRect.height * 2 / 3;
     std::string displayText = mInputText;
     if (mIsFocused)
         displayText += '_';
     DrawText(displayText.c_str(),
-             getRect().x + getRect().width / 2
+             mRect.x + mRect.width / 2
                  - MeasureText(displayText.c_str(), textSize) / 2,
-             getRect().y + getRect().height / 2 - textSize / 2, textSize,
-             mTextColor);
+             mRect.y + mRect.height / 2 - textSize / 2, textSize, mTextColor);
 }
 
 std::string NumberInputBox::getInputText() {
     return mInputText;
 }
 
-void NumberInputBox::setBorderThickness(int thickness) {
-    mBorderThickness = thickness;
-}
-
 void NumberInputBox::checkInteraction() {
     Vector2 mousePoint = GetMousePosition();
 
-    if (CheckCollisionPointRec(mousePoint, getRect())) {
+    if (CheckCollisionPointRec(mousePoint, mRect)) {
         SetMouseCursor(MOUSE_CURSOR_IBEAM);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             mIsFocused = true;

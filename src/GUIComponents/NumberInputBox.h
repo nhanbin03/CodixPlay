@@ -12,7 +12,6 @@ public:
     static constexpr int MAX_TEXT_LENGTH = 2;
 
 public:
-    NumberInputBox();
     explicit NumberInputBox(Rectangle bounds);
     ~NumberInputBox();
 
@@ -21,18 +20,12 @@ public:
 
     std::string getInputText();
 
-    void setBorderThickness(int thickness);
-
 private:
     void checkInteraction();
 
     bool isValid(int key);
 
 private:
-    Color mColor{WHITE};
-    Color mBorderColor{BLACK};
-    int mBorderThickness;
-
     std::string mInputText;
     Color mTextColor{BLACK};
 

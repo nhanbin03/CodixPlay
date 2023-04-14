@@ -1,7 +1,8 @@
 #include "Button.h"
 
 Button::Button(Rectangle bounds) {
-    setRect(bounds);
+    mRect = bounds;
+    mColor = GRAY;
 }
 
 Button::~Button() {
@@ -23,25 +24,21 @@ void Button::draw() {
         else
             filterBrightness = -0.2;
     }
-    DrawRectangleRounded(getRect(), 0.5, SEGMENTS,
+    DrawRectangleRounded(mRect, 0.5, SEGMENTS,
                          ColorBrightness(mColor, filterBrightness));
     if (mBorderThickness != 0) {
         DrawRectangleRoundedLines(
-            getRect(), 0.5, SEGMENTS, mBorderThickness,
+            mRect, 0.5, SEGMENTS, mBorderThickness,
             ColorBrightness(mBorderColor, filterBrightness));
     }
     if (mTextSize == 0) {
-        mTextSize = getRect().height / 2;
+        mTextSize = mRect.height / 2;
     }
-    DrawText(mText.c_str(),
-             getRect().x + getRect().width / 2
-                 - MeasureText(mText.c_str(), mTextSize) / 2,
-             getRect().y + getRect().height / 2 - mTextSize / 2, mTextSize,
-             ColorBrightness(mTextColor, filterBrightness));
-}
-
-void Button::setColor(Color color) {
-    mColor = color;
+    DrawText(
+        mText.c_str(),
+        mRect.x + mRect.width / 2 - MeasureText(mText.c_str(), mTextSize) / 2,
+        mRect.y + mRect.height / 2 - mTextSize / 2, mTextSize,
+        ColorBrightness(mTextColor, filterBrightness));
 }
 
 void Button::setCallback(Callback callback) {
@@ -60,17 +57,9 @@ void Button::setTextColor(Color color) {
     mTextColor = color;
 }
 
-void Button::setBorderThickness(int thickness) {
-    mBorderThickness = thickness;
-}
-
-void Button::setBorderColor(Color color) {
-    mBorderColor = color;
-}
-
 void Button::checkInteraction() {
     Vector2 mousePoint = GetMousePosition();
-    if (CheckCollisionPointRec(mousePoint, getRect())) {
+    if (CheckCollisionPointRec(mousePoint, mRect)) {
         SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
 
         if (mState == ButtonState::None)

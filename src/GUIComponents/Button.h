@@ -28,16 +28,11 @@ public:
     void update(float dt);
     void draw();
 
-    void setColor(Color color);
-
     void setCallback(Callback callback);
 
     void setText(const std::string text);
     void setTextSize(int size);
     void setTextColor(Color color);
-
-    void setBorderThickness(int thickness);
-    void setBorderColor(Color color);
 
 private:
     void checkInteraction();
@@ -45,16 +40,11 @@ private:
 private:
     ButtonState mState{ButtonState::None};
 
-    Color mColor{GRAY};
-
     Callback mCallback;
 
     std::string mText;
     Color mTextColor{WHITE};
     int mTextSize{0};
-
-    int mBorderThickness{0};
-    Color mBorderColor{BLACK};
 };
 
 #endif // GUICOMPONENTS_BUTTON_H

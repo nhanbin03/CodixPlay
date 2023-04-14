@@ -1,6 +1,7 @@
 #ifndef VISUALSCENE_H
 #define VISUALSCENE_H
 
+#include "GUIComponents/GUIComponent.h"
 #include "VisualObjects/Arrow.h"
 #include "VisualObjects/CircleNode.h"
 #include "VisualObjects/Label.h"

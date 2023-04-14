@@ -34,3 +34,15 @@ void GUIComponent::setSize(Vector2 size) {
     mRect.width = size.x;
     mRect.height = size.y;
 }
+
+void GUIComponent::setColor(Color color) {
+    mColor = color;
+}
+
+void GUIComponent::setBorderThickness(int thickness) {
+    mBorderThickness = thickness;
+}
+
+void GUIComponent::setBorderColor(Color color) {
+    mBorderColor = color;
+}

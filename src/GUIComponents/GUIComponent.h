@@ -20,8 +20,15 @@ public:
     virtual Vector2 getSize() const;
     virtual void setSize(Vector2 size);
 
-private:
+    void setColor(Color color);
+    void setBorderThickness(int thickness);
+    void setBorderColor(Color color);
+
+protected:
     Rectangle mRect;
+    Color mColor{BLANK};
+    Color mBorderColor{BLANK};
+    int mBorderThickness{0};
 };
 
 #endif // GUICOMPONENTS_GUICOMPONENT_H
