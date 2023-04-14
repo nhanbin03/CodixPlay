@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-class Visualization {
+class Visualization : public GUIComponent {
 public:
     Visualization(VisualScene initScene = VisualScene());
     ~Visualization();

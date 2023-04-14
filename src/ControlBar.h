@@ -8,7 +8,7 @@
 
 #include <vector>
 
-class ControlBar {
+class ControlBar : public GUIComponent {
 public:
     static constexpr float ANIMATION_TIME = 0.5f;
 

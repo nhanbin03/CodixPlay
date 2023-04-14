@@ -13,7 +13,7 @@
 #include <set>
 #include <string>
 
-class VisualScene {
+class VisualScene : public GUIComponent {
 public:
     VisualScene();
     ~VisualScene();
