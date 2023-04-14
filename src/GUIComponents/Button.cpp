@@ -14,12 +14,32 @@ void Button::update(float dt) {
 }
 
 void Button::draw() {
-    DrawRectangleRec(mButton, mColor);
+    float filterBrightness = 0;
+    if (mState != ButtonState::None) {
+        int r = mColor.r;
+        int g = mColor.g;
+        int b = mColor.b;
+        float luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b);
+        if (luminance < 128) // Test if the color is dark
+            filterBrightness = 0.2;
+        else
+            filterBrightness = -0.2;
+    }
+    DrawRectangleRounded(mButton, 0.5, SEGMENTS,
+                         ColorBrightness(mColor, filterBrightness));
+    if (mBorderThickness != 0) {
+        DrawRectangleRoundedLines(
+            mButton, 0.5, SEGMENTS, mBorderThickness,
+            ColorBrightness(mBorderColor, filterBrightness));
+    }
+    if (mTextSize == 0) {
+        mTextSize = mButton.height / 2;
+    }
     DrawText(mText.c_str(),
              mButton.x + mButton.width / 2
                  - MeasureText(mText.c_str(), mTextSize) / 2,
              mButton.y + mButton.height / 2 - mTextSize / 2, mTextSize,
-             mTextColor);
+             ColorBrightness(mTextColor, filterBrightness));
 }
 
 void Button::setPosition(Vector2 position) {
@@ -34,6 +54,10 @@ void Button::setSize(Vector2 size) {
     mButton.height = size.y;
 }
 
+void Button::setColor(Color color) {
+    mColor = color;
+}
+
 void Button::setCallback(Callback callback) {
     mCallback = callback;
 }
@@ -44,6 +68,18 @@ void Button::setText(const std::string text) {
 
 void Button::setTextSize(int size) {
     mTextSize = 30;
+}
+
+void Button::setTextColor(Color color) {
+    mTextColor = color;
+}
+
+void Button::setBorderThickness(int thickness) {
+    mBorderThickness = thickness;
+}
+
+void Button::setBorderColor(Color color) {
+    mBorderColor = color;
 }
 
 void Button::checkInteraction() {

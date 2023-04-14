@@ -10,6 +10,9 @@
 
 class Button : public GUIComponent {
 public:
+    static constexpr int SEGMENTS = 100;
+
+public:
     typedef std::function<void()> Callback;
 
     enum class ButtonState {
@@ -26,13 +29,17 @@ public:
     void draw();
 
     void setPosition(Vector2 position) override;
-
     void setSize(Vector2 size) override;
+    void setColor(Color color);
 
     void setCallback(Callback callback);
 
     void setText(const std::string text);
     void setTextSize(int size);
+    void setTextColor(Color color);
+
+    void setBorderThickness(int thickness);
+    void setBorderColor(Color color);
 
 private:
     void checkInteraction();
@@ -41,13 +48,16 @@ private:
     ButtonState mState{ButtonState::None};
 
     Rectangle mButton;
-    Color mColor{BLACK};
+    Color mColor{GRAY};
 
     Callback mCallback;
 
     std::string mText;
     Color mTextColor{WHITE};
-    int mTextSize;
+    int mTextSize{0};
+
+    int mBorderThickness{0};
+    Color mBorderColor{BLACK};
 };
 
 #endif // GUICOMPONENTS_BUTTON_H
