@@ -8,7 +8,7 @@ public:
     GUIComponent();
     virtual ~GUIComponent();
 
-    virtual void update(float dt) = 0;
+    virtual void update(float dt);
     virtual void draw() = 0;
 
     virtual Rectangle getRect() const;

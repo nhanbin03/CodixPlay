@@ -6,6 +6,9 @@ GUIComponent::GUIComponent() {
 GUIComponent::~GUIComponent() {
 }
 
+void GUIComponent::update(float dt) {
+}
+
 Rectangle GUIComponent::getRect() const {
     return mRect;
 }
