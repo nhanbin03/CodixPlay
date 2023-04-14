@@ -177,7 +177,7 @@ Label& VisualScene::getLabel(int labelID) {
 
 float VisualScene::easeInOut(float from, float to, float time,
                              float totalTime) {
-    return EaseCubicInOut(time, from, to - from, totalTime);
+    return EaseQuadInOut(time, from, to - from, totalTime);
 }
 
 void VisualScene::transitionNode(const VisualScene& fromScene,
