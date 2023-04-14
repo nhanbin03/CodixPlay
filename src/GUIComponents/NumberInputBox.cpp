@@ -5,18 +5,14 @@
 NumberInputBox::NumberInputBox() {
 }
 
-NumberInputBox::NumberInputBox(Rectangle bounds)
-: mBounds(bounds) {
-    setPosition({bounds.x, bounds.y});
-    setSize({bounds.width, bounds.height});
+NumberInputBox::NumberInputBox(Rectangle bounds) {
+    setRect(bounds);
 }
 
 NumberInputBox::~NumberInputBox() {
 }
 
 void NumberInputBox::update(float dt) {
-    mBounds = {getPosition().x, getPosition().y, getSize().x, getSize().y};
-
     checkInteraction();
 
     if (mIsFocused) {
@@ -35,30 +31,18 @@ void NumberInputBox::update(float dt) {
 }
 
 void NumberInputBox::draw() {
-    DrawRectangleRec(mBounds, mColor);
-    DrawRectangleLinesEx(mBounds, mBorderThickness, mBorderColor);
+    DrawRectangleRec(getRect(), mColor);
+    DrawRectangleLinesEx(getRect(), mBorderThickness, mBorderColor);
 
-    int textSize = mBounds.height * 2 / 3;
+    int textSize = getRect().height * 2 / 3;
     std::string displayText = mInputText;
     if (mIsFocused)
         displayText += '_';
     DrawText(displayText.c_str(),
-             mBounds.x + mBounds.width / 2
+             getRect().x + getRect().width / 2
                  - MeasureText(displayText.c_str(), textSize) / 2,
-             mBounds.y + mBounds.height / 2 - textSize / 2, textSize,
+             getRect().y + getRect().height / 2 - textSize / 2, textSize,
              mTextColor);
-}
-
-void NumberInputBox::setPosition(Vector2 position) {
-    GUIComponent::setPosition(position);
-    mBounds.x = position.x;
-    mBounds.y = position.y;
-}
-
-void NumberInputBox::setSize(Vector2 size) {
-    GUIComponent::setSize(size);
-    mBounds.width = size.x;
-    mBounds.height = size.y;
 }
 
 std::string NumberInputBox::getInputText() {
@@ -72,7 +56,7 @@ void NumberInputBox::setBorderThickness(int thickness) {
 void NumberInputBox::checkInteraction() {
     Vector2 mousePoint = GetMousePosition();
 
-    if (CheckCollisionPointRec(mousePoint, mBounds)) {
+    if (CheckCollisionPointRec(mousePoint, getRect())) {
         SetMouseCursor(MOUSE_CURSOR_IBEAM);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             mIsFocused = true;

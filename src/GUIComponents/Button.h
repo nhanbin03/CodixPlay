@@ -28,8 +28,6 @@ public:
     void update(float dt);
     void draw();
 
-    void setPosition(Vector2 position) override;
-    void setSize(Vector2 size) override;
     void setColor(Color color);
 
     void setCallback(Callback callback);
@@ -47,7 +45,6 @@ private:
 private:
     ButtonState mState{ButtonState::None};
 
-    Rectangle mButton;
     Color mColor{GRAY};
 
     Callback mCallback;

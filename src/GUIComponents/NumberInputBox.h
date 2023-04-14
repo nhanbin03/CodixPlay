@@ -19,10 +19,6 @@ public:
     void update(float dt);
     void draw();
 
-    void setPosition(Vector2 position) override;
-
-    void setSize(Vector2 size) override;
-
     std::string getInputText();
 
     void setBorderThickness(int thickness);
@@ -33,7 +29,6 @@ private:
     bool isValid(int key);
 
 private:
-    Rectangle mBounds;
     Color mColor{WHITE};
     Color mBorderColor{BLACK};
     int mBorderThickness;

@@ -6,18 +6,28 @@ GUIComponent::GUIComponent() {
 GUIComponent::~GUIComponent() {
 }
 
+Rectangle GUIComponent::getRect() const {
+    return mRect;
+}
+
+void GUIComponent::setRect(Rectangle rect) {
+    mRect = rect;
+}
+
 Vector2 GUIComponent::getPosition() const {
-    return mPosition;
+    return {mRect.x, mRect.y};
 }
 
 void GUIComponent::setPosition(Vector2 position) {
-    mPosition = position;
+    mRect.x = position.x;
+    mRect.y = position.y;
 }
 
 Vector2 GUIComponent::getSize() const {
-    return mSize;
+    return {mRect.width, mRect.height};
 }
 
 void GUIComponent::setSize(Vector2 size) {
-    mSize = size;
+    mRect.width = size.x;
+    mRect.height = size.y;
 }

@@ -11,6 +11,9 @@ public:
     virtual void update(float dt) = 0;
     virtual void draw() = 0;
 
+    virtual Rectangle getRect() const;
+    virtual void setRect(Rectangle rect);
+
     virtual Vector2 getPosition() const;
     virtual void setPosition(Vector2 position);
 
@@ -18,8 +21,7 @@ public:
     virtual void setSize(Vector2 size);
 
 private:
-    Vector2 mPosition;
-    Vector2 mSize;
+    Rectangle mRect;
 };
 
 #endif // GUICOMPONENTS_GUICOMPONENT_H

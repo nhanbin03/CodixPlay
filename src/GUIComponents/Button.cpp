@@ -1,9 +1,7 @@
 #include "Button.h"
 
-Button::Button(Rectangle bounds)
-: mButton(bounds) {
-    setPosition({bounds.x, bounds.y});
-    setSize({bounds.width, bounds.height});
+Button::Button(Rectangle bounds) {
+    setRect(bounds);
 }
 
 Button::~Button() {
@@ -25,33 +23,21 @@ void Button::draw() {
         else
             filterBrightness = -0.2;
     }
-    DrawRectangleRounded(mButton, 0.5, SEGMENTS,
+    DrawRectangleRounded(getRect(), 0.5, SEGMENTS,
                          ColorBrightness(mColor, filterBrightness));
     if (mBorderThickness != 0) {
         DrawRectangleRoundedLines(
-            mButton, 0.5, SEGMENTS, mBorderThickness,
+            getRect(), 0.5, SEGMENTS, mBorderThickness,
             ColorBrightness(mBorderColor, filterBrightness));
     }
     if (mTextSize == 0) {
-        mTextSize = mButton.height / 2;
+        mTextSize = getRect().height / 2;
     }
     DrawText(mText.c_str(),
-             mButton.x + mButton.width / 2
+             getRect().x + getRect().width / 2
                  - MeasureText(mText.c_str(), mTextSize) / 2,
-             mButton.y + mButton.height / 2 - mTextSize / 2, mTextSize,
+             getRect().y + getRect().height / 2 - mTextSize / 2, mTextSize,
              ColorBrightness(mTextColor, filterBrightness));
-}
-
-void Button::setPosition(Vector2 position) {
-    GUIComponent::setPosition(position);
-    mButton.x = position.x;
-    mButton.y = position.y;
-}
-
-void Button::setSize(Vector2 size) {
-    GUIComponent::setSize(size);
-    mButton.width = size.x;
-    mButton.height = size.y;
 }
 
 void Button::setColor(Color color) {
@@ -84,7 +70,7 @@ void Button::setBorderColor(Color color) {
 
 void Button::checkInteraction() {
     Vector2 mousePoint = GetMousePosition();
-    if (CheckCollisionPointRec(mousePoint, mButton)) {
+    if (CheckCollisionPointRec(mousePoint, getRect())) {
         SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
 
         if (mState == ButtonState::None)
