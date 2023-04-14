@@ -32,7 +32,8 @@ void NumberInputBox::update(float dt) {
 
 void NumberInputBox::draw() {
     DrawRectangleRec(mRect, mColor);
-    DrawRectangleLinesEx(mRect, mBorderThickness, mBorderColor);
+    if (mBorderThickness != 0)
+        DrawRectangleLinesEx(mRect, mBorderThickness, mBorderColor);
 
     int textSize = mRect.height * 2 / 3;
     std::string displayText = mInputText;
