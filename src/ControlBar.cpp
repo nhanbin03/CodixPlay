@@ -18,17 +18,22 @@ ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
     prevBtn.setCallback([this]() {
         this->prevScene();
     });
-    Button nextBtn = Button({300, 700, 50, 50});
+    Button pauseBtn = Button({300, 700, 50, 50});
+    pauseBtn.setCallback([this]() {
+        this->togglePause();
+    });
+    Button nextBtn = Button({400, 700, 50, 50});
     nextBtn.setCallback([this]() {
         this->nextScene();
     });
-    Button fowardBtn = Button({400, 700, 50, 50});
+    Button fowardBtn = Button({500, 700, 50, 50});
     fowardBtn.setCallback([this]() {
         this->fowardScene();
     });
 
     mBtnContainer.push_back(rewindBtn);
     mBtnContainer.push_back(prevBtn);
+    mBtnContainer.push_back(pauseBtn);
     mBtnContainer.push_back(nextBtn);
     mBtnContainer.push_back(fowardBtn);
 }
@@ -40,23 +45,7 @@ void ControlBar::update(float dt) {
     for (auto& btn : mBtnContainer) {
         btn.update(dt);
     }
-    *mDisplayingScene = (*mSceneTrack)[mTracker];
-    if (mActionStatus != Action::None) {
-        mTimeCounter += dt;
-        if (mTimeCounter < ANIMATION_TIME) {
-            int lastTracker;
-            if (mActionStatus == Action::Prev) {
-                lastTracker = mTracker + 1;
-            } else {
-                lastTracker = mTracker - 1;
-            }
-            *mDisplayingScene = VisualScene::transitionScene(
-                (*mSceneTrack)[lastTracker], (*mSceneTrack)[mTracker],
-                mTimeCounter, ANIMATION_TIME);
-        } else {
-            Action::None;
-        }
-    }
+    updateDisplayingScene(dt);
 }
 
 void ControlBar::draw() {
@@ -67,6 +56,7 @@ void ControlBar::draw() {
 
 void ControlBar::reset() {
     rewindScene();
+    mIsPaused = false;
 }
 
 void ControlBar::rewindScene() {
@@ -83,6 +73,10 @@ void ControlBar::prevScene() {
     }
 }
 
+void ControlBar::togglePause() {
+    mIsPaused = !mIsPaused;
+}
+
 void ControlBar::nextScene() {
     if (mTracker + 1 < mSceneTrack->size()) {
         mActionStatus = Action::Next;
@@ -95,4 +89,30 @@ void ControlBar::nextScene() {
 void ControlBar::fowardScene() {
     *mDisplayingScene = mSceneTrack->back();
     mTracker = mSceneTrack->size() - 1;
+}
+
+void ControlBar::updateDisplayingScene(float dt) {
+    if (mActionStatus != Action::None || mIsPaused == false) {
+        mTimeCounter += dt;
+        if (mTimeCounter < ANIMATION_TIME) {
+            int lastTracker;
+            if (mActionStatus == Action::Prev) {
+                lastTracker = mTracker + 1;
+            } else {
+                lastTracker = mTracker - 1;
+            }
+            if (lastTracker < mSceneTrack->size())
+                *mDisplayingScene = VisualScene::transitionScene(
+                    (*mSceneTrack)[lastTracker], (*mSceneTrack)[mTracker],
+                    mTimeCounter, ANIMATION_TIME);
+        } else {
+            if (mIsPaused) {
+                mActionStatus = Action::None;
+            } else {
+                nextScene();
+            }
+        }
+    } else {
+        *mDisplayingScene = (*mSceneTrack)[mTracker];
+    }
 }

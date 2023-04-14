@@ -42,6 +42,7 @@ private:
     VisualScene *mDisplayingScene;
 
     int mTracker{0};
+    bool mIsPaused{false};
 
     std::vector<Button> mBtnContainer;
 
@@ -51,8 +52,11 @@ private:
 private:
     void rewindScene();
     void prevScene();
+    void togglePause();
     void nextScene();
     void fowardScene();
+
+    void updateDisplayingScene(float dt);
 };
 
 #endif // CONTROLBAR_H
