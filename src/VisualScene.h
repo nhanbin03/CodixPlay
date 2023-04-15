@@ -34,7 +34,8 @@ public:
     void moveNode(int nodeID, Vector2 position);
     void moveNodeDelta(int nodeID, Vector2 position);
     void colorNode(int nodeID, Color color);
-    void colorValueNode(int nodeID, Color color);
+    void highlightNode(int nodeID);
+    void unhighlightNode(int nodeID);
     void updateNode(int nodeID, int value);
     void removeNode(int nodeID);
     Vector2 getNodePosition(int nodeID) const;

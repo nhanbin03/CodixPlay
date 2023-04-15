@@ -53,8 +53,12 @@ void Visualization::colorNode(int nodeID, Color color) {
     mSceneTrack.back().colorNode(nodeID, color);
 }
 
-void Visualization::colorValueNode(int nodeID, Color color) {
-    mSceneTrack.back().colorValueNode(nodeID, color);
+void Visualization::highlightNode(int nodeID) {
+    mSceneTrack.back().highlightNode(nodeID);
+}
+
+void Visualization::unhighlightNode(int nodeID) {
+    mSceneTrack.back().unhighlightNode(nodeID);
 }
 
 void Visualization::updateNode(int nodeID, int value) {

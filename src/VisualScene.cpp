@@ -59,11 +59,21 @@ void VisualScene::moveNodeDelta(int nodeID, Vector2 position) {
 }
 
 void VisualScene::colorNode(int nodeID, Color color) {
-    getNode(nodeID).setColor(color);
+    CircleNode& node = getNode(nodeID);
+    node.setBorderColor(color);
+    highlightNode(nodeID);
 }
 
-void VisualScene::colorValueNode(int nodeID, Color color) {
-    getNode(nodeID).setValueColor(color);
+void VisualScene::highlightNode(int nodeID) {
+    CircleNode& node = getNode(nodeID);
+    node.setColor(node.getBorderColor());
+    node.setValueColor(AppColor::BACKGROUND_2);
+}
+
+void VisualScene::unhighlightNode(int nodeID) {
+    CircleNode& node = getNode(nodeID);
+    node.setColor(AppColor::BACKGROUND_2);
+    node.setValueColor(node.getBorderColor());
 }
 
 void VisualScene::updateNode(int nodeID, int value) {
