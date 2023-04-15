@@ -10,7 +10,7 @@
 
 class SinglyLinkedListAlgo : public Algorithm {
 public:
-    static constexpr int MAX_SIZE = 7;
+    static constexpr int MAX_LIST_SIZE = 7;
 
 public:
     SinglyLinkedListAlgo(Visualization& visualization);
@@ -55,6 +55,8 @@ private:
     };
 
 private:
+    int mListSize{0};
+
     Node::Ptr mDSHead, mDSTail;
 
     std::function<void()> mSceneCleanUp;

@@ -10,6 +10,10 @@ SinglyLinkedListAlgo::SinglyLinkedListAlgo(Visualization& visualization)
 }
 
 void SinglyLinkedListAlgo::addFirst(int value) {
+    if (mListSize == MAX_LIST_SIZE)
+        return;
+    mListSize++;
+
     sceneInit();
     // If empty
     // Node* node = new Node(value);
