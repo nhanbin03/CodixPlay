@@ -12,6 +12,6 @@ bool StackState::update(float dt) {
 }
 
 void StackState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
     mVisualization.draw();
 }

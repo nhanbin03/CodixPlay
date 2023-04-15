@@ -12,6 +12,6 @@ bool QueueState::update(float dt) {
 }
 
 void QueueState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
     mVisualization.draw();
 }

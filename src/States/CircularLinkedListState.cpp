@@ -13,6 +13,6 @@ bool CircularLinkedListState::update(float dt) {
 }
 
 void CircularLinkedListState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
     mVisualization.draw();
 }

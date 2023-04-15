@@ -1,6 +1,7 @@
 #ifndef STATES_STATE_H
 #define STATES_STATE_H
 
+#include "../ColorPalettes/AppColorPalette.h"
 #include "../ResourceHolders/TextureHolder.h"
 #include "../Visualization.h"
 #include "StateIdentifiers.h"

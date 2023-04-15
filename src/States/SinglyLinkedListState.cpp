@@ -26,7 +26,7 @@ bool SinglyLinkedListState::update(float dt) {
 }
 
 void SinglyLinkedListState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
     mVisualization.draw();
     mButton.draw();
 }

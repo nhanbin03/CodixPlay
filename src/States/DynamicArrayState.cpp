@@ -12,6 +12,6 @@ bool DynamicArrayState::update(float dt) {
 }
 
 void DynamicArrayState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
     mVisualization.draw();
 }

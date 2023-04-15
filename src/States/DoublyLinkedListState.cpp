@@ -12,6 +12,6 @@ bool DoublyLinkedListState::update(float dt) {
 }
 
 void DoublyLinkedListState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
     mVisualization.draw();
 }

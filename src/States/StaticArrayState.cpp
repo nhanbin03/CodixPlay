@@ -12,6 +12,6 @@ bool StaticArrayState::update(float dt) {
 }
 
 void StaticArrayState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
     mVisualization.draw();
 }

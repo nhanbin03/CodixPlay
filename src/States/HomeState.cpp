@@ -11,5 +11,5 @@ bool HomeState::update(float dt) {
 }
 
 void HomeState::draw() {
-    ClearBackground(RAYWHITE);
+    ClearBackground(AppColor::BACKGROUND_2);
 }
