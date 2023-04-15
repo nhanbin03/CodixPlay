@@ -211,6 +211,16 @@ float VisualScene::easeInOut(float from, float to, float time,
     return EaseQuadInOut(time, from, to - from, totalTime);
 }
 
+Color VisualScene::easeInOutColor(Color fromColor, Color toColor, float time,
+                                  float totalTime) {
+    Color newColor;
+    newColor.r = easeInOut(fromColor.r, toColor.r, time, totalTime);
+    newColor.g = easeInOut(fromColor.g, toColor.g, time, totalTime);
+    newColor.b = easeInOut(fromColor.b, toColor.b, time, totalTime);
+    newColor.a = easeInOut(fromColor.a, toColor.a, time, totalTime);
+    return newColor;
+}
+
 void VisualScene::transitionNode(const VisualScene& fromScene,
                                  const VisualScene& toScene, float time,
                                  float totalTime, VisualScene& visualScene) {
@@ -242,11 +252,17 @@ void VisualScene::transitionNode(const VisualScene& fromScene,
             from.setPosition(to.getPosition());
             from.setScale(0);
             from.setValue(to.getValue());
+            from.setColor(to.getColor());
+            from.setBorderColor(to.getBorderColor());
+            from.setValueColor(to.getValueColor());
         }
         if (toFound == toScene.mNodeMap.end()) {
             to.setPosition(from.getPosition());
             to.setScale(0);
             to.setValue(from.getValue());
+            to.setColor(from.getColor());
+            to.setBorderColor(from.getBorderColor());
+            to.setValueColor(from.getValueColor());
         }
 
         CircleNode newObject = to;
@@ -269,13 +285,12 @@ void VisualScene::transitionNode(const VisualScene& fromScene,
             easeInOut(from.getValue(), to.getValue(), time, totalTime));
 
         // Animate color
-        Color newColor;
-        Color fromColor = from.getColor();
-        Color toColor = to.getColor();
-        newColor.r = easeInOut(fromColor.r, toColor.r, time, totalTime);
-        newColor.g = easeInOut(fromColor.g, toColor.g, time, totalTime);
-        newColor.b = easeInOut(fromColor.b, toColor.b, time, totalTime);
-        newColor.a = easeInOut(fromColor.a, toColor.a, time, totalTime);
+        newObject.setColor(
+            easeInOutColor(from.getColor(), to.getColor(), time, totalTime));
+        newObject.setBorderColor(easeInOutColor(
+            from.getBorderColor(), to.getBorderColor(), time, totalTime));
+        newObject.setValueColor(easeInOutColor(
+            from.getValueColor(), to.getValueColor(), time, totalTime));
 
         auto insertStatus = visualScene.mNodeMap.emplace(objectID, newObject);
         assert(insertStatus.second == true);

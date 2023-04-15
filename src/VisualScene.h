@@ -66,6 +66,9 @@ private:
 
     static float easeInOut(float from, float to, float time, float totalTime);
 
+    static Color easeInOutColor(Color fromColor, Color toColor, float time,
+                                float totalTime);
+
     static void transitionNode(const VisualScene& fromScene,
                                const VisualScene& toScene, float time,
                                float totalTime, VisualScene& visualScene);
