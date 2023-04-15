@@ -10,10 +10,18 @@ void CircleNode::draw() {
     int x = getPosition().x;
     int y = getPosition().y;
 
-    DrawCircle(x, y, mRadius * getScale(), mColor);
+    float displayRadius = mRadius * getScale();
+    float displayBorder = BORDER_THICKNESS * getScale();
+
+    DrawCircle(x, y, displayRadius, mColor);
+    DrawRectangleRoundedLines(
+        {x - displayRadius + displayBorder, y - displayRadius + displayBorder,
+         (displayRadius - displayBorder) * 2,
+         (displayRadius - displayBorder) * 2},
+        1, 100, displayBorder, mBorderColor);
 
     const char *valueText = std::to_string(mValue).c_str();
-    float fontSize = mRadius * getScale();
+    float fontSize = displayRadius - displayBorder;
     DrawText(valueText, x - MeasureText(valueText, fontSize) / 2,
              y - fontSize / 2, fontSize, mValueColor);
 }

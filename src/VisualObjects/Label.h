@@ -22,7 +22,7 @@ public:
 private:
     std::string mText;
 
-    Color mColor{BLACK};
+    Color mColor{VisualColor::getReferenceColor()};
 
     int mSize{TEXT_SIZE};
 };

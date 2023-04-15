@@ -1,6 +1,9 @@
 #ifndef VISUALOBJECT_H
 #define VISUALOBJECT_H
 
+#include "../ColorPalettes/AppColorPalette.h"
+#include "../ColorPalettes/VisualColorPalette.h"
+
 #include "raylib.h"
 
 #include <memory>
@@ -10,6 +13,7 @@ public:
     typedef std::unique_ptr<VisualObject> Ptr;
 
     static constexpr int ELEMENT_SIZE = 50;
+    static constexpr int BORDER_THICKNESS = 5;
 
 public:
     VisualObject();

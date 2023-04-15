@@ -27,9 +27,11 @@ private:
     float mRadius{ELEMENT_SIZE / 2};
 
     int mValue{0};
-    Color mValueColor{WHITE};
+    Color mValueColor{VisualColor::getPrimaryColor()};
 
-    Color mColor{BLACK};
+    Color mColor{AppColor::BACKGROUND_2};
+
+    Color mBorderColor{VisualColor::getPrimaryColor()};
 };
 
 #endif // VISUALOBJECTS_CIRCLENODE_H

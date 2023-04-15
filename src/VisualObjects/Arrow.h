@@ -25,7 +25,7 @@ private:
     Vector2 mSource, mDestination;
     int mThickness{DEFAULT_THICKNESS};
 
-    Color mColor{BLACK};
+    Color mColor{VisualColor::getReferenceColor()};
 };
 
 #endif // VISUALOBJECTS_ARROW_H
