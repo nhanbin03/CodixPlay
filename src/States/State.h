@@ -1,6 +1,7 @@
 #ifndef STATES_STATE_H
 #define STATES_STATE_H
 
+#include "../ResourceHolders/TextureHolder.h"
 #include "../Visualization.h"
 #include "StateIdentifiers.h"
 
@@ -12,7 +13,10 @@ class State {
 public:
     typedef std::unique_ptr<State> Ptr;
 
-    struct Context {};
+    struct Context {
+        Context(TextureHolder &textures);
+        TextureHolder *textures;
+    };
 
 public:
     State(StateStack &stack, Context context);

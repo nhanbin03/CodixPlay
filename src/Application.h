@@ -1,6 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include "ResourceHolders/TextureHolder.h"
 #include "StateStack.h"
 
 #include "raylib.h"
@@ -25,8 +26,12 @@ private:
 
     void registerStates();
 
+    void loadTextures();
+
 private:
     StateStack mStateStack;
+
+    TextureHolder mTextures;
 };
 
 #endif // APPLICATION_H

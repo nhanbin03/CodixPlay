@@ -1,5 +1,7 @@
 #include "Button.h"
 
+#include "../Helper.h"
+
 Button::Button(Rectangle bounds) {
     mRect = bounds;
     mColor = GRAY;
@@ -26,11 +28,13 @@ void Button::draw() {
     }
     DrawRectangleRounded(mRect, 0.5, SEGMENTS,
                          ColorBrightness(mColor, filterBrightness));
+
     if (mBorderThickness != 0) {
         DrawRectangleRoundedLines(
             mRect, 0.5, SEGMENTS, mBorderThickness,
             ColorBrightness(mBorderColor, filterBrightness));
     }
+
     if (mTextSize == 0) {
         mTextSize = mRect.height / 2;
     }
@@ -39,6 +43,13 @@ void Button::draw() {
         mRect.x + mRect.width / 2 - MeasureText(mText.c_str(), mTextSize) / 2,
         mRect.y + mRect.height / 2 - mTextSize / 2, mTextSize,
         ColorBrightness(mTextColor, filterBrightness));
+
+    DrawTextureV(mTexture, getPosition(), WHITE);
+}
+
+void Button::setSize(Vector2 size) {
+    GUIComponent::setSize(size);
+    scaleTexture(mTexture, getSize());
 }
 
 void Button::setCallback(Callback callback) {
@@ -55,6 +66,11 @@ void Button::setTextSize(int size) {
 
 void Button::setTextColor(Color color) {
     mTextColor = color;
+}
+
+void Button::setTexture(Texture2D texture) {
+    mTexture = texture;
+    scaleTexture(mTexture, getSize());
 }
 
 void Button::checkInteraction() {

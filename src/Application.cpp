@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "ResourceHolders/ResourceIdentifiers.h"
 #include "States/CircularLinkedListState.h"
 #include "States/DoublyLinkedListState.h"
 #include "States/DynamicArrayState.h"
@@ -12,7 +13,7 @@
 #include "raylib.h"
 
 Application::Application()
-: mStateStack(State::Context()) {
+: mStateStack(State::Context(mTextures)) {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     SetTargetFPS(FPS);
 
@@ -53,4 +54,10 @@ void Application::registerStates() {
         StateIDs::CircularLinkedList);
     mStateStack.registerState<StackState>(StateIDs::Stack);
     mStateStack.registerState<QueueState>(StateIDs::Queue);
+}
+
+void Application::loadTextures() {
+    std::string BASE_PATH = "../asset/texture/";
+    // mTextures.load(TextureID::PrevSceneButton,
+    //                BASE_PATH + "PrevSceneButton.png");
 }

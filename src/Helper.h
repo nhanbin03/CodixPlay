@@ -11,4 +11,6 @@ Vector2 operator* (const Vector2 &a, float x);
 
 Vector2 operator/ (const Vector2 &a, float x);
 
+void scaleTexture(Texture2D &source, Vector2 newSize);
+
 #endif // HELPER_H

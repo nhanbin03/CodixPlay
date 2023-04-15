@@ -6,6 +6,12 @@ TextureHolder::TextureHolder() {
     mResourceMap[TextureID::None] = std::make_unique<Texture2D>();
 }
 
+TextureHolder::~TextureHolder() {
+    for (auto& p : mResourceMap) {
+        UnloadTexture(*p.second);
+    }
+}
+
 void TextureHolder::load(TextureID id, const std::string& filename) {
     std::unique_ptr<Texture2D> resource(new Texture());
     *resource = LoadTexture(filename.c_str());

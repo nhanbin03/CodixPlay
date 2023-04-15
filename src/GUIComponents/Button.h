@@ -6,6 +6,7 @@
 #include "raylib.h"
 
 #include <functional>
+#include <memory>
 #include <string>
 
 class Button : public GUIComponent {
@@ -28,11 +29,15 @@ public:
     void update(float dt);
     void draw();
 
+    void setSize(Vector2 size);
+
     void setCallback(Callback callback);
 
     void setText(const std::string text);
     void setTextSize(int size);
     void setTextColor(Color color);
+
+    void setTexture(Texture2D texture);
 
 private:
     void checkInteraction();
@@ -45,6 +50,8 @@ private:
     std::string mText;
     Color mTextColor{WHITE};
     int mTextSize{0};
+
+    Texture2D mTexture;
 };
 
 #endif // GUICOMPONENTS_BUTTON_H

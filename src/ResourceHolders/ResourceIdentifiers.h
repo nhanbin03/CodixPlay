@@ -2,7 +2,8 @@
 #define RESOURCEHOLDERS_RESOURCEIDENTIFIERS_H
 
 enum class TextureID {
-    None
+    None,
+    PrevSceneButton
 };
 
 #endif // RESOURCEHOLDERS_RESOURCEIDENTIFIERS_H

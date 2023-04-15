@@ -21,3 +21,7 @@ void State::requestStackPop() {
 void State::requestStackClear() {
     mStack->clearStates();
 }
+
+State::Context::Context(TextureHolder &textures)
+: textures(&textures) {
+}
