@@ -30,8 +30,6 @@ private:
 
 private:
     StateStack mStateStack;
-
-    TextureHolder mTextures;
 };
 
 #endif // APPLICATION_H

@@ -9,10 +9,10 @@
 #include <memory>
 #include <string>
 
+// Singelton
 class TextureHolder {
 public:
-    TextureHolder();
-    ~TextureHolder();
+    static TextureHolder& getInstance();
 
     void load(TextureID id, const std::string& filename);
 
@@ -20,6 +20,10 @@ public:
     const Texture2D& get(TextureID id) const;
 
 private:
+    TextureHolder();
+    TextureHolder(TextureHolder const&) = delete;
+    void operator= (TextureHolder const&) = delete;
+    ~TextureHolder();
     std::map<TextureID, std::unique_ptr<Texture2D>> mResourceMap;
 
 private:

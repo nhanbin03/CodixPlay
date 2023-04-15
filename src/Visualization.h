@@ -12,7 +12,7 @@
 
 class Visualization : public GUIComponent {
 public:
-    Visualization(VisualScene initScene = VisualScene());
+    Visualization();
     ~Visualization();
 
     void update(float dt);

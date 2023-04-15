@@ -2,6 +2,8 @@
 
 #include "../Helper.h"
 
+#include <iostream>
+
 Button::Button(Rectangle bounds) {
     mRect = bounds;
     mColor = GRAY;
@@ -42,9 +44,10 @@ void Button::draw() {
         mText.c_str(),
         mRect.x + mRect.width / 2 - MeasureText(mText.c_str(), mTextSize) / 2,
         mRect.y + mRect.height / 2 - mTextSize / 2, mTextSize,
-        ColorBrightness(mTextColor, filterBrightness));
+        ColorBrightness(mContentColor, filterBrightness));
 
-    DrawTextureV(mTexture, getPosition(), WHITE);
+    if (mHasTexture)
+        DrawTextureV(mTexture, getPosition(), mContentColor);
 }
 
 void Button::setSize(Vector2 size) {
@@ -64,11 +67,12 @@ void Button::setTextSize(int size) {
     mTextSize = 30;
 }
 
-void Button::setTextColor(Color color) {
-    mTextColor = color;
+void Button::setContentColor(Color color) {
+    mContentColor = color;
 }
 
 void Button::setTexture(Texture2D texture) {
+    mHasTexture = true;
     mTexture = texture;
     scaleTexture(mTexture, getSize());
 }

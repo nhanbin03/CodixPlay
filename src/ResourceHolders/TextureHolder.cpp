@@ -1,6 +1,7 @@
 #include "TextureHolder.h"
 
 #include <cassert>
+#include <iostream>
 
 TextureHolder::TextureHolder() {
     mResourceMap[TextureID::None] = std::make_unique<Texture2D>();
@@ -10,6 +11,11 @@ TextureHolder::~TextureHolder() {
     for (auto& p : mResourceMap) {
         UnloadTexture(*p.second);
     }
+}
+
+TextureHolder& TextureHolder::getInstance() {
+    static TextureHolder instance;
+    return instance;
 }
 
 void TextureHolder::load(TextureID id, const std::string& filename) {

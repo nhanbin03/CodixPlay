@@ -1,4 +1,6 @@
 #include "ControlBar.h"
+#include "ResourceHolders/ResourceIdentifiers.h"
+#include "ResourceHolders/TextureHolder.h"
 
 #include <cassert>
 #include <iostream>

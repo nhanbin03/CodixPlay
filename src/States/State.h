@@ -13,10 +13,7 @@ class State {
 public:
     typedef std::unique_ptr<State> Ptr;
 
-    struct Context {
-        Context(TextureHolder &textures);
-        TextureHolder *textures;
-    };
+    struct Context {};
 
 public:
     State(StateStack &stack, Context context);

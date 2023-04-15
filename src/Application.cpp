@@ -12,10 +12,14 @@
 
 #include "raylib.h"
 
+#include <iostream>
+
 Application::Application()
-: mStateStack(State::Context(mTextures)) {
+: mStateStack(State::Context()) {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     SetTargetFPS(FPS);
+
+    loadTextures();
 
     registerStates();
     mStateStack.pushState(StateIDs::SinglyLinkedList);
@@ -57,7 +61,7 @@ void Application::registerStates() {
 }
 
 void Application::loadTextures() {
-    std::string BASE_PATH = "../asset/texture/";
-    // mTextures.load(TextureID::PrevSceneButton,
-    //                BASE_PATH + "PrevSceneButton.png");
+    std::string BASE_PATH = "asset/texture/";
+    TextureHolder::getInstance().load(TextureID::PrevSceneButton,
+                                      BASE_PATH + "PrevSceneButton.png");
 }

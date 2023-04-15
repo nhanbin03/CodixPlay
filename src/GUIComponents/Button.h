@@ -33,9 +33,10 @@ public:
 
     void setCallback(Callback callback);
 
+    void setContentColor(Color color);
+
     void setText(const std::string text);
     void setTextSize(int size);
-    void setTextColor(Color color);
 
     void setTexture(Texture2D texture);
 
@@ -47,10 +48,12 @@ private:
 
     Callback mCallback;
 
+    Color mContentColor{WHITE};
+
     std::string mText;
-    Color mTextColor{WHITE};
     int mTextSize{0};
 
+    bool mHasTexture{false};
     Texture2D mTexture;
 };
 

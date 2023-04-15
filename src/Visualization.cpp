@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-Visualization::Visualization(VisualScene initScene)
-: mSceneTrack({initScene})
+Visualization::Visualization()
+: mSceneTrack({VisualScene()})
 , mControlBar(mSceneTrack, mDisplayingScene) {
-    mDisplayingScene = initScene;
+    mDisplayingScene = mSceneTrack.front();
 
     // GUI
     mControlBar.setRect({138, 787, 847, 163});
