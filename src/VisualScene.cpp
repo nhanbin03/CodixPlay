@@ -74,7 +74,7 @@ void VisualScene::removeNode(int nodeID) {
     mNodeMap.erase(nodeID);
 }
 
-Vector2 VisualScene::getNodePosition(int nodeID) {
+Vector2 VisualScene::getNodePosition(int nodeID) const {
     return getNode(nodeID).getPosition();
 }
 
@@ -161,6 +161,13 @@ CircleNode& VisualScene::getNode(int nodeID) {
     return found->second;
 }
 
+const CircleNode& VisualScene::getNode(int nodeID) const {
+    auto found = mNodeMap.find(nodeID);
+    assert(found != mNodeMap.end());
+
+    return found->second;
+}
+
 Arrow& VisualScene::getArrow(int arrowID) {
     auto found = mArrowMap.find(arrowID);
     assert(found != mArrowMap.end());
@@ -168,7 +175,21 @@ Arrow& VisualScene::getArrow(int arrowID) {
     return found->second;
 }
 
+const Arrow& VisualScene::getArrow(int arrowID) const {
+    auto found = mArrowMap.find(arrowID);
+    assert(found != mArrowMap.end());
+
+    return found->second;
+}
+
 Label& VisualScene::getLabel(int labelID) {
+    auto found = mLabelMap.find(labelID);
+    assert(found != mLabelMap.end());
+
+    return found->second;
+}
+
+const Label& VisualScene::getLabel(int labelID) const {
     auto found = mLabelMap.find(labelID);
     assert(found != mLabelMap.end());
 

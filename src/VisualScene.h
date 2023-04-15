@@ -37,7 +37,7 @@ public:
     void colorValueNode(int nodeID, Color color);
     void updateNode(int nodeID, int value);
     void removeNode(int nodeID);
-    Vector2 getNodePosition(int nodeID);
+    Vector2 getNodePosition(int nodeID) const;
 
     int createArrow(Vector2 source, Vector2 destination);
     int createCircularArrow(Vector2 source, Vector2 destination);
@@ -55,8 +55,13 @@ public:
 
 private:
     CircleNode& getNode(int nodeID);
+    const CircleNode& getNode(int nodeID) const;
+
     Arrow& getArrow(int arrowID);
+    const Arrow& getArrow(int arrowID) const;
+
     Label& getLabel(int labelID);
+    const Label& getLabel(int labelID) const;
 
     static float easeInOut(float from, float to, float time, float totalTime);
 
