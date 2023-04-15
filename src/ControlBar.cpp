@@ -11,6 +11,8 @@ ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
     assert(mSceneTrack->size() > 0);
     *mDisplayingScene = mSceneTrack->front();
 
+    setColor(AppColor::BACKGROUND_3);
+
     Button rewindBtn = Button({379, 870, 52, 52});
     formatButton(rewindBtn, TextureID::RewindSceneButton);
     rewindBtn.setCallback([this]() {
@@ -143,7 +145,7 @@ void ControlBar::updateDisplayingScene(float dt) {
 }
 
 void ControlBar::formatButton(Button& btn, TextureID id) {
-    btn.setColor(LIGHTGRAY);
-    btn.setContentColor(BLACK);
+    btn.setColor(AppColor::BACKGROUND_3);
+    btn.setContentColor(AppColor::TEXT);
     btn.setTexture(TextureHolder::getInstance().get(id));
 }

@@ -1,6 +1,7 @@
 #ifndef CONTROLBAR_H
 #define CONTROLBAR_H
 
+#include "ColorPalettes/AppColorPalette.h"
 #include "GUIComponents/Button.h"
 #include "ResourceHolders/ResourceIdentifiers.h"
 #include "VisualScene.h"
