@@ -30,6 +30,7 @@ void SinglyLinkedListAlgo::addFirst(int value) {
     Node::Ptr node = std::make_shared<Node>();
     node->value = value;
     node->id = mVisualization.createNode(value);
+    mVisualization.colorNode(node->id, VisualColor::getSecondaryColor());
     mVisualization.moveNode(node->id, STARTING_POSITION + Vector2{0, SPACING});
     assignNodePtr(node, node, 3, "node");
 
@@ -42,6 +43,7 @@ void SinglyLinkedListAlgo::addFirst(int value) {
 
     // Scene 3
     mVisualization.createNewScene();
+    mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
     assignNodePtr(mDSHead, node, 1, "head");
 
     // Scene 4
@@ -59,6 +61,7 @@ void SinglyLinkedListAlgo::addFirst(int value) {
 
     // Clean up
     mSceneCleanUp = [node, this]() {
+        mVisualization.unhighlightNode(node->id);
         node->removeReference("node");
         mVisualization.updateLabel(node->referencesId, node->referencesText());
     };
@@ -140,16 +143,19 @@ void SinglyLinkedListAlgo::addInitialNode(int value) {
     Node::Ptr node = std::make_shared<Node>();
     node->value = value;
     node->id = mVisualization.createNode(value);
+    mVisualization.colorNode(node->id, VisualColor::getSecondaryColor());
     mVisualization.moveNode(node->id, STARTING_POSITION);
     assignNodePtr(node, node, 3, "node");
 
     // Scene 2
     mVisualization.createNewScene();
+    mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
     assignNodePtr(mDSHead, node, 1, "head");
     assignNodePtr(mDSTail, node, 2, "tail");
 
     // Scene clean up
     mSceneCleanUp = [node, this]() {
+        mVisualization.unhighlightNode(node->id);
         node->removeReference("node");
         mVisualization.updateLabel(node->referencesId, node->referencesText());
     };
