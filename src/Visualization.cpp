@@ -66,7 +66,7 @@ void Visualization::removeNode(int nodeID) {
     mSceneTrack.back().removeNode(nodeID);
 }
 
-Vector2 Visualization::getNodePosition(int nodeID) {
+Vector2 Visualization::getNodePosition(int nodeID) const {
     return mSceneTrack.back().getNodePosition(nodeID);
 }
 
