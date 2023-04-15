@@ -1,5 +1,4 @@
 #include "ControlBar.h"
-#include "ResourceHolders/ResourceIdentifiers.h"
 #include "ResourceHolders/TextureHolder.h"
 
 #include <cassert>
@@ -13,28 +12,36 @@ ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
     *mDisplayingScene = mSceneTrack->front();
 
     Button rewindBtn = Button({379, 870, 52, 52});
+    formatButton(rewindBtn, TextureID::RewindSceneButton);
     rewindBtn.setCallback([this]() {
-        this->mIsPaused = true;
+        this->setPause(true);
         this->rewindScene();
     });
+
     Button prevBtn = Button({457, 870, 52, 52});
+    formatButton(prevBtn, TextureID::PrevSceneButton);
     prevBtn.setCallback([this]() {
-        this->mIsPaused = true;
+        this->setPause(true);
         this->prevScene();
     });
+
     Button pauseBtn = Button({535, 870, 52, 52});
+    formatButton(pauseBtn, TextureID::PauseSceneButton);
     pauseBtn.setCallback([this]() {
-        this->mIsPaused = true;
         this->togglePause();
     });
+
     Button nextBtn = Button({613, 870, 52, 52});
+    formatButton(nextBtn, TextureID::NextSceneButton);
     nextBtn.setCallback([this]() {
-        this->mIsPaused = true;
+        this->setPause(true);
         this->nextScene();
     });
+
     Button fowardBtn = Button({691, 870, 52, 52});
+    formatButton(fowardBtn, TextureID::FowardSceneButton);
     fowardBtn.setCallback([this]() {
-        this->mIsPaused = true;
+        this->setPause(true);
         this->fowardScene();
     });
 
@@ -64,7 +71,7 @@ void ControlBar::draw() {
 
 void ControlBar::reset() {
     rewindScene();
-    mIsPaused = false;
+    setPause(false);
 }
 
 void ControlBar::rewindScene() {
@@ -82,7 +89,7 @@ void ControlBar::prevScene() {
 }
 
 void ControlBar::togglePause() {
-    mIsPaused = !mIsPaused;
+    setPause(!mIsPaused);
 }
 
 void ControlBar::nextScene() {
@@ -97,6 +104,16 @@ void ControlBar::nextScene() {
 void ControlBar::fowardScene() {
     *mDisplayingScene = mSceneTrack->back();
     mTracker = mSceneTrack->size() - 1;
+}
+
+void ControlBar::setPause(bool pause) {
+    mIsPaused = pause;
+    if (mIsPaused == true)
+        mBtnContainer[2].setTexture(
+            TextureHolder::getInstance().get(TextureID::PlaySceneButton));
+    else
+        mBtnContainer[2].setTexture(
+            TextureHolder::getInstance().get(TextureID::PauseSceneButton));
 }
 
 void ControlBar::updateDisplayingScene(float dt) {
@@ -123,4 +140,10 @@ void ControlBar::updateDisplayingScene(float dt) {
     } else {
         *mDisplayingScene = (*mSceneTrack)[mTracker];
     }
+}
+
+void ControlBar::formatButton(Button& btn, TextureID id) {
+    btn.setColor(LIGHTGRAY);
+    btn.setContentColor(BLACK);
+    btn.setTexture(TextureHolder::getInstance().get(id));
 }

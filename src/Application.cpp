@@ -62,6 +62,16 @@ void Application::registerStates() {
 
 void Application::loadTextures() {
     std::string BASE_PATH = "asset/texture/";
+    TextureHolder::getInstance().load(TextureID::RewindSceneButton,
+                                      BASE_PATH + "RewindSceneButton.png");
     TextureHolder::getInstance().load(TextureID::PrevSceneButton,
                                       BASE_PATH + "PrevSceneButton.png");
+    TextureHolder::getInstance().load(TextureID::PlaySceneButton,
+                                      BASE_PATH + "PlaySceneButton.png");
+    TextureHolder::getInstance().load(TextureID::PauseSceneButton,
+                                      BASE_PATH + "PauseSceneButton.png");
+    TextureHolder::getInstance().load(TextureID::NextSceneButton,
+                                      BASE_PATH + "NextSceneButton.png");
+    TextureHolder::getInstance().load(TextureID::FowardSceneButton,
+                                      BASE_PATH + "FowardSceneButton.png");
 }

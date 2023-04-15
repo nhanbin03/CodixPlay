@@ -3,7 +3,12 @@
 
 enum class TextureID {
     None,
-    PrevSceneButton
+    RewindSceneButton,
+    PrevSceneButton,
+    PlaySceneButton,
+    PauseSceneButton,
+    NextSceneButton,
+    FowardSceneButton
 };
 
 #endif // RESOURCEHOLDERS_RESOURCEIDENTIFIERS_H

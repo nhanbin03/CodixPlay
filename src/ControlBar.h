@@ -2,6 +2,7 @@
 #define CONTROLBAR_H
 
 #include "GUIComponents/Button.h"
+#include "ResourceHolders/ResourceIdentifiers.h"
 #include "VisualScene.h"
 
 #include "raylib.h"
@@ -48,7 +49,10 @@ private:
     void nextScene();
     void fowardScene();
 
-    void updateDisplayingScene(float dt);
-};
+    void setPause(bool pause);
 
+    void updateDisplayingScene(float dt);
+
+    void formatButton(Button &btn, TextureID id);
+};
 #endif // CONTROLBAR_H
