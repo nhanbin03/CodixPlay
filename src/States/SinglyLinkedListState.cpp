@@ -14,8 +14,12 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
     mButton.setBorderThickness(2);
     mButton.setBorderColor(BLACK);
 
+    mAlgo.addFirst(0);
+    mAlgo.addFirst(0);
+    mAlgo.addFirst(0);
+    mAlgo.addFirst(0);
     mButton.setCallback([this]() {
-        this->mAlgo.addLast(rand() % 100);
+        this->mAlgo.addMiddle(3, 3);
     });
 }
 
