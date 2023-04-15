@@ -4,8 +4,8 @@
 #include <cassert>
 
 const Color VisualColor::OPTIONS[] = {
-    Color({52, 168, 83, 255}), Color({251, 188, 4, 255}),
-    Color({238, 103, 92, 255}), Color({78, 205, 230, 255})};
+    Color({52, 168, 83, 255}), Color({238, 103, 92, 255}),
+    Color({78, 205, 230, 255}), Color({251, 188, 4, 255})};
 
 Color VisualColor::mColors[] = {
     VisualColor::OPTIONS[0], VisualColor::OPTIONS[1], VisualColor::OPTIONS[2],
