@@ -48,9 +48,6 @@ private:
         int referencesId{-1};
         std::map<int, std::string> references; // pointers pointed to this node
     public:
-        void addReference(int order, std::string reference);
-        void removeReference(std::string reference);
-
         std::string referencesText();
     };
 
@@ -72,6 +69,9 @@ private:
     void relayout();
 
     void addInitialNode(int value);
+
+    void addReference(Node::Ptr node, int order, std::string reference);
+    void removeReference(Node::Ptr node, std::string reference);
 };
 
 #endif // ALGORITHMS_SINGLYLINKEDLISTALGO_H
