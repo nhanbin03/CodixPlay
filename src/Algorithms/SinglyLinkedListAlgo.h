@@ -64,6 +64,8 @@ private:
 private:
     void sceneInit();
 
+    void generalCleanUp();
+
     void assignNodePtr(Node::Ptr& from, const Node::Ptr& to, int order,
                        std::string name);
 

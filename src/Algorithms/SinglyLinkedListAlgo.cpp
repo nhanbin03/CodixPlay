@@ -61,9 +61,9 @@ void SinglyLinkedListAlgo::addFirst(int value) {
 
     // Clean up
     mSceneCleanUp = [node, this]() {
-        mVisualization.unhighlightNode(node->id);
         node->removeReference("node");
-        mVisualization.updateLabel(node->referencesId, node->referencesText());
+        this->mVisualization.updateLabel(node->referencesId,
+                                         node->referencesText());
     };
 }
 
@@ -88,6 +88,7 @@ void SinglyLinkedListAlgo::addLast(int value) {
     Node::Ptr node = std::make_shared<Node>();
     node->value = value;
     node->id = mVisualization.createNode(value);
+    mVisualization.colorNode(node->id, VisualColor::getSecondaryColor());
     mVisualization.moveNode(
         node->id,
         mVisualization.getNodePosition(mDSTail->id) + Vector2{SPACING, 0});
@@ -102,18 +103,27 @@ void SinglyLinkedListAlgo::addLast(int value) {
 
     // Scene 3
     mVisualization.createNewScene();
+    mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
     assignNodePtr(mDSTail, node, 1, "tail");
 
     // Clean up
     mSceneCleanUp = [node, this]() {
         node->removeReference("node");
-        mVisualization.updateLabel(node->referencesId, node->referencesText());
+        this->mVisualization.updateLabel(node->referencesId,
+                                         node->referencesText());
     };
 }
 
 void SinglyLinkedListAlgo::sceneInit() {
     mSceneCleanUp();
+    generalCleanUp();
     mVisualization.reset(mVisualization.getLastScene());
+}
+
+void SinglyLinkedListAlgo::generalCleanUp() {
+    for (Node::Ptr cur = mDSHead; cur != nullptr; cur = cur->next.node) {
+        mVisualization.unhighlightNode(cur->id);
+    }
 }
 
 void SinglyLinkedListAlgo::assignNodePtr(Node::Ptr& from, const Node::Ptr& to,
@@ -155,9 +165,9 @@ void SinglyLinkedListAlgo::addInitialNode(int value) {
 
     // Scene clean up
     mSceneCleanUp = [node, this]() {
-        mVisualization.unhighlightNode(node->id);
         node->removeReference("node");
-        mVisualization.updateLabel(node->referencesId, node->referencesText());
+        this->mVisualization.updateLabel(node->referencesId,
+                                         node->referencesText());
     };
 }
 
