@@ -14,32 +14,12 @@ void SinglyLinkedListAlgo::addFirst(int value) {
         return;
     mListSize++;
 
-    sceneInit();
-    // If empty
-    // Node* node = new Node(value);
-    // head = node, tail = node;
     if (mDSHead == nullptr) {
-        // Scene 1
-        mVisualization.createNewScene();
-        Node::Ptr node = std::make_shared<Node>();
-        node->value = value;
-        node->id = mVisualization.createNode(value);
-        mVisualization.moveNode(node->id, STARTING_POSITION);
-        assignNodePtr(node, node, 3, "node");
-
-        // Scene 2
-        mVisualization.createNewScene();
-        assignNodePtr(mDSHead, node, 1, "head");
-        assignNodePtr(mDSTail, node, 2, "tail");
-
-        // Scene clean up
-        mSceneCleanUp = [node, this]() {
-            node->removeReference("node");
-            mVisualization.updateLabel(node->referencesId,
-                                       node->referencesText());
-        };
+        addInitialNode(value);
         return;
     }
+
+    sceneInit();
 
     /// If not empty
     // Node* node = new Node(value);
@@ -104,6 +84,33 @@ void SinglyLinkedListAlgo::assignNodePtr(Node::Ptr& from, const Node::Ptr& to,
         from->referencesId = mVisualization.createNodeLabel("", from->id);
     }
     mVisualization.updateLabel(from->referencesId, from->referencesText());
+}
+
+void SinglyLinkedListAlgo::addInitialNode(int value) {
+    sceneInit();
+
+    // If empty
+    // Node* node = new Node(value);
+    // head = node, tail = node;
+
+    // Scene 1
+    mVisualization.createNewScene();
+    Node::Ptr node = std::make_shared<Node>();
+    node->value = value;
+    node->id = mVisualization.createNode(value);
+    mVisualization.moveNode(node->id, STARTING_POSITION);
+    assignNodePtr(node, node, 3, "node");
+
+    // Scene 2
+    mVisualization.createNewScene();
+    assignNodePtr(mDSHead, node, 1, "head");
+    assignNodePtr(mDSTail, node, 2, "tail");
+
+    // Scene clean up
+    mSceneCleanUp = [node, this]() {
+        node->removeReference("node");
+        mVisualization.updateLabel(node->referencesId, node->referencesText());
+    };
 }
 
 void SinglyLinkedListAlgo::Node::addReference(int order,

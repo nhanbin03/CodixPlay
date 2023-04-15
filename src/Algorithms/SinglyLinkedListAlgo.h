@@ -66,6 +66,8 @@ private:
 
     void assignNodePtr(Node::Ptr& from, const Node::Ptr& to, int order,
                        std::string name);
+
+    void addInitialNode(int value);
 };
 
 #endif // ALGORITHMS_SINGLYLINKEDLISTALGO_H
