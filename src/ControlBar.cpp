@@ -10,24 +10,29 @@ ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
     assert(mSceneTrack->size() > 0);
     *mDisplayingScene = mSceneTrack->front();
 
-    Button rewindBtn = Button({100, 700, 50, 50});
+    Button rewindBtn = Button({379, 870, 52, 52});
     rewindBtn.setCallback([this]() {
+        this->mIsPaused = true;
         this->rewindScene();
     });
-    Button prevBtn = Button({200, 700, 50, 50});
+    Button prevBtn = Button({457, 870, 52, 52});
     prevBtn.setCallback([this]() {
+        this->mIsPaused = true;
         this->prevScene();
     });
-    Button pauseBtn = Button({300, 700, 50, 50});
+    Button pauseBtn = Button({535, 870, 52, 52});
     pauseBtn.setCallback([this]() {
+        this->mIsPaused = true;
         this->togglePause();
     });
-    Button nextBtn = Button({400, 700, 50, 50});
+    Button nextBtn = Button({613, 870, 52, 52});
     nextBtn.setCallback([this]() {
+        this->mIsPaused = true;
         this->nextScene();
     });
-    Button fowardBtn = Button({500, 700, 50, 50});
+    Button fowardBtn = Button({691, 870, 52, 52});
     fowardBtn.setCallback([this]() {
+        this->mIsPaused = true;
         this->fowardScene();
     });
 
@@ -49,6 +54,7 @@ void ControlBar::update(float dt) {
 }
 
 void ControlBar::draw() {
+    DrawRectangleRec(mRect, mColor);
     for (auto& btn : mBtnContainer) {
         btn.draw();
     }

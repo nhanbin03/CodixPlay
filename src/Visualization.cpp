@@ -9,6 +9,7 @@ Visualization::Visualization(VisualScene initScene)
 
     // GUI
     mControlBar.setRect({138, 787, 847, 163});
+    mControlBar.setColor(LIGHTGRAY);
 }
 
 Visualization::~Visualization() {
