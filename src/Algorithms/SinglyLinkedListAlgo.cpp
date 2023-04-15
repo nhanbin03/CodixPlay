@@ -48,16 +48,7 @@ void SinglyLinkedListAlgo::addFirst(int value) {
 
     // Scene 4
     mVisualization.createNewScene();
-    mVisualization.moveNode(node->id, STARTING_POSITION);
-    mVisualization.attachNodeLabel(node->referencesId, node->id);
-    for (Node::Ptr cur = mDSHead; cur != mDSTail; cur = cur->next.node) {
-        mVisualization.moveArrowSource(cur->next.id,
-                                       mVisualization.getNodePosition(cur->id));
-        mVisualization.moveArrowDelta(cur->next.id, {0, 0}, {SPACING, 0});
-        mVisualization.moveNodeDelta(cur->next.node->id, {SPACING, 0});
-        mVisualization.attachNodeLabel(cur->next.node->referencesId,
-                                       cur->next.node->id);
-    }
+    relayout();
 
     // Clean up
     mSceneCleanUp = [node, this]() {
@@ -140,6 +131,19 @@ void SinglyLinkedListAlgo::assignNodePtr(Node::Ptr& from, const Node::Ptr& to,
         from->referencesId = mVisualization.createNodeLabel("", from->id);
     }
     mVisualization.updateLabel(from->referencesId, from->referencesText());
+}
+
+void SinglyLinkedListAlgo::relayout() {
+    mVisualization.moveNode(mDSHead->id, STARTING_POSITION);
+    mVisualization.attachNodeLabel(mDSHead->referencesId, mDSHead->id);
+    for (Node::Ptr cur = mDSHead; cur != mDSTail; cur = cur->next.node) {
+        mVisualization.moveArrowSource(cur->next.id,
+                                       mVisualization.getNodePosition(cur->id));
+        mVisualization.moveArrowDelta(cur->next.id, {0, 0}, {SPACING, 0});
+        mVisualization.moveNodeDelta(cur->next.node->id, {SPACING, 0});
+        mVisualization.attachNodeLabel(cur->next.node->referencesId,
+                                       cur->next.node->id);
+    }
 }
 
 void SinglyLinkedListAlgo::addInitialNode(int value) {

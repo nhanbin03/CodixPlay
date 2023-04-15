@@ -69,6 +69,8 @@ private:
     void assignNodePtr(Node::Ptr& from, const Node::Ptr& to, int order,
                        std::string name);
 
+    void relayout();
+
     void addInitialNode(int value);
 };
 
