@@ -6,10 +6,10 @@
 class VisualColor {
 public:
     enum ColorID {
-        Green,
-        Red,
         Blue,
         Yellow,
+        Red,
+        Green,
     };
 
 public:
