@@ -49,3 +49,11 @@ void CircleNode::setColor(Color color) {
 Color CircleNode::getColor() const {
     return mColor;
 }
+
+void CircleNode::setBorderColor(Color color) {
+    mBorderColor = color;
+}
+
+Color CircleNode::getBorderColor() const {
+    return mBorderColor;
+}

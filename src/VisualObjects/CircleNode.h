@@ -23,6 +23,9 @@ public:
     void setColor(Color color);
     Color getColor() const;
 
+    void setBorderColor(Color color);
+    Color getBorderColor() const;
+
 private:
     float mRadius{ELEMENT_SIZE / 2};
 
