@@ -4,6 +4,8 @@
 #include "../Algorithms/SinglyLinkedListAlgo.h"
 #include "State.h"
 
+#include "../GUIComponents/Button.h"
+
 class SinglyLinkedListState : public State {
 public:
     SinglyLinkedListState(StateStack &stack, Context context);
@@ -13,6 +15,7 @@ public:
 
 private:
     SinglyLinkedListAlgo mAlgo;
+    Button mButton;
 };
 
 #endif // STATES_SINGLYLINKEDLISTSTATE_H
