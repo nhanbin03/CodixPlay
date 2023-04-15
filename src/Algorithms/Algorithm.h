@@ -10,6 +10,10 @@
 
 class Algorithm {
 public:
+    static constexpr int SPACING = 110;
+    static constexpr Vector2 STARTING_POSITION = {230, 368};
+
+public:
     Algorithm(Visualization& visualization);
 
 protected:

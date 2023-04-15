@@ -7,7 +7,7 @@
 
 class Label : public VisualObject {
 public:
-    static constexpr int TEXT_SIZE = 24;
+    static constexpr int TEXT_SIZE = 20;
 
 public:
     explicit Label(std::string text = "");

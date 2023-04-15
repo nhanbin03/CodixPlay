@@ -5,7 +5,7 @@
 
 class Arrow : public VisualObject {
 public:
-    static constexpr int DEFAULT_THICKNESS = 10;
+    static constexpr int DEFAULT_THICKNESS = 5;
 
 public:
     Arrow();

@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "../Helper.h"
+
 SinglyLinkedListAlgo::SinglyLinkedListAlgo(Visualization& visualization)
 : Algorithm(visualization) {
     mSceneCleanUp = []() {};
@@ -18,7 +20,7 @@ void SinglyLinkedListAlgo::addFirst(int value) {
         Node::Ptr node = std::make_shared<Node>();
         node->value = value;
         node->id = mVisualization.createNode(value);
-        mVisualization.moveNode(node->id, {100, 100});
+        mVisualization.moveNode(node->id, STARTING_POSITION);
         assignNodePtr(node, node, 3, "node");
 
         // Scene 2
@@ -45,7 +47,7 @@ void SinglyLinkedListAlgo::addFirst(int value) {
     Node::Ptr node = std::make_shared<Node>();
     node->value = value;
     node->id = mVisualization.createNode(value);
-    mVisualization.moveNode(node->id, {100, 300});
+    mVisualization.moveNode(node->id, STARTING_POSITION + Vector2{0, SPACING});
     assignNodePtr(node, node, 3, "node");
 
     // Scene 2
@@ -61,13 +63,13 @@ void SinglyLinkedListAlgo::addFirst(int value) {
 
     // Scene 4
     mVisualization.createNewScene();
-    mVisualization.moveNode(node->id, {100, 100});
+    mVisualization.moveNode(node->id, STARTING_POSITION);
     mVisualization.attachNodeLabel(node->referencesId, node->id);
     for (Node::Ptr cur = mDSHead; cur != mDSTail; cur = cur->next.node) {
         mVisualization.moveArrowSource(cur->next.id,
                                        mVisualization.getNodePosition(cur->id));
-        mVisualization.moveArrowDelta(cur->next.id, {0, 0}, {200, 0});
-        mVisualization.moveNodeDelta(cur->next.node->id, {200, 0});
+        mVisualization.moveArrowDelta(cur->next.id, {0, 0}, {SPACING, 0});
+        mVisualization.moveNodeDelta(cur->next.node->id, {SPACING, 0});
         mVisualization.attachNodeLabel(cur->next.node->referencesId,
                                        cur->next.node->id);
     }

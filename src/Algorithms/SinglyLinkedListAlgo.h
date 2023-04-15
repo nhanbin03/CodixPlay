@@ -10,6 +10,9 @@
 
 class SinglyLinkedListAlgo : public Algorithm {
 public:
+    static constexpr int MAX_SIZE = 7;
+
+public:
     SinglyLinkedListAlgo(Visualization& visualization);
 
     void initializeRandom();
