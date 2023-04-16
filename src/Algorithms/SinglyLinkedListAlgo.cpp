@@ -163,12 +163,13 @@ void SinglyLinkedListAlgo::addLast(int value) {
 
     sceneInit();
 
-    // Node* node = new Node(value);
-    // tail.next = node;
-    // tail = node;
+    mVisualization.addCode("Node* node = new Node(value);");
+    mVisualization.addCode("tail.next = node;");
+    mVisualization.addCode("tail = node;");
 
     // New scene
     mVisualization.createNewScene();
+    mVisualization.highlightCode({0});
     Node::Ptr node = std::make_shared<Node>();
     node->value = value;
     node->id = mVisualization.createNode(value);
@@ -180,6 +181,7 @@ void SinglyLinkedListAlgo::addLast(int value) {
 
     // New scene
     mVisualization.createNewScene();
+    mVisualization.highlightCode({1});
     mDSTail->next.node = node;
     mDSTail->next.id =
         mVisualization.createArrow(mVisualization.getNodePosition(mDSTail->id),
@@ -187,6 +189,7 @@ void SinglyLinkedListAlgo::addLast(int value) {
 
     // New scene
     mVisualization.createNewScene();
+    mVisualization.highlightCode({2});
     mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
     assignNodePtr(mDSTail, node, 1, "tail");
 
