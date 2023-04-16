@@ -119,10 +119,8 @@ void SinglyLinkedListAlgo::addMiddle(int pos, int value) {
     // New scene
     mVisualization.createNewScene();
     pre->next.node = node;
-    mVisualization.removeArrow(pre->next.id);
-    pre->next.id =
-        mVisualization.createArrow(mVisualization.getNodePosition(pre->id),
-                                   mVisualization.getNodePosition(node->id));
+    mVisualization.moveArrowDestination(
+        pre->next.id, mVisualization.getNodePosition(node->id));
 
     // New scene
     mVisualization.createNewScene();
