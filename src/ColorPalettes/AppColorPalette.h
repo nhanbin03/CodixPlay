@@ -13,6 +13,10 @@ namespace AppColor {
     const Color TEXT_ACCENT = GetColor(0xFFFFFFFF);
 
     const Color PRIMARY = GetColor(0x0C8CE9FF);
+
+    const Color CODE = GetColor(0x9AA0A6FF);
+    const Color CODE_ACCENT = GetColor(0xD2E3FCFF);
+    const Color CODE_ACCENT_BACKGROUND = GetColor(0x394456FF);
 } // namespace AppColor
 
 #endif // COLORPALETTES_APPCOLORPALETTE_H
