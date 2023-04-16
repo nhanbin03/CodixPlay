@@ -13,6 +13,9 @@ enum class TextureID {
 
 enum class FontID {
     None,
+    Inter,
+    Inter_Bold,
+    Consolas,
 };
 
 #endif // RESOURCEHOLDERS_RESOURCEIDENTIFIERS_H
