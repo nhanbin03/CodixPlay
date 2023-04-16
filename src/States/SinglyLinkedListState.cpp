@@ -15,7 +15,7 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
     mButton.setBorderColor(BLACK);
 
     mButton.setCallback([this]() {
-        this->mAlgo.addLast(0);
+        this->mAlgo.addLast(rand() % 100);
     });
 }
 

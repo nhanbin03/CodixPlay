@@ -21,7 +21,7 @@ void CircleNode::draw() {
         1, 100, displayBorder, mBorderColor); // Draw border inside
 
     const char *valueText = std::to_string(mValue).c_str();
-    float textSize = displayRadius - displayBorder;
+    float textSize = displayRadius;
     Vector2 textBounds = MeasureTextEx(
         FontHolder::getInstance().get(FontID::Inter_Bold, textSize), valueText,
         textSize, 0);
