@@ -39,10 +39,14 @@ void NumberInputBox::draw() {
     std::string displayText = mInputText;
     if (mIsFocused)
         displayText += '_';
-    DrawText(displayText.c_str(),
-             mRect.x + mRect.width / 2
-                 - MeasureText(displayText.c_str(), textSize) / 2,
-             mRect.y + mRect.height / 2 - textSize / 2, textSize, mTextColor);
+    Vector2 textBounds =
+        MeasureTextEx(FontHolder::getInstance().get(FontID::Inter, textSize),
+                      displayText.c_str(), textSize, 0);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter, textSize),
+               displayText.c_str(),
+               {mRect.x + mRect.width / 2 - textBounds.x / 2,
+                mRect.y + mRect.height / 2 - textBounds.y / 2},
+               textSize, 0, mTextColor);
 }
 
 std::string NumberInputBox::getInputText() {

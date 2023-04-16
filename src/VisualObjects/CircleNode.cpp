@@ -21,9 +21,13 @@ void CircleNode::draw() {
         1, 100, displayBorder, mBorderColor); // Draw border inside
 
     const char *valueText = std::to_string(mValue).c_str();
-    float fontSize = displayRadius - displayBorder;
-    DrawText(valueText, x - MeasureText(valueText, fontSize) / 2,
-             y - fontSize / 2, fontSize, mValueColor);
+    float textSize = displayRadius - displayBorder;
+    Vector2 textBounds = MeasureTextEx(
+        FontHolder::getInstance().get(FontID::Inter_Bold, textSize), valueText,
+        textSize, 0);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, textSize),
+               valueText, {x - textBounds.x / 2, y - textBounds.y / 2},
+               textSize, 0, mValueColor);
 }
 
 void CircleNode::setValue(int value) {

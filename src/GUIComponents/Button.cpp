@@ -40,11 +40,14 @@ void Button::draw() {
     if (mTextSize == 0) {
         mTextSize = mRect.height / 2;
     }
-    DrawText(
-        mText.c_str(),
-        mRect.x + mRect.width / 2 - MeasureText(mText.c_str(), mTextSize) / 2,
-        mRect.y + mRect.height / 2 - mTextSize / 2, mTextSize,
-        ColorBrightness(mContentColor, filterBrightness));
+    Vector2 textBounds =
+        MeasureTextEx(FontHolder::getInstance().get(FontID::Inter, mTextSize),
+                      mText.c_str(), mTextSize, 0);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter, mTextSize),
+               mText.c_str(),
+               {mRect.x + mRect.width / 2 - textBounds.x / 2,
+                mRect.y + mRect.height / 2 - textBounds.y / 2},
+               mTextSize, 0, ColorBrightness(mContentColor, filterBrightness));
 
     if (mHasTexture)
         DrawTextureV(mTexture, getPosition(), mContentColor);

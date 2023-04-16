@@ -31,9 +31,11 @@ void CodeHighlighter::draw() {
         DrawRectangleRec((Rectangle){mRect.x, mRect.y + i * lineHeight,
                                      mRect.width, lineHeight},
                          backgroundColor);
-        DrawText(mCode[i].first.c_str(), mRect.x + leftAlign,
-                 mRect.y + i * lineHeight + lineHeight / 2 - textSize / 2,
-                 textSize, codeColor);
+        DrawTextEx(FontHolder::getInstance().get(FontID::Consolas, textSize),
+                   mCode[i].first.c_str(),
+                   {mRect.x + leftAlign,
+                    mRect.y + i * lineHeight + lineHeight / 2 - textSize / 2},
+                   textSize, 0, codeColor);
         mCode[i].second = false;
     }
 }

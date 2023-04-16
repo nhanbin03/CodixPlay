@@ -2,6 +2,7 @@
 #define GUICOMPONENTS_GUICOMPONENT_H
 
 #include "../ColorPalettes/AppColorPalette.h"
+#include "../ResourceHolders/FontHolder.h"
 
 #include "raylib.h"
 
