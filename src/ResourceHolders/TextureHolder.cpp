@@ -29,6 +29,7 @@ Texture2D& TextureHolder::get(TextureID id) {
     if (found == mResourceMap.end()) {
         return *mResourceMap[TextureID::None];
     }
+    SetTextureFilter(*found->second, TEXTURE_FILTER_BILINEAR);
     return *found->second;
 }
 
@@ -37,6 +38,7 @@ const Texture2D& TextureHolder::get(TextureID id) const {
     if (found == mResourceMap.end()) {
         return *mResourceMap.at(TextureID::None);
     }
+    SetTextureFilter(*found->second, TEXTURE_FILTER_BILINEAR);
     return *found->second;
 }
 
