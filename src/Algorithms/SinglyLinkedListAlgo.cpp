@@ -1,5 +1,6 @@
 #include "SinglyLinkedListAlgo.h"
 
+#include <cassert>
 #include <iostream>
 
 #include "../Helper.h"
@@ -59,6 +60,8 @@ void SinglyLinkedListAlgo::addFirst(int value) {
 }
 
 void SinglyLinkedListAlgo::addMiddle(int pos, int value) {
+    assert(pos != 0 && pos != mListSize);
+
     mListSize++;
 
     sceneInit();
