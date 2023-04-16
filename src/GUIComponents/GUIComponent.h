@@ -1,6 +1,8 @@
 #ifndef GUICOMPONENTS_GUICOMPONENT_H
 #define GUICOMPONENTS_GUICOMPONENT_H
 
+#include "../ColorPalettes/AppColorPalette.h"
+
 #include "raylib.h"
 
 class GUIComponent {
