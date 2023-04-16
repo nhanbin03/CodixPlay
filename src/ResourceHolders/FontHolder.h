@@ -12,8 +12,8 @@
 // Singelton
 class FontHolder {
 public:
-    static const int MAX_SIZE = 60;
-    static const int ROUNDING = 3; // Save loading time
+    static const int MAX_SIZE = 100;
+    static const int ROUNDING = 20; // Save loading time
 
 public:
     static FontHolder& getInstance();

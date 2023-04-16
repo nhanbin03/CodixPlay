@@ -4,12 +4,12 @@
 #include <iostream>
 
 FontHolder::FontHolder() {
-    for (int i = ROUNDING / 2; i <= MAX_SIZE; i += ROUNDING)
+    for (int i = ROUNDING; i <= MAX_SIZE; i += ROUNDING)
         mResourceMap[i][FontID::None] = std::make_unique<Font>();
 }
 
 FontHolder::~FontHolder() {
-    for (int i = ROUNDING / 2; i <= MAX_SIZE; i += ROUNDING)
+    for (int i = ROUNDING; i <= MAX_SIZE; i += ROUNDING)
         for (auto& p : mResourceMap[i]) {
             UnloadFont(*p.second);
         }
@@ -21,7 +21,7 @@ FontHolder& FontHolder::getInstance() {
 }
 
 void FontHolder::load(FontID id, const std::string& filename) {
-    for (int i = ROUNDING / 2; i <= MAX_SIZE; i += ROUNDING) {
+    for (int i = ROUNDING; i <= MAX_SIZE; i += ROUNDING) {
         std::unique_ptr<Font> resource(new Font());
         *resource = LoadFontEx(filename.c_str(), i, NULL, 0);
         insertResource(i, id, std::move(resource));
@@ -31,8 +31,8 @@ void FontHolder::load(FontID id, const std::string& filename) {
 Font& FontHolder::get(FontID id, int size) {
     if (size > MAX_SIZE)
         size = MAX_SIZE;
-    size = (size - ROUNDING / 2) / ROUNDING * ROUNDING
-         + ROUNDING / 2; // Round to ROUND/2 + k*ROUNDING
+    size = (size - 1) / ROUNDING * ROUNDING
+         + ROUNDING; // Round to upper multiple of ROUNDING
     if (size > MAX_SIZE)
         size -= ROUNDING;
 
@@ -47,8 +47,8 @@ Font& FontHolder::get(FontID id, int size) {
 const Font& FontHolder::get(FontID id, int size) const {
     if (size > MAX_SIZE)
         size = MAX_SIZE;
-    size = (size - ROUNDING / 2) / ROUNDING * ROUNDING
-         + ROUNDING / 2; // Round to ROUND/2 + k*ROUNDING
+    size = (size - 1) / ROUNDING * ROUNDING
+         + ROUNDING; // Round to upper multiple of ROUNDING
     if (size > MAX_SIZE)
         size -= ROUNDING;
 
