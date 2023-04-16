@@ -11,4 +11,8 @@ enum class TextureID {
     FowardSceneButton
 };
 
+enum class FontID {
+    None,
+};
+
 #endif // RESOURCEHOLDERS_RESOURCEIDENTIFIERS_H
