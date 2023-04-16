@@ -6,9 +6,6 @@ Visualization::Visualization()
 : mSceneTrack({VisualScene()})
 , mControlBar(mSceneTrack, mDisplayingScene) {
     mDisplayingScene = mSceneTrack.front();
-
-    // GUI
-    mControlBar.setRect({138, 787, 847, 163});
 }
 
 Visualization::~Visualization() {

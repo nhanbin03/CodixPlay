@@ -24,6 +24,8 @@ public:
 
     void reset();
 
+    int getTracker() const;
+
 private:
     enum class Action {
         None,

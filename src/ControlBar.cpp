@@ -12,6 +12,7 @@ ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
     *mDisplayingScene = mSceneTrack->front();
 
     setColor(AppColor::BACKGROUND_3);
+    setRect({138, 787, 847, 163});
 
     Button rewindBtn = Button({379, 870, 52, 52});
     formatButton(rewindBtn, TextureID::RewindSceneButton);
@@ -74,6 +75,10 @@ void ControlBar::draw() {
 void ControlBar::reset() {
     rewindScene();
     setPause(false);
+}
+
+int ControlBar::getTracker() const {
+    return mTracker;
 }
 
 void ControlBar::rewindScene() {
