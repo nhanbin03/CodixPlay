@@ -13,17 +13,20 @@ Visualization::~Visualization() {
 
 void Visualization::update(float dt) {
     mControlBar.update(dt);
+    mCodeHighlighter.setTracker(mControlBar.getTracker());
 }
 
 void Visualization::draw() {
     mDisplayingScene.draw();
     mControlBar.draw();
+    mCodeHighlighter.draw();
 }
 
 void Visualization::reset(VisualScene initScene) {
     mSceneTrack.clear();
     mSceneTrack.push_back(initScene);
     mControlBar.reset();
+    mCodeHighlighter.reset();
 }
 
 void Visualization::createNewScene() {
@@ -113,4 +116,12 @@ void Visualization::updateLabel(int labelID, const std::string text) {
 
 void Visualization::removeLabel(int labelID) {
     mSceneTrack.back().removeLabel(labelID);
+}
+
+void Visualization::addCode(std::string code) {
+    mCodeHighlighter.addCode(code);
+}
+
+void Visualization::highlightCode(std::vector<int> lines) {
+    mCodeHighlighter.highlightCode(lines);
 }

@@ -1,6 +1,7 @@
 #ifndef VISUALIZATION_H
 #define VISUALIZATION_H
 
+#include "CodeHighlighter.h"
 #include "ControlBar.h"
 #include "VisualObjects/VisualObject.h"
 #include "VisualScene.h"
@@ -52,11 +53,16 @@ public:
     void updateLabel(int labelID, const std::string text);
     void removeLabel(int labelID);
 
+    void addCode(std::string code);
+    void highlightCode(std::vector<int> lines);
+
 public:
     std::vector<VisualScene> mSceneTrack;
     VisualScene mDisplayingScene;
 
     ControlBar mControlBar;
+
+    CodeHighlighter mCodeHighlighter;
 };
 
 #endif // VISUALIZATION_H
