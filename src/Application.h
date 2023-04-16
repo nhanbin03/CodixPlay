@@ -1,6 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include "ResourceHolders/FontHolder.h"
 #include "ResourceHolders/TextureHolder.h"
 #include "StateStack.h"
 
@@ -27,6 +28,7 @@ private:
     void registerStates();
 
     void loadTextures();
+    void loadFonts();
 
 private:
     StateStack mStateStack;

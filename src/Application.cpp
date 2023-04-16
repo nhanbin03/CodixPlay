@@ -20,6 +20,7 @@ Application::Application()
     SetTargetFPS(FPS);
 
     loadTextures();
+    loadFonts();
 
     registerStates();
     mStateStack.pushState(StateIDs::SinglyLinkedList);
@@ -74,4 +75,13 @@ void Application::loadTextures() {
                                       BASE_PATH + "NextSceneButton.png");
     TextureHolder::getInstance().load(TextureID::FowardSceneButton,
                                       BASE_PATH + "FowardSceneButton.png");
+}
+
+void Application::loadFonts() {
+    std::string BASE_PATH = "asset/font/";
+    FontHolder::getInstance().load(FontID::Inter, BASE_PATH + "Inter.ttf");
+    FontHolder::getInstance().load(FontID::Inter_Bold,
+                                   BASE_PATH + "Inter_Bold.ttf");
+    FontHolder::getInstance().load(FontID::Consolas,
+                                   BASE_PATH + "Consolas.ttf");
 }
