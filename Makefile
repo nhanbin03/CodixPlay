@@ -1,4 +1,4 @@
-TARGET := release/game
+TARGET := game
 
 SRC := src
 BUILD := build
