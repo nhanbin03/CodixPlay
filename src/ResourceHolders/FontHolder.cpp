@@ -4,13 +4,15 @@
 #include <iostream>
 
 FontHolder::FontHolder() {
-    mResourceMap[FontID::None] = std::make_unique<Font>();
+    for (int i = ROUNDING / 2; i <= MAX_SIZE; i += ROUNDING)
+        mResourceMap[i][FontID::None] = std::make_unique<Font>();
 }
 
 FontHolder::~FontHolder() {
-    for (auto& p : mResourceMap) {
-        UnloadFont(*p.second);
-    }
+    for (int i = ROUNDING / 2; i <= MAX_SIZE; i += ROUNDING)
+        for (auto& p : mResourceMap[i]) {
+            UnloadFont(*p.second);
+        }
 }
 
 FontHolder& FontHolder::getInstance() {
@@ -19,28 +21,47 @@ FontHolder& FontHolder::getInstance() {
 }
 
 void FontHolder::load(FontID id, const std::string& filename) {
-    std::unique_ptr<Font> resource(new Font());
-    *resource = LoadFont(filename.c_str());
-    insertResource(id, std::move(resource));
+    for (int i = ROUNDING / 2; i <= MAX_SIZE; i += ROUNDING) {
+        std::unique_ptr<Font> resource(new Font());
+        *resource = LoadFontEx(filename.c_str(), i, NULL, 0);
+        insertResource(i, id, std::move(resource));
+    }
 }
 
-Font& FontHolder::get(FontID id) {
-    auto found = mResourceMap.find(id);
-    if (found == mResourceMap.end()) {
-        return *mResourceMap[FontID::None];
+Font& FontHolder::get(FontID id, int size) {
+    if (size > MAX_SIZE)
+        size = MAX_SIZE;
+    size = (size - ROUNDING / 2) / ROUNDING * ROUNDING
+         + ROUNDING / 2; // Round to ROUND/2 + k*ROUNDING
+    if (size > MAX_SIZE)
+        size -= ROUNDING;
+
+    auto found = mResourceMap[size].find(id);
+    if (found == mResourceMap[size].end()) {
+        return *mResourceMap[size][FontID::None];
     }
+    SetTextureFilter(found->second->texture, TEXTURE_FILTER_BILINEAR);
     return *found->second;
 }
 
-const Font& FontHolder::get(FontID id) const {
-    auto found = mResourceMap.find(id);
-    if (found == mResourceMap.end()) {
-        return *mResourceMap.at(FontID::None);
+const Font& FontHolder::get(FontID id, int size) const {
+    if (size > MAX_SIZE)
+        size = MAX_SIZE;
+    size = (size - ROUNDING / 2) / ROUNDING * ROUNDING
+         + ROUNDING / 2; // Round to ROUND/2 + k*ROUNDING
+    if (size > MAX_SIZE)
+        size -= ROUNDING;
+
+    auto found = mResourceMap[size].find(id);
+    if (found == mResourceMap[size].end()) {
+        return *mResourceMap[size].at(FontID::None);
     }
+    SetTextureFilter(found->second->texture, TEXTURE_FILTER_BILINEAR);
     return *found->second;
 }
 
-void FontHolder::insertResource(FontID id, std::unique_ptr<Font> resource) {
-    auto insertStatus = mResourceMap.emplace(id, std::move(resource));
+void FontHolder::insertResource(int size, FontID id,
+                                std::unique_ptr<Font> resource) {
+    auto insertStatus = mResourceMap[size].emplace(id, std::move(resource));
     assert(insertStatus.second == true);
 }
