@@ -16,6 +16,7 @@ ActionBox::ActionBox(
     mSelectButton.setBorderColor(AppColor::BACKGROUND_2);
     mSelectButton.setBorderThickness(2);
     mSelectButton.setContentColor(AppColor::TEXT);
+    mSelectButton.setTextSize(25);
 
     mColor = AppColor::BACKGROUND_4;
     mBorderColor = AppColor::BACKGROUND_2;
