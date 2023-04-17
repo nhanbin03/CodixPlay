@@ -27,10 +27,10 @@ void InputBox::update(float dt) {
 }
 
 void InputBox::draw() {
-    DrawRectangleRounded(mRect, 0.5, 100, mColor);
+    DrawRectangleRounded(mRect, 0.5, ROUNDED_SEGMENTS, mColor);
     if (mBorderThickness != 0)
-        DrawRectangleRoundedLines(mRect, 0.5, 100, mBorderThickness,
-                                  mBorderColor);
+        DrawRectangleRoundedLines(mRect, 0.5, ROUNDED_SEGMENTS,
+                                  mBorderThickness, mBorderColor);
 
     int textSize = mRect.height * 2 / 3;
     std::string displayText = mInputText;

@@ -8,6 +8,9 @@
 
 class GUIComponent {
 public:
+    static constexpr int ROUNDED_SEGMENTS = 10;
+
+public:
     GUIComponent();
     virtual ~GUIComponent();
 

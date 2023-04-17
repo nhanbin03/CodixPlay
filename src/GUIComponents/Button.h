@@ -11,9 +11,6 @@
 
 class Button : public GUIComponent {
 public:
-    static constexpr int SEGMENTS = 100;
-
-public:
     typedef std::function<void()> Callback;
 
     enum class ButtonState {

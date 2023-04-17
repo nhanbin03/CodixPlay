@@ -18,7 +18,7 @@ void CircleNode::draw() {
         {x - displayRadius + displayBorder, y - displayRadius + displayBorder,
          (displayRadius - displayBorder) * 2,
          (displayRadius - displayBorder) * 2},
-        1, 100, displayBorder, mBorderColor); // Draw border inside
+        1, ROUNDED_SEGMENTS, displayBorder, mBorderColor); // Draw border inside
 
     const char *valueText = std::to_string(mValue).c_str();
     float textSize = displayRadius;

@@ -15,6 +15,7 @@ public:
 
     static constexpr int ELEMENT_SIZE = 50;
     static constexpr int BORDER_THICKNESS = 5;
+    static constexpr int ROUNDED_SEGMENTS = 10;
 
 public:
     VisualObject();

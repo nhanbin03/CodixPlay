@@ -28,12 +28,12 @@ void Button::draw() {
         else
             filterBrightness = -0.2;
     }
-    DrawRectangleRounded(mRect, 0.5, SEGMENTS,
+    DrawRectangleRounded(mRect, 0.5, ROUNDED_SEGMENTS,
                          ColorBrightness(mColor, filterBrightness));
 
     if (mBorderThickness != 0) {
         DrawRectangleRoundedLines(
-            mRect, 0.5, SEGMENTS, mBorderThickness,
+            mRect, 0.5, ROUNDED_SEGMENTS, mBorderThickness,
             ColorBrightness(mBorderColor, filterBrightness));
     }
 
