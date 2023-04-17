@@ -76,6 +76,8 @@ void ActionTab::setSubmitCallback() {
     mSubmitButton.setCallback([this]() {
         assert(hasSelection());
         int idx = this->mSelectedAction;
-        this->mOnSubmits[idx](this->mActions[idx].getInputs());
+        auto getInputStatus = this->mActions[idx].getInputs();
+        if (getInputStatus.first == true)
+            this->mOnSubmits[idx](getInputStatus.second);
     });
 }

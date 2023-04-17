@@ -120,10 +120,14 @@ void ActionBox::deactivate() {
     mIsActivated = false;
 }
 
-ActionBox::InputData ActionBox::getInputs() const {
+std::pair<bool, ActionBox::InputData> ActionBox::getInputs() const {
     InputData ret;
     for (int i = 0; i < mInputs.size(); i++) {
-        ret[mInputs[i].name] = mInputBoxes[i].getInputText();
+        std::string inputString = mInputBoxes[i].getInputText();
+        if (mInputs[i].validator(inputString) == false) {
+            return {false, InputData()};
+        }
+        ret[mInputs[i].name] = inputString;
     }
-    return ret;
+    return {true, ret};
 }

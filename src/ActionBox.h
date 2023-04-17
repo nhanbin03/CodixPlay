@@ -35,7 +35,7 @@ public:
     void activate();
     void deactivate();
 
-    InputData getInputs() const;
+    std::pair<bool, InputData> getInputs() const;
 
 private:
     std::string mTitle;
