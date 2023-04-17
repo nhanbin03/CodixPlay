@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 
-// Singelton
+// Singleton
 class TextureHolder {
 public:
     static TextureHolder& getInstance();

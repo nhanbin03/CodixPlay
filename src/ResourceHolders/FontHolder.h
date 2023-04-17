@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 
-// Singelton
+// Singleton
 class FontHolder {
 public:
     static const int MAX_SIZE = 100;
