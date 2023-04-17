@@ -27,9 +27,10 @@ void InputBox::update(float dt) {
 }
 
 void InputBox::draw() {
-    DrawRectangleRec(mRect, mColor);
+    DrawRectangleRounded(mRect, 0.5, 100, mColor);
     if (mBorderThickness != 0)
-        DrawRectangleLinesEx(mRect, mBorderThickness, mBorderColor);
+        DrawRectangleRoundedLines(mRect, 0.5, 100, mBorderThickness,
+                                  mBorderColor);
 
     int textSize = mRect.height * 2 / 3;
     std::string displayText = mInputText;
@@ -38,11 +39,14 @@ void InputBox::draw() {
     Vector2 textBounds =
         MeasureTextEx(FontHolder::getInstance().get(FontID::Inter, textSize),
                       displayText.c_str(), textSize, 0);
-    DrawTextEx(FontHolder::getInstance().get(FontID::Inter, textSize),
-               displayText.c_str(),
-               {mRect.x + mRect.width / 2 - textBounds.x / 2,
-                mRect.y + mRect.height / 2 - textBounds.y / 2},
-               textSize, 0, mTextColor);
+
+    BeginScissorMode(mRect.x, mRect.y, mRect.width, mRect.height);
+    DrawTextEx(
+        FontHolder::getInstance().get(FontID::Inter, textSize),
+        displayText.c_str(),
+        {mRect.x + textSize / 3, mRect.y + mRect.height / 2 - textBounds.y / 2},
+        textSize, 0, mTextColor);
+    EndScissorMode();
 }
 
 std::string InputBox::getInputText() const {
