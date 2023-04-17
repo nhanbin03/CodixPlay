@@ -12,11 +12,14 @@ ActionBox::ActionBox(
 , mOnSelect(onSelect) {
     mSelectButton.setCallback(onSelect);
     mSelectButton.setText(title);
+    mSelectButton.setColor(AppColor::BACKGROUND_4);
+    mSelectButton.setBorderColor(AppColor::BACKGROUND_2);
+    mSelectButton.setBorderThickness(2);
+    mSelectButton.setContentColor(AppColor::TEXT);
 
     mColor = AppColor::BACKGROUND_4;
     mBorderColor = AppColor::BACKGROUND_2;
     mBorderThickness = 2;
-
     mTextColor = AppColor::TEXT;
 }
 
@@ -56,6 +59,8 @@ void ActionBox::activeDraw() {
         FontHolder::getInstance().get(FontID::Inter_Bold, textSize);
     DrawTextEx(font, mTitle.c_str(), getPosition() + (Vector2){23, 10},
                textSize, 0, mTextColor);
+    DrawRectangleRounded({mRect.x + 6, mRect.y + 18, 4, 41}, 1, 100,
+                         AppColor::PRIMARY); // Draw active indicator
 }
 
 void ActionBox::inactiveDraw() {

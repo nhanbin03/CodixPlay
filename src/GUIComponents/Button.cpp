@@ -40,10 +40,10 @@ void Button::draw() {
     if (mTextSize == 0) {
         mTextSize = mRect.height / 2;
     }
-    Vector2 textBounds =
-        MeasureTextEx(FontHolder::getInstance().get(FontID::Inter, mTextSize),
-                      mText.c_str(), mTextSize, 0);
-    DrawTextEx(FontHolder::getInstance().get(FontID::Inter, mTextSize),
+    Vector2 textBounds = MeasureTextEx(
+        FontHolder::getInstance().get(FontID::Inter_Bold, mTextSize),
+        mText.c_str(), mTextSize, 0);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, mTextSize),
                mText.c_str(),
                {mRect.x + mRect.width / 2 - textBounds.x / 2,
                 mRect.y + mRect.height / 2 - textBounds.y / 2},
