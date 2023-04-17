@@ -9,7 +9,7 @@
 
 class InputBox : public GUIComponent {
 public:
-    explicit InputBox(Rectangle bounds);
+    explicit InputBox(Rectangle bounds = {0, 0, 0, 0});
     ~InputBox();
 
     void update(float dt);
