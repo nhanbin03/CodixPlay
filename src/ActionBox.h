@@ -8,9 +8,13 @@
 #include "raylib.h"
 
 #include <functional>
+#include <map>
 #include <string>
 
 class ActionBox : public GUIComponent {
+public:
+    static constexpr int INPUT_LABEL_SIZE = 19;
+
 public:
     struct Input {
         std::string label;
@@ -19,9 +23,10 @@ public:
         int width;
     };
 
+    typedef std::map<std::string, std::string> InputData;
+
 public:
-    ActionBox(std::string title, std::vector<Input> inputs,
-              std::function<void(std::map<std::string, std::string>)> onSubmit,
+    ActionBox(Rectangle bounds, std::string title, std::vector<Input> inputs,
               std::function<void()> onClick);
 
     void update(float dt);
@@ -30,10 +35,11 @@ public:
     void activate();
     void deactivate();
 
+    InputData getInputs() const;
+
 private:
     std::string mTitle;
     std::vector<Input> mInputs;
-    std::function<void(std::map<std::string, std::string>)> mOnSubmit;
     std::function<void()> mOnSelect;
 
     bool mIsActivated{false};

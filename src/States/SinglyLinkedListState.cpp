@@ -22,8 +22,16 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
         this->mAlgo.addMiddle(3, rand() % 100);
     });
 
-    mActionTab.addActionSelector("Insert at the beginning", {},
-                                 [](std::map<std::string, std::string>) {});
+    mActionTab.addActionSelector(
+        "Insert at the beginning",
+        {(ActionBox::Input){"src = ", "src", std::function<bool(std::string)>(),
+                            60},
+         (ActionBox::Input){"value = ", "value",
+                            std::function<bool(std::string)>(), 60}},
+        [](std::map<std::string, std::string> data) {
+            for (auto it : data)
+                std::cout << it.first << " " << it.second << "\n";
+        });
     mActionTab.addActionSelector("Insert in the middle ", {},
                                  [](std::map<std::string, std::string>) {});
     mActionTab.addActionSelector("Insert at the end", {},

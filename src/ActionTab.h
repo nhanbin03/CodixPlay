@@ -17,18 +17,23 @@ public:
     void update(float dt);
     void draw();
 
-    void addActionSelector(
-        std::string title, std::vector<ActionBox::Input> inputs,
-        std::function<void(std::map<std::string, std::string>)> onSubmit);
+    void addActionSelector(std::string title,
+                           std::vector<ActionBox::Input> inputs,
+                           std::function<void(ActionBox::InputData)> onSubmit);
 
 private:
     bool hasSelection() const;
     void select(unsigned index);
     void resetSelection();
 
+    void setSubmitCallback();
+
 private:
     std::vector<ActionBox> mActions;
     int mSelectedAction{-1};
+
+    Button mSubmitButton;
+    std::vector<std::function<void(ActionBox::InputData)>> mOnSubmits;
 };
 
 #endif // ACTIONTAB_H
