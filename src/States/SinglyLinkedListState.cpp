@@ -3,6 +3,7 @@
 #include "raylib.h"
 
 #include <iostream>
+#include <regex>
 
 SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
 : State(stack, context)
@@ -22,18 +23,25 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
         this->mAlgo.addMiddle(3, rand() % 100);
     });
 
+    mActionTab.addActionSelector("Insert at the beginning ", {},
+                                 [](std::map<std::string, std::string>) {});
     mActionTab.addActionSelector(
-        "Insert at the beginning",
-        {(ActionBox::Input){"src = ", "src", std::function<bool(std::string)>(),
+        "Insert in the middle",
+        {(ActionBox::Input){"pos = ", "pos",
+                            [](std::string) {
+                                return true;
+                            },
                             60},
          (ActionBox::Input){"value = ", "value",
-                            std::function<bool(std::string)>(), 60}},
-        [](std::map<std::string, std::string> data) {
-            for (auto it : data)
-                std::cout << it.first << " " << it.second << "\n";
+                            [](std::string) {
+                                return true;
+                            },
+                            60}},
+        [this](std::map<std::string, std::string> data) {
+            int pos = std::stoi(data["pos"]);
+            int value = std::stoi(data["value"]);
+            this->mAlgo.addMiddle(pos, value);
         });
-    mActionTab.addActionSelector("Insert in the middle ", {},
-                                 [](std::map<std::string, std::string>) {});
     mActionTab.addActionSelector("Insert at the end", {},
                                  [](std::map<std::string, std::string>) {});
 }
