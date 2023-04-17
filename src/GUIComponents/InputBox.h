@@ -15,7 +15,7 @@ public:
     void update(float dt);
     void draw();
 
-    std::string getInputText();
+    std::string getInputText() const;
 
 private:
     void checkInteraction();

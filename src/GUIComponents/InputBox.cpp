@@ -45,7 +45,7 @@ void InputBox::draw() {
                textSize, 0, mTextColor);
 }
 
-std::string InputBox::getInputText() {
+std::string InputBox::getInputText() const {
     return mInputText;
 }
 
