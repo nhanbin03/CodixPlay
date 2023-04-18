@@ -21,7 +21,7 @@ void SinglyLinkedListAlgo::addFirst(int value) {
     sceneInit();
 
     mVisualization.addCode("Node* node = new Node(value);"); // 0
-    mVisualization.addCode("node.next = head;");             // 1
+    mVisualization.addCode("node->next = head;");            // 1
     mVisualization.addCode("head = node;");                  // 2
 
     // New scene
@@ -68,11 +68,11 @@ void SinglyLinkedListAlgo::addMiddle(int pos, int value) {
 
     mVisualization.addCode("Node* pre = head;");                 // 0
     mVisualization.addCode("for (int i = 0; i < pos - 1; i++)"); // 1
-    mVisualization.addCode("    pre = pre.next;");               // 2
-    mVisualization.addCode("Node* aft = pre.next;");             // 3
+    mVisualization.addCode("    pre = pre->next;");              // 2
+    mVisualization.addCode("Node* aft = pre->next;");            // 3
     mVisualization.addCode("Node* node = new Node(value);");     // 4
-    mVisualization.addCode("node.next = aft;");                  // 5
-    mVisualization.addCode("pre.next = node;");                  // 6
+    mVisualization.addCode("node->next = aft;");                 // 5
+    mVisualization.addCode("pre->next = node;");                 // 6
 
     // New scene
     mVisualization.createNewScene();
@@ -166,7 +166,7 @@ void SinglyLinkedListAlgo::addLast(int value) {
     sceneInit();
 
     mVisualization.addCode("Node* node = new Node(value);"); // 0
-    mVisualization.addCode("tail.next = node;");             // 1
+    mVisualization.addCode("tail->next = node;");            // 1
     mVisualization.addCode("tail = node;");                  // 2
 
     // New scene
@@ -212,9 +212,9 @@ void SinglyLinkedListAlgo::deleteFirst() {
 
     sceneInit();
 
-    mVisualization.addCode("Node* tmp = head;"); // 0
-    mVisualization.addCode("head = head.next;"); // 1
-    mVisualization.addCode("delete tmp;");       // 2
+    mVisualization.addCode("Node* tmp = head;");  // 0
+    mVisualization.addCode("head = head->next;"); // 1
+    mVisualization.addCode("delete tmp;");        // 2
 
     // New scene
     mVisualization.createNewScene();
@@ -239,9 +239,93 @@ void SinglyLinkedListAlgo::deleteFirst() {
     mVisualization.createNewScene();
     mVisualization.highlightCode({});
     relayout();
+}
 
-    // Clean up
-    mSceneCleanUp = []() {};
+void SinglyLinkedListAlgo::deleteMiddle(int pos) {
+    assert(0 < pos && pos < mListSize - 1);
+    mListSize--;
+
+    sceneInit();
+
+    mVisualization.addCode("Node* pre = head;");                 // 0
+    mVisualization.addCode("for (int i = 0; i < pos - 1; i++)"); // 1
+    mVisualization.addCode("    pre = pre->next;");              // 2
+    mVisualization.addCode("Node *tmp = pre->next;");            // 3
+    mVisualization.addCode("Node* aft = del->next;");            // 4
+    mVisualization.addCode("pre->next = aft;");                  // 5
+    mVisualization.addCode("delete del;");                       // 6
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({0});
+    Node::Ptr pre;
+    assignNodePtr(pre, mDSHead, 5, "pre");
+    mVisualization.highlightNode(mDSHead->id);
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({1});
+    addReference(pre, 0, "0");
+
+    // Loop
+    for (int i = 0; i < pos - 1; i++) {
+        // New scene
+        mVisualization.createNewScene();
+        mVisualization.highlightCode({2});
+        mVisualization.unhighlightNode(pre->id);
+        Node::Ptr tmp = pre;
+        assignNodePtr(pre, pre->next.node, 5, "pre");
+        mVisualization.highlightNode(pre->id);
+
+        // New scene
+        mVisualization.createNewScene();
+        mVisualization.highlightCode({1});
+        removeReference(tmp, std::to_string(i));
+        addReference(pre, 0, std::to_string(i + 1));
+    }
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({3});
+    Node::Ptr tmp;
+    assignNodePtr(tmp, pre->next.node, 5, "tmp");
+    addReference(tmp, 0, std::to_string(pos));
+    mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({4});
+    Node::Ptr aft;
+    assignNodePtr(aft, tmp->next.node, 5, "aft");
+    mVisualization.colorNode(aft->id, VisualColor::getTertiaryColor());
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({5});
+    mVisualization.moveNodeDelta(tmp->id, {0, -SPACING});
+    mVisualization.moveArrowDelta(tmp->next.id, {0, -SPACING}, {0, 0});
+    mVisualization.attachNodeLabel(tmp->referencesId, tmp->id);
+    pre->next.node = aft;
+    mVisualization.moveArrowDestination(
+        pre->next.id, mVisualization.getNodePosition(aft->id));
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({6});
+    clearReference(tmp);
+    mVisualization.removeNode(tmp->id);
+    mVisualization.removeArrow(tmp->next.id);
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({});
+    removeReference(pre, std::to_string(pos - 1));
+    removeReference(pre, "pre");
+    removeReference(aft, "aft");
+    mVisualization.colorNode(aft->id, VisualColor::getPrimaryColor());
+    mVisualization.unhighlightNode(pre->id);
+    mVisualization.unhighlightNode(aft->id);
+    relayout();
 }
 
 void SinglyLinkedListAlgo::deleteLast() {
@@ -255,12 +339,12 @@ void SinglyLinkedListAlgo::deleteLast() {
 
     sceneInit();
 
-    mVisualization.addCode("Node* pre = head, tmp = pre.next;");   // 0
-    mVisualization.addCode("while (tmp != tail)");                 // 1
-    mVisualization.addCode("    tmp = tmp.next, pre = pre.next;"); // 2
-    mVisualization.addCode("pre.next = nullptr;");                 // 3
-    mVisualization.addCode("tail = pre;");                         // 4
-    mVisualization.addCode("delete tmp;");                         // 5
+    mVisualization.addCode("Node* pre = head, tmp = pre->next;");    // 0
+    mVisualization.addCode("while (tmp != tail)");                   // 1
+    mVisualization.addCode("    tmp = tmp->next, pre = pre->next;"); // 2
+    mVisualization.addCode("pre->next = nullptr;");                  // 3
+    mVisualization.addCode("tail = pre;");                           // 4
+    mVisualization.addCode("delete tmp;");                           // 5
 
     // New scene
     mVisualization.createNewScene();
@@ -308,10 +392,11 @@ void SinglyLinkedListAlgo::deleteLast() {
     removeReference(tmp, "tmp");
     mVisualization.removeNode(tmp->id);
 
-    // Clean up
-    mSceneCleanUp = [pre, this]() {
-        this->removeReference(pre, "pre");
-    };
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({});
+    removeReference(pre, "pre");
+    mVisualization.unhighlightNode(pre->id);
 }
 
 int SinglyLinkedListAlgo::getDSSize() const {
@@ -320,6 +405,7 @@ int SinglyLinkedListAlgo::getDSSize() const {
 
 void SinglyLinkedListAlgo::sceneInit() {
     mSceneCleanUp();
+    mSceneCleanUp = []() {};
     generalCleanUp();
     mVisualization.reset(mVisualization.getLastScene());
 }
@@ -437,6 +523,12 @@ void SinglyLinkedListAlgo::removeReference(Node::Ptr node,
         }
     }
     mVisualization.updateLabel(node->referencesId, node->referencesText());
+}
+
+void SinglyLinkedListAlgo::clearReference(Node::Ptr node) {
+    node->references.clear();
+    if (node->referencesId != -1)
+        mVisualization.removeLabel(node->referencesId);
 }
 
 std::string SinglyLinkedListAlgo::Node::referencesText() {

@@ -75,6 +75,7 @@ private:
 
     void addReference(Node::Ptr node, int order, std::string reference);
     void removeReference(Node::Ptr node, std::string reference);
+    void clearReference(Node::Ptr node);
 };
 
 #endif // ALGORITHMS_SINGLYLINKEDLISTALGO_H

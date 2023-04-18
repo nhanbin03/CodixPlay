@@ -119,6 +119,30 @@ void SinglyLinkedListState::populateRemove() {
             });
     }
 
+    // Delete in the middle option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(1, this->mAlgo.getDSSize() - 2);
+            return func(str);
+        };
+        curTab->addActionSelector(
+            "Delete in the middle",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60)},
+            [this](std::map<std::string, std::string> data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return;
+                }
+                if (this->mAlgo.getDSSize() == 0) {
+                    std::cout << "No element to delete!\n";
+                    return;
+                }
+                int pos = std::stoi(data["pos"]);
+                this->mAlgo.deleteMiddle(pos);
+            });
+    }
+
     // Delete the end option
     {
         curTab->addActionSelector(
