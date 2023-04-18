@@ -118,4 +118,17 @@ void SinglyLinkedListState::populateRemove() {
                 this->mAlgo.deleteFirst();
             });
     }
+
+    // Delete the end option
+    {
+        curTab->addActionSelector(
+            "Delete at the end", {},
+            [this](std::map<std::string, std::string>, bool) {
+                if (this->mAlgo.getDSSize() == 0) {
+                    std::cout << "No element to delete!\n";
+                    return;
+                }
+                this->mAlgo.deleteLast();
+            });
+    }
 }
