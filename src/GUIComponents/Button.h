@@ -42,8 +42,6 @@ public:
     void activate();
     void deactivate();
 
-    bool mIsActivated{true};
-
 private:
     void checkInteraction();
 
@@ -61,6 +59,8 @@ private:
     Texture2D mTexture;
 
     float mCornerRoundness{0.5};
+
+    bool mIsActivated{true};
 };
 
 #endif // GUICOMPONENTS_BUTTON_H
