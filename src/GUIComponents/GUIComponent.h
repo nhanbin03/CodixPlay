@@ -3,6 +3,7 @@
 
 #include "../ColorPalettes/AppColorPalette.h"
 #include "../ResourceHolders/FontHolder.h"
+#include "../ResourceHolders/TextureHolder.h"
 
 #include "raylib.h"
 

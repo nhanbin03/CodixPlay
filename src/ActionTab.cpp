@@ -17,6 +17,8 @@ ActionTab::ActionTab() {
 }
 
 void ActionTab::update(float dt) {
+    if (!mIsActivated)
+        return;
     for (auto &action : mActions) {
         action.update(dt);
     }
@@ -24,6 +26,8 @@ void ActionTab::update(float dt) {
 }
 
 void ActionTab::draw() {
+    if (!mIsActivated)
+        return;
     DrawRectangleRec(mRect, mColor);
     for (auto &action : mActions) {
         action.draw();
@@ -54,6 +58,15 @@ void ActionTab::addActionSelector(
                                  inputs, onSelect);
 
     mActions.push_back(newBox);
+}
+
+void ActionTab::activate() {
+    mIsActivated = true;
+}
+
+void ActionTab::deactivate() {
+    mIsActivated = false;
+    resetSelection();
 }
 
 bool ActionTab::hasSelection() const {

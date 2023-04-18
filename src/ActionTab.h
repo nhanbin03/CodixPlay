@@ -21,6 +21,9 @@ public:
                            std::vector<ActionBox::Input> inputs,
                            std::function<void(ActionBox::InputData)> onSubmit);
 
+    void activate();
+    void deactivate();
+
 private:
     bool hasSelection() const;
     void select(unsigned index);
@@ -31,6 +34,8 @@ private:
 private:
     std::vector<ActionBox> mActions;
     int mSelectedAction{-1};
+
+    bool mIsActivated{false};
 
     Button mSubmitButton;
     std::vector<std::function<void(ActionBox::InputData)>> mOnSubmits;
