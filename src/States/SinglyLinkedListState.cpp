@@ -30,28 +30,28 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
     mActions.addTab(ActionContainer::TabID::Search);
 
     mActions.getTab(ActionContainer::TabID::Insert)
-        .addActionSelector("Insert at the beginning ", {},
-                           [](std::map<std::string, std::string>) {});
+        ->addActionSelector("Insert at the beginning ", {},
+                            [](std::map<std::string, std::string>) {});
     mActions.getTab(ActionContainer::TabID::Insert)
-        .addActionSelector("Insert in the middle",
-                           {(ActionBox::Input){"pos = ", "pos",
-                                               [](std::string) {
-                                                   return true;
-                                               },
-                                               60},
-                            (ActionBox::Input){"value = ", "value",
-                                               [](std::string) {
-                                                   return true;
-                                               },
-                                               60}},
-                           [this](std::map<std::string, std::string> data) {
-                               int pos = std::stoi(data["pos"]);
-                               int value = std::stoi(data["value"]);
-                               this->mAlgo.addMiddle(pos, value);
-                           });
+        ->addActionSelector("Insert in the middle",
+                            {(ActionBox::Input){"pos = ", "pos",
+                                                [](std::string) {
+                                                    return true;
+                                                },
+                                                60},
+                             (ActionBox::Input){"value = ", "value",
+                                                [](std::string) {
+                                                    return true;
+                                                },
+                                                60}},
+                            [this](std::map<std::string, std::string> data) {
+                                int pos = std::stoi(data["pos"]);
+                                int value = std::stoi(data["value"]);
+                                this->mAlgo.addMiddle(pos, value);
+                            });
     mActions.getTab(ActionContainer::TabID::Insert)
-        .addActionSelector("Insert at the end", {},
-                           [](std::map<std::string, std::string>) {});
+        ->addActionSelector("Insert at the end", {},
+                            [](std::map<std::string, std::string>) {});
 }
 
 bool SinglyLinkedListState::update(float dt) {

@@ -15,14 +15,14 @@ void ActionContainer::update(float dt) {
         btn.update(dt);
     }
     for (auto &tab : mTabs) {
-        tab.second.update(dt);
+        tab.second->update(dt);
     }
 }
 
 void ActionContainer::draw() {
     DrawRectangleRec(mRect, mColor);
     for (auto &tab : mTabs) {
-        tab.second.draw();
+        tab.second->draw();
     }
 
     for (auto &btn : mTabButtons) {
@@ -37,7 +37,7 @@ void ActionContainer::draw() {
 }
 
 void ActionContainer::addTab(TabID id) {
-    ActionTab newTab;
+    ActionTab::Ptr newTab = std::make_shared<ActionTab>();
     auto insertStatus = mTabs.emplace(id, newTab);
     assert(insertStatus.second == true);
 
@@ -86,8 +86,8 @@ void ActionContainer::addTab(TabID id) {
     mTabButtons.push_back(newButton);
 }
 
-ActionTab &ActionContainer::getTab(TabID id) {
-    return mTabs[id];
+ActionTab::Ptr ActionContainer::getTab(TabID id) const {
+    return mTabs.at(id);
 }
 
 bool ActionContainer::hasSelection() const {
@@ -96,10 +96,10 @@ bool ActionContainer::hasSelection() const {
 
 void ActionContainer::select(TabID id) {
     if (hasSelection()) {
-        mTabs[mSelectedTab].deactivate();
+        mTabs[mSelectedTab]->deactivate();
     }
     mSelectedTab = id;
-    mTabs[mSelectedTab].activate();
+    mTabs[mSelectedTab]->activate();
 }
 
 void ActionContainer::resetSelection() {

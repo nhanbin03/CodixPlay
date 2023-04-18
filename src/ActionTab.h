@@ -8,9 +8,13 @@
 
 #include <functional>
 #include <map>
+#include <memory>
 #include <string>
 
 class ActionTab : public GUIComponent {
+public:
+    typedef std::shared_ptr<ActionTab> Ptr;
+
 public:
     ActionTab();
 

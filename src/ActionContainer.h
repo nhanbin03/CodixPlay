@@ -28,7 +28,7 @@ public:
     void draw();
 
     void addTab(TabID id);
-    ActionTab& getTab(TabID id);
+    ActionTab::Ptr getTab(TabID id) const;
 
 private:
     bool hasSelection() const;
@@ -36,7 +36,7 @@ private:
     void resetSelection();
 
 private:
-    std::map<TabID, ActionTab> mTabs;
+    std::map<TabID, ActionTab::Ptr> mTabs;
     std::vector<Button> mTabButtons;
     TabID mSelectedTab{TabID::None};
 
