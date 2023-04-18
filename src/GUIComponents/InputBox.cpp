@@ -1,5 +1,7 @@
 #include "InputBox.h"
 
+#include <iostream>
+
 InputBox::InputBox(Rectangle bounds) {
     mRect = bounds;
     mColor = WHITE;
@@ -51,6 +53,16 @@ void InputBox::draw() {
 
 std::string InputBox::getInputText() const {
     return mInputText;
+}
+
+std::function<bool(std::string)> InputBox::integerValidator(int min, int max) {
+    return [min, max](std::string str) -> bool {
+        if (!std::regex_match(str, std::regex("[0-9]+"))) {
+            return false;
+        }
+        int num = std::stoi(str);
+        return (min <= num && num <= max);
+    };
 }
 
 void InputBox::checkInteraction() {

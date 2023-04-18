@@ -1,11 +1,14 @@
 #ifndef GUICOMPONENTS_INPUTBOX_H
 #define GUICOMPONENTS_INPUTBOX_H
 
-#include <string>
-
 #include "Button.h"
 #include "GUIComponent.h"
+
 #include "raylib.h"
+
+#include <functional>
+#include <regex>
+#include <string>
 
 class InputBox : public GUIComponent {
 public:
@@ -16,6 +19,9 @@ public:
     void draw();
 
     std::string getInputText() const;
+
+public:
+    static std::function<bool(std::string)> integerValidator(int min, int max);
 
 private:
     void checkInteraction();
