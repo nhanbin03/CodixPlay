@@ -56,7 +56,7 @@ public:
     void addCode(std::string code);
     void highlightCode(std::vector<int> lines);
 
-public:
+private:
     std::vector<VisualScene> mSceneTrack;
     VisualScene mDisplayingScene;
 
