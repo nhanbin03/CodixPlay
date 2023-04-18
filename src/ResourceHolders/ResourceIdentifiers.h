@@ -8,7 +8,12 @@ enum class TextureID {
     PlaySceneButton,
     PauseSceneButton,
     NextSceneButton,
-    FowardSceneButton
+    FowardSceneButton,
+    InitializeTab,
+    InsertTab,
+    RemoveTab,
+    SearchTab,
+    UpdateTab
 };
 
 enum class FontID {

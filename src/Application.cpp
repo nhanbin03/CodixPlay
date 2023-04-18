@@ -78,6 +78,16 @@ void Application::loadTextures() {
                                       BASE_PATH + "NextSceneButton.png");
     TextureHolder::getInstance().load(TextureID::FowardSceneButton,
                                       BASE_PATH + "FowardSceneButton.png");
+    TextureHolder::getInstance().load(TextureID::InitializeTab,
+                                      BASE_PATH + "InitializeTab.png");
+    TextureHolder::getInstance().load(TextureID::InsertTab,
+                                      BASE_PATH + "InsertTab.png");
+    TextureHolder::getInstance().load(TextureID::RemoveTab,
+                                      BASE_PATH + "RemoveTab.png");
+    TextureHolder::getInstance().load(TextureID::SearchTab,
+                                      BASE_PATH + "SearchTab.png");
+    TextureHolder::getInstance().load(TextureID::UpdateTab,
+                                      BASE_PATH + "UpdateTab.png");
 }
 
 void Application::loadFonts() {
