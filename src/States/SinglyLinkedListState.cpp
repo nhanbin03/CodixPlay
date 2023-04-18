@@ -16,6 +16,7 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
 
     populateInsert();
     populateRemove();
+    populateInitialize();
 }
 
 bool SinglyLinkedListState::update(float dt) {
@@ -31,6 +32,26 @@ void SinglyLinkedListState::draw() {
     mActions.draw();
 }
 
+void SinglyLinkedListState::populateInitialize() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Initialize);
+
+    // Initialize randomly (fixed size) option
+    {
+        auto sizeValidator = InputBox::integerValidator(1, 7);
+        curTab->addActionSelector(
+            "Initialize randomly (fixed size)",
+            {ActionBox::Input("size = ", "size", sizeValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return;
+                }
+                int size = std::stoi(data["size"]);
+                this->mAlgo.initializeRandomFixSize(size);
+            });
+    }
+}
+
 void SinglyLinkedListState::populateInsert() {
     ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Insert);
 
@@ -38,7 +59,7 @@ void SinglyLinkedListState::populateInsert() {
     {
         auto valueValidator = InputBox::integerValidator(0, 99);
         curTab->addActionSelector(
-            "Insert at the beginning ",
+            "Insert at the beginning",
             {ActionBox::Input("value = ", "value", valueValidator, 60)},
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
@@ -86,7 +107,7 @@ void SinglyLinkedListState::populateInsert() {
     {
         auto valueValidator = InputBox::integerValidator(0, 99);
         curTab->addActionSelector(
-            "Insert at the end ",
+            "Insert at the end",
             {ActionBox::Input("value = ", "value", valueValidator, 60)},
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {

@@ -19,6 +19,7 @@ private:
     ActionContainer mActions;
 
 private:
+    void populateInitialize();
     void populateInsert();
     void populateRemove();
 };

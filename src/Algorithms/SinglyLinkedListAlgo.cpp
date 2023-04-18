@@ -10,6 +10,47 @@ SinglyLinkedListAlgo::SinglyLinkedListAlgo(Visualization& visualization)
     mSceneCleanUp = []() {};
 }
 
+void SinglyLinkedListAlgo::initializeRandomFixSize(int size) {
+    std::vector<int> list(size);
+    for (auto& element : list) {
+        element = rand() % 100;
+    }
+    initialize(list);
+}
+
+void SinglyLinkedListAlgo::initialize(std::vector<int> list) {
+    mListSize = list.size();
+    assert(mListSize > 0);
+    sceneReset();
+
+    mDSHead = std::make_shared<Node>();
+    mDSHead->value = list[0];
+    mDSHead->id = mVisualization.createNode(list[0]);
+    mVisualization.moveNode(mDSHead->id, STARTING_POSITION);
+    assignNodePtr(mDSHead, mDSHead, 1, "head");
+
+    Node::Ptr cur = mDSHead;
+    for (int i = 1; i < list.size(); i++) {
+        Node::Ptr newNode = std::make_shared<Node>();
+        newNode->value = list[i];
+        newNode->id = mVisualization.createNode(list[i]);
+        std::cout << "?";
+        newNode->next.node = nullptr;
+        mVisualization.moveNode(newNode->id, STARTING_POSITION);
+
+        cur->next.node = newNode;
+        cur->next.id =
+            mVisualization.createArrow(STARTING_POSITION, STARTING_POSITION);
+        cur = cur->next.node;
+    }
+    assignNodePtr(mDSTail, cur, 2, "tail");
+
+    // New scene
+    mVisualization.createNewScene();
+    mVisualization.highlightCode({});
+    relayout();
+}
+
 void SinglyLinkedListAlgo::addFirst(int value) {
     mListSize++;
 
@@ -408,6 +449,12 @@ void SinglyLinkedListAlgo::sceneInit() {
     mSceneCleanUp = []() {};
     generalCleanUp();
     mVisualization.reset(mVisualization.getLastScene());
+}
+
+void SinglyLinkedListAlgo::sceneReset() {
+    mVisualization.reset();
+    mDSHead = nullptr;
+    mDSTail = nullptr;
 }
 
 void SinglyLinkedListAlgo::generalCleanUp() {

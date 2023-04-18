@@ -15,7 +15,8 @@ public:
 public:
     SinglyLinkedListAlgo(Visualization& visualization);
 
-    void initializeRandom();
+    void initializeRandomFixSize(int size);
+    void initialize(std::vector<int> list);
 
     void addFirst(int value);
     void addMiddle(int pos, int value);
@@ -62,6 +63,7 @@ private:
 
 private:
     void sceneInit();
+    void sceneReset();
 
     void generalCleanUp();
 
