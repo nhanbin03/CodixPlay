@@ -208,7 +208,7 @@ const Label& VisualScene::getLabel(int labelID) const {
 
 float VisualScene::easeInOut(float from, float to, float time,
                              float totalTime) {
-    return EaseQuadInOut(time, from, to - from, totalTime);
+    return EaseCircInOut(time, from, to - from, totalTime);
 }
 
 Color VisualScene::easeInOutColor(Color fromColor, Color toColor, float time,
