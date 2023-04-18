@@ -39,7 +39,7 @@ void SinglyLinkedListState::populateInsert() {
         auto valueValidator = InputBox::integerValidator(0, 99);
         curTab->addActionSelector(
             "Insert at the beginning ",
-            {(ActionBox::Input){"value = ", "value", valueValidator, 60}},
+            {ActionBox::Input("value = ", "value", valueValidator, 60)},
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
@@ -65,8 +65,8 @@ void SinglyLinkedListState::populateInsert() {
 
         curTab->addActionSelector(
             "Insert in the middle",
-            {(ActionBox::Input){"pos = ", "pos", posValidator, 60},
-             (ActionBox::Input){"value = ", "value", valueValidator, 60}},
+            {ActionBox::Input("pos = ", "pos", posValidator, 60),
+             ActionBox::Input("value = ", "value", valueValidator, 60)},
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
@@ -87,7 +87,7 @@ void SinglyLinkedListState::populateInsert() {
         auto valueValidator = InputBox::integerValidator(0, 99);
         curTab->addActionSelector(
             "Insert at the end ",
-            {(ActionBox::Input){"value = ", "value", valueValidator, 60}},
+            {ActionBox::Input("value = ", "value", valueValidator, 60)},
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";

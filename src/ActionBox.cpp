@@ -131,3 +131,11 @@ std::pair<bool, ActionBox::InputData> ActionBox::getInputs() const {
     }
     return {true, ret};
 }
+
+ActionBox::Input::Input(std::string label, std::string name,
+                        std::function<bool(std::string)> validator, int width)
+: label(label)
+, name(name)
+, validator(validator)
+, width(width) {
+}

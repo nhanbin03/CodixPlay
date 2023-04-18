@@ -21,6 +21,8 @@ public:
         std::string name;
         std::function<bool(std::string)> validator;
         int width;
+        Input(std::string label, std::string name,
+              std::function<bool(std::string)> validator, int width);
     };
 
     typedef std::map<std::string, std::string> InputData;
