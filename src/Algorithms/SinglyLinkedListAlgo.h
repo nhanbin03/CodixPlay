@@ -29,6 +29,8 @@ public:
 
     void searchValue(int value);
 
+    int getDSSize() const;
+
 private:
     class Node {
     public:

@@ -202,6 +202,10 @@ void SinglyLinkedListAlgo::addLast(int value) {
     };
 }
 
+int SinglyLinkedListAlgo::getDSSize() const {
+    return mListSize;
+}
+
 void SinglyLinkedListAlgo::sceneInit() {
     mSceneCleanUp();
     generalCleanUp();
