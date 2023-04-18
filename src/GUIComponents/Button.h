@@ -37,6 +37,8 @@ public:
 
     void setTexture(Texture2D texture);
 
+    void setCornerRoundness(float cornerRoundness);
+
 private:
     void checkInteraction();
 
@@ -52,6 +54,8 @@ private:
 
     bool mHasTexture{false};
     Texture2D mTexture;
+
+    float mCornerRoundness{0.5};
 };
 
 #endif // GUICOMPONENTS_BUTTON_H

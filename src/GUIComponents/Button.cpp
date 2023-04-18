@@ -19,21 +19,22 @@ void Button::update(float dt) {
 void Button::draw() {
     float filterBrightness = 0;
     if (mState != ButtonState::None) {
-        int r = mColor.r;
-        int g = mColor.g;
-        int b = mColor.b;
-        float luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b);
-        if (luminance < 128) // Test if the color is dark
-            filterBrightness = 0.2;
-        else
-            filterBrightness = -0.2;
+        // int r = mColor.r;
+        // int g = mColor.g;
+        // int b = mColor.b;
+        // float luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b);
+        // if (luminance < 128) // Test if the color is dark
+        //     filterBrightness = 0.2;
+        // else
+        //     filterBrightness = -0.2;
+        filterBrightness = -0.2;
     }
-    DrawRectangleRounded(mRect, 0.5, ROUNDED_SEGMENTS,
+    DrawRectangleRounded(mRect, mCornerRoundness, ROUNDED_SEGMENTS,
                          ColorBrightness(mColor, filterBrightness));
 
     if (mBorderThickness != 0) {
         DrawRectangleRoundedLines(
-            mRect, 0.5, ROUNDED_SEGMENTS, mBorderThickness,
+            mRect, mCornerRoundness, ROUNDED_SEGMENTS, mBorderThickness,
             ColorBrightness(mBorderColor, filterBrightness));
     }
 
@@ -78,6 +79,10 @@ void Button::setTexture(Texture2D texture) {
     mHasTexture = true;
     mTexture = texture;
     scaleTexture(mTexture, getSize());
+}
+
+void Button::setCornerRoundness(float cornerRoundness) {
+    mCornerRoundness = cornerRoundness;
 }
 
 void Button::checkInteraction() {
