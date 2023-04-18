@@ -45,7 +45,6 @@ void ActionTab::addActionSelector(
 
     auto onSelect = [this, curIndex]() {
         this->select(curIndex);
-        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
     };
 
     int startingY;
