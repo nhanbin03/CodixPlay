@@ -15,6 +15,7 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
     mActions.addTab(ActionContainer::TabID::Search);
 
     populateInsert();
+    populateRemove();
 }
 
 bool SinglyLinkedListState::update(float dt) {
@@ -105,13 +106,16 @@ void SinglyLinkedListState::populateInsert() {
 void SinglyLinkedListState::populateRemove() {
     ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Remove);
 
-    // // Delete at the beginning option
-    // {
-    //     curTab->addActionSelector("Delete at the beginning", {},
-    //                               [this](std::map<std::string, std::string>)
-    //                               {
-    //                                   if (this->mAlgo.getDSSize() > 0)
-    //                                       this->mAlgo.deleteFirst();
-    //                               });
-    // }
+    // Delete at the beginning option
+    {
+        curTab->addActionSelector(
+            "Delete at the beginning", {},
+            [this](std::map<std::string, std::string>, bool) {
+                if (this->mAlgo.getDSSize() == 0) {
+                    std::cout << "No element to delete!\n";
+                    return;
+                }
+                this->mAlgo.deleteFirst();
+            });
+    }
 }

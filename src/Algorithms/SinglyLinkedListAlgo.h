@@ -70,7 +70,8 @@ private:
 
     void relayout();
 
-    void addInitialNode(int value);
+    void addSoleNode(int value);
+    void removeSoleNode();
 
     void addReference(Node::Ptr node, int order, std::string reference);
     void removeReference(Node::Ptr node, std::string reference);
