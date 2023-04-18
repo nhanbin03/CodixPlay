@@ -13,7 +13,8 @@ Button::~Button() {
 }
 
 void Button::update(float dt) {
-    checkInteraction();
+    if (mIsActivated)
+        checkInteraction();
 }
 
 void Button::draw() {
@@ -29,13 +30,32 @@ void Button::draw() {
         //     filterBrightness = -0.2;
         filterBrightness = -0.2;
     }
+
+    std::function<Color(Color)> colorFilter;
+    if (mIsActivated) {
+        colorFilter = [filterBrightness](Color color) {
+            return ColorBrightness(color, filterBrightness);
+        };
+    } else {
+        colorFilter = [](Color color) {
+            int r = color.r;
+            int g = color.g;
+            int b = color.b;
+            float luminance =
+                0.2126 * r + 0.7125 * g + 0.0722 * b; // Grayscaling from wiki
+            color.r = luminance;
+            color.g = luminance;
+            color.b = luminance;
+            return color;
+        };
+    }
+
     DrawRectangleRounded(mRect, mCornerRoundness, ROUNDED_SEGMENTS,
-                         ColorBrightness(mColor, filterBrightness));
+                         colorFilter(mColor));
 
     if (mBorderThickness != 0) {
-        DrawRectangleRoundedLines(
-            mRect, mCornerRoundness, ROUNDED_SEGMENTS, mBorderThickness,
-            ColorBrightness(mBorderColor, filterBrightness));
+        DrawRectangleRoundedLines(mRect, mCornerRoundness, ROUNDED_SEGMENTS,
+                                  mBorderThickness, colorFilter(mBorderColor));
     }
 
     if (mTextSize == 0) {
@@ -48,11 +68,10 @@ void Button::draw() {
                mText.c_str(),
                {mRect.x + mRect.width / 2 - textBounds.x / 2,
                 mRect.y + mRect.height / 2 - textBounds.y / 2},
-               mTextSize, 0, ColorBrightness(mContentColor, filterBrightness));
+               mTextSize, 0, colorFilter(mContentColor));
 
     if (mHasTexture)
-        DrawTextureV(mTexture, getPosition(),
-                     ColorBrightness(mContentColor, filterBrightness));
+        DrawTextureV(mTexture, getPosition(), colorFilter(mContentColor));
 }
 
 void Button::setSize(Vector2 size) {
@@ -84,6 +103,14 @@ void Button::setTexture(Texture2D texture) {
 
 void Button::setCornerRoundness(float cornerRoundness) {
     mCornerRoundness = cornerRoundness;
+}
+
+void Button::activate() {
+    mIsActivated = true;
+}
+
+void Button::deactivate() {
+    mIsActivated = false;
 }
 
 void Button::checkInteraction() {

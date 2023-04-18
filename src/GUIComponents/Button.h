@@ -39,6 +39,11 @@ public:
 
     void setCornerRoundness(float cornerRoundness);
 
+    void activate();
+    void deactivate();
+
+    bool mIsActivated{true};
+
 private:
     void checkInteraction();
 
