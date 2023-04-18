@@ -21,9 +21,9 @@ public:
     void update(float dt);
     void draw();
 
-    void addActionSelector(std::string title,
-                           std::vector<ActionBox::Input> inputs,
-                           std::function<void(ActionBox::InputData)> onSubmit);
+    void addActionSelector(
+        std::string title, std::vector<ActionBox::Input> inputs,
+        std::function<void(ActionBox::InputData, bool)> onSubmit);
 
     void activate();
     void deactivate();
@@ -42,7 +42,7 @@ private:
     bool mIsActivated{false};
 
     Button mSubmitButton;
-    std::vector<std::function<void(ActionBox::InputData)>> mOnSubmits;
+    std::vector<std::function<void(ActionBox::InputData, bool)>> mOnSubmits;
 };
 
 #endif // ACTIONTAB_H

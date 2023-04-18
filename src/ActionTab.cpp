@@ -38,7 +38,7 @@ void ActionTab::draw() {
 
 void ActionTab::addActionSelector(
     std::string title, std::vector<ActionBox::Input> inputs,
-    std::function<void(ActionBox::InputData)> onSubmit) {
+    std::function<void(ActionBox::InputData, bool)> onSubmit) {
     mOnSubmits.push_back(onSubmit);
 
     const int curIndex = mActions.size();
@@ -95,7 +95,6 @@ void ActionTab::setSubmitCallback() {
         assert(hasSelection());
         int idx = this->mSelectedAction;
         auto getInputStatus = this->mActions[idx].getInputs();
-        if (getInputStatus.first == true)
-            this->mOnSubmits[idx](getInputStatus.second);
+        this->mOnSubmits[idx](getInputStatus.second, getInputStatus.first);
     });
 }

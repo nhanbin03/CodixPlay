@@ -20,6 +20,7 @@ private:
 
 private:
     void populateInsert();
+    void populateRemove();
 };
 
 #endif // STATES_SINGLYLINKEDLISTSTATE_H

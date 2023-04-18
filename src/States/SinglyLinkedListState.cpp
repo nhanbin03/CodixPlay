@@ -39,7 +39,15 @@ void SinglyLinkedListState::populateInsert() {
         curTab->addActionSelector(
             "Insert at the beginning ",
             {(ActionBox::Input){"value = ", "value", valueValidator, 60}},
-            [this](std::map<std::string, std::string> data) {
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return;
+                }
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_LIST_SIZE) {
+                    std::cout << "Max size reached!\n";
+                    return;
+                }
                 int value = std::stoi(data["value"]);
                 this->mAlgo.addFirst(value);
             });
@@ -58,7 +66,15 @@ void SinglyLinkedListState::populateInsert() {
             "Insert in the middle",
             {(ActionBox::Input){"pos = ", "pos", posValidator, 60},
              (ActionBox::Input){"value = ", "value", valueValidator, 60}},
-            [this](std::map<std::string, std::string> data) {
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return;
+                }
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_LIST_SIZE) {
+                    std::cout << "Max size reached!\n";
+                    return;
+                }
                 int pos = std::stoi(data["pos"]);
                 int value = std::stoi(data["value"]);
                 this->mAlgo.addMiddle(pos, value);
@@ -71,9 +87,31 @@ void SinglyLinkedListState::populateInsert() {
         curTab->addActionSelector(
             "Insert at the end ",
             {(ActionBox::Input){"value = ", "value", valueValidator, 60}},
-            [this](std::map<std::string, std::string> data) {
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return;
+                }
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_LIST_SIZE) {
+                    std::cout << "Max size reached!\n";
+                    return;
+                }
                 int value = std::stoi(data["value"]);
                 this->mAlgo.addLast(value);
             });
     }
+}
+
+void SinglyLinkedListState::populateRemove() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Remove);
+
+    // // Delete at the beginning option
+    // {
+    //     curTab->addActionSelector("Delete at the beginning", {},
+    //                               [this](std::map<std::string, std::string>)
+    //                               {
+    //                                   if (this->mAlgo.getDSSize() > 0)
+    //                                       this->mAlgo.deleteFirst();
+    //                               });
+    // }
 }
