@@ -16,8 +16,10 @@ public:
 
 private:
     SinglyLinkedListAlgo mAlgo;
-    Button mButton;
     ActionContainer mActions;
+
+private:
+    void populateInsert();
 };
 
 #endif // STATES_SINGLYLINKEDLISTSTATE_H
