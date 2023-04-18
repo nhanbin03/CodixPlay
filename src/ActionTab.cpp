@@ -12,6 +12,7 @@ ActionTab::ActionTab() {
     mSubmitButton.setContentColor(AppColor::TEXT_ACCENT);
     mSubmitButton.setText("Simulate");
     mSubmitButton.setTextSize(25);
+    mSubmitButton.deactivate();
 
     setSubmitCallback();
 }
@@ -79,10 +80,14 @@ void ActionTab::select(unsigned index) {
     }
     mSelectedAction = index;
     mActions[mSelectedAction].activate();
+    mSubmitButton.activate();
 }
 
 void ActionTab::resetSelection() {
+    if (hasSelection())
+        mActions[mSelectedAction].deactivate();
     mSelectedAction = -1;
+    mSubmitButton.deactivate();
 }
 
 void ActionTab::setSubmitCallback() {
