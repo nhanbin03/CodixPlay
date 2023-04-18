@@ -51,7 +51,8 @@ void Button::draw() {
                mTextSize, 0, ColorBrightness(mContentColor, filterBrightness));
 
     if (mHasTexture)
-        DrawTextureV(mTexture, getPosition(), mContentColor);
+        DrawTextureV(mTexture, getPosition(),
+                     ColorBrightness(mContentColor, filterBrightness));
 }
 
 void Button::setSize(Vector2 size) {
