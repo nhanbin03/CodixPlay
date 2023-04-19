@@ -22,6 +22,8 @@ public:
 
 public:
     static std::function<bool(std::string)> integerValidator(int min, int max);
+    static std::function<bool(std::string)>
+    integerSpaceSeparatedListValidator();
 
 private:
     void checkInteraction();
