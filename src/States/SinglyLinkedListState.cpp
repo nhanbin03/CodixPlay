@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <regex>
+#include <sstream>
 
 SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
 : State(stack, context)
@@ -48,6 +49,37 @@ void SinglyLinkedListState::populateInitialize() {
                 }
                 int size = std::stoi(data["size"]);
                 this->mAlgo.initializeRandomFixSize(size);
+            });
+    }
+
+    // Initialize by manual input option
+    {
+        auto listValidator = [](std::string str) -> bool {
+            return std::regex_match(str, std::regex("\\d*(?:\\s*\\d*)*"));
+        };
+        curTab->addActionSelector(
+            "Initialize by manual input",
+            {ActionBox::Input("list = ", "list", listValidator, 220)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return;
+                }
+                std::stringstream ss(data["list"]);
+                int element;
+                std::vector<int> list;
+                while (ss >> element) {
+                    if (element < 0 || element > 99) {
+                        std::cout << "Invalid input\n";
+                        return;
+                    }
+                    list.push_back(element);
+                }
+                if (list.size() > this->mAlgo.MAX_LIST_SIZE) {
+                    std::cout << "List is too long!\n";
+                    return;
+                }
+                this->mAlgo.initialize(list);
             });
     }
 }
