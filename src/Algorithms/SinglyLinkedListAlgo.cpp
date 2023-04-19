@@ -35,7 +35,6 @@ void SinglyLinkedListAlgo::initialize(std::vector<int> list) {
         Node::Ptr newNode = std::make_shared<Node>();
         newNode->value = list[i];
         newNode->id = mVisualization.createNode(list[i]);
-        std::cout << "?";
         newNode->next.node = nullptr;
         mVisualization.moveNode(newNode->id, STARTING_POSITION);
 
