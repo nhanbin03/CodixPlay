@@ -37,7 +37,7 @@ void SinglyLinkedListState::populateInitialize() {
 
     // Initialize randomly (fixed size) option
     {
-        auto sizeValidator = InputBox::integerValidator(1, 7);
+        auto sizeValidator = InputBox::integerValidator(0, 7);
         curTab->addActionSelector(
             "Initialize randomly (fixed size)",
             {ActionBox::Input("size = ", "size", sizeValidator, 60)},

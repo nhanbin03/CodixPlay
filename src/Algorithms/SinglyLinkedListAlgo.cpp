@@ -20,8 +20,9 @@ void SinglyLinkedListAlgo::initializeRandomFixSize(int size) {
 
 void SinglyLinkedListAlgo::initialize(std::vector<int> list) {
     mListSize = list.size();
-    assert(mListSize > 0);
     sceneReset();
+    if (list.size() == 0)
+        return;
 
     mDSHead = std::make_shared<Node>();
     mDSHead->value = list[0];
