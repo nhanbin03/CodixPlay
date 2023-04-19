@@ -483,11 +483,14 @@ void SinglyLinkedListAlgo::updateValue(int pos, int value) {
     mVisualization.highlightCode({3});
     mVisualization.updateNode(cur->id, value);
     cur->value = value;
-    removeReference(cur, std::to_string(pos));
 
-    mSceneCleanUp = [cur, this]() {
+    mSceneCleanUp = [pos, cur, this]() {
+        this->removeReference(cur, std::to_string(pos));
         this->removeReference(cur, "cur");
     };
+}
+
+void SinglyLinkedListAlgo::searchValue(int value) {
 }
 
 int SinglyLinkedListAlgo::getDSSize() const {
