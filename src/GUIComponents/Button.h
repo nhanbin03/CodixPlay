@@ -29,6 +29,7 @@ public:
     void setSize(Vector2 size);
 
     void setCallback(Callback callback);
+    void triggerCallback();
 
     void setContentColor(Color color);
 

@@ -83,6 +83,10 @@ void Button::setCallback(Callback callback) {
     mCallback = callback;
 }
 
+void Button::triggerCallback() {
+    mCallback();
+}
+
 void Button::setText(const std::string text) {
     mText = text;
 }
