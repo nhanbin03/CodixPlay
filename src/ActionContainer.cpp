@@ -84,6 +84,10 @@ void ActionContainer::addTab(TabID id) {
     });
 
     mTabButtons.push_back(newButton);
+
+    if (mTabButtons.size() == 1) {
+        newButton.triggerCallback();
+    }
 }
 
 ActionTab::Ptr ActionContainer::getTab(TabID id) const {
