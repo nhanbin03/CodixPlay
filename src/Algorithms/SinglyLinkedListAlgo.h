@@ -67,17 +67,17 @@ private:
 
     void generalCleanUp();
 
-    void assignNodePtr(Node::Ptr& from, const Node::Ptr& to, int order,
-                       std::string name);
-
-    void relayout();
-
     void addSoleNode(int value);
     void deleteSoleNode();
 
+    void relayout();
+
+    void newScene(std::vector<int> lines);
     void addReference(Node::Ptr node, int order, std::string reference);
     void removeReference(Node::Ptr node, std::string reference);
     void clearReference(Node::Ptr node);
+    void assignNodePtr(Node::Ptr& from, const Node::Ptr& to, int order,
+                       std::string name);
 };
 
 #endif // ALGORITHMS_SINGLYLINKEDLISTALGO_H
