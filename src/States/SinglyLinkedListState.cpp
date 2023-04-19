@@ -46,10 +46,11 @@ void SinglyLinkedListState::populateInitialize() {
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
-                    return;
+                    return false;
                 }
                 int size = std::stoi(data["size"]);
                 this->mAlgo.initializeRandomFixSize(size);
+                return true;
             });
     }
 
@@ -62,7 +63,7 @@ void SinglyLinkedListState::populateInitialize() {
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
-                    return;
+                    return false;
                 }
                 std::stringstream ss(data["list"]);
                 int element;
@@ -70,15 +71,16 @@ void SinglyLinkedListState::populateInitialize() {
                 while (ss >> element) {
                     if (element < 0 || element > 99) {
                         std::cout << "Invalid input!\n";
-                        return;
+                        return false;
                     }
                     list.push_back(element);
                 }
                 if (list.size() > this->mAlgo.MAX_LIST_SIZE) {
                     std::cout << "List is too long!\n";
-                    return;
+                    return false;
                 }
                 this->mAlgo.initialize(list);
+                return true;
             });
     }
 }
@@ -95,14 +97,15 @@ void SinglyLinkedListState::populateInsert() {
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
-                    return;
+                    return false;
                 }
                 if (this->mAlgo.getDSSize() == this->mAlgo.MAX_LIST_SIZE) {
                     std::cout << "Max size reached!\n";
-                    return;
+                    return false;
                 }
                 int value = std::stoi(data["value"]);
                 this->mAlgo.addFirst(value);
+                return true;
             });
     }
 
@@ -122,15 +125,16 @@ void SinglyLinkedListState::populateInsert() {
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
-                    return;
+                    return false;
                 }
                 if (this->mAlgo.getDSSize() == this->mAlgo.MAX_LIST_SIZE) {
                     std::cout << "Max size reached!\n";
-                    return;
+                    return false;
                 }
                 int pos = std::stoi(data["pos"]);
                 int value = std::stoi(data["value"]);
                 this->mAlgo.addMiddle(pos, value);
+                return true;
             });
     }
 
@@ -143,14 +147,15 @@ void SinglyLinkedListState::populateInsert() {
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
-                    return;
+                    return false;
                 }
                 if (this->mAlgo.getDSSize() == this->mAlgo.MAX_LIST_SIZE) {
                     std::cout << "Max size reached!\n";
-                    return;
+                    return false;
                 }
                 int value = std::stoi(data["value"]);
                 this->mAlgo.addLast(value);
+                return true;
             });
     }
 }
@@ -164,9 +169,10 @@ void SinglyLinkedListState::populateRemove() {
             "Delete at the beginning", {}, [this](ActionBox::InputData, bool) {
                 if (this->mAlgo.getDSSize() == 0) {
                     std::cout << "No element to delete!\n";
-                    return;
+                    return false;
                 }
                 this->mAlgo.deleteFirst();
+                return true;
             });
     }
 
@@ -183,14 +189,15 @@ void SinglyLinkedListState::populateRemove() {
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
-                    return;
+                    return false;
                 }
                 if (this->mAlgo.getDSSize() == 0) {
                     std::cout << "No element to delete!\n";
-                    return;
+                    return false;
                 }
                 int pos = std::stoi(data["pos"]);
                 this->mAlgo.deleteMiddle(pos);
+                return true;
             });
     }
 
@@ -200,9 +207,10 @@ void SinglyLinkedListState::populateRemove() {
             "Delete at the end", {}, [this](ActionBox::InputData, bool) {
                 if (this->mAlgo.getDSSize() == 0) {
                     std::cout << "No element to delete!\n";
-                    return;
+                    return false;
                 }
                 this->mAlgo.deleteLast();
+                return true;
             });
     }
 }
@@ -218,7 +226,6 @@ void SinglyLinkedListState::populateUpdate() {
             return func(str);
         };
         auto valueValidator = InputBox::integerValidator(0, 99);
-        ActionBox::Input("value = ", "value", valueValidator, 60);
         curTab->addActionSelector(
             "Update node value",
             {ActionBox::Input("pos = ", "pos", posValidator, 60),
@@ -226,11 +233,12 @@ void SinglyLinkedListState::populateUpdate() {
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
-                    return;
+                    return false;
                 }
                 int pos = std::stoi(data["pos"]);
                 int value = std::stoi(data["value"]);
                 this->mAlgo.updateValue(pos, value);
+                return true;
             });
     }
 }
