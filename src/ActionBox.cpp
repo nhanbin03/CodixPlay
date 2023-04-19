@@ -118,6 +118,9 @@ void ActionBox::activate() {
 
 void ActionBox::deactivate() {
     mIsActivated = false;
+    for (auto& input : mInputBoxes) {
+        input.reset();
+    }
 }
 
 std::pair<bool, ActionBox::InputData> ActionBox::getInputs() const {

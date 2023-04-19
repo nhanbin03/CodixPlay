@@ -12,6 +12,10 @@ InputBox::InputBox(Rectangle bounds) {
 InputBox::~InputBox() {
 }
 
+void InputBox::reset() {
+    mInputText = "";
+}
+
 void InputBox::update(float dt) {
     checkInteraction();
 

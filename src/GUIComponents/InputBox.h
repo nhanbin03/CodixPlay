@@ -15,6 +15,8 @@ public:
     explicit InputBox(Rectangle bounds = {0, 0, 0, 0});
     ~InputBox();
 
+    void reset();
+
     void update(float dt);
     void draw();
 
