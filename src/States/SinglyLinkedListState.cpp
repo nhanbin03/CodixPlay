@@ -18,6 +18,7 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
     populateInsert();
     populateRemove();
     populateInitialize();
+    populateUpdate();
 }
 
 bool SinglyLinkedListState::update(float dt) {
@@ -160,8 +161,7 @@ void SinglyLinkedListState::populateRemove() {
     // Delete at the beginning option
     {
         curTab->addActionSelector(
-            "Delete at the beginning", {},
-            [this](std::map<std::string, std::string>, bool) {
+            "Delete at the beginning", {}, [this](ActionBox::InputData, bool) {
                 if (this->mAlgo.getDSSize() == 0) {
                     std::cout << "No element to delete!\n";
                     return;
@@ -180,7 +180,7 @@ void SinglyLinkedListState::populateRemove() {
         curTab->addActionSelector(
             "Delete in the middle",
             {ActionBox::Input("pos = ", "pos", posValidator, 60)},
-            [this](std::map<std::string, std::string> data, bool status) {
+            [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
                     return;
@@ -197,13 +197,40 @@ void SinglyLinkedListState::populateRemove() {
     // Delete the end option
     {
         curTab->addActionSelector(
-            "Delete at the end", {},
-            [this](std::map<std::string, std::string>, bool) {
+            "Delete at the end", {}, [this](ActionBox::InputData, bool) {
                 if (this->mAlgo.getDSSize() == 0) {
                     std::cout << "No element to delete!\n";
                     return;
                 }
                 this->mAlgo.deleteLast();
+            });
+    }
+}
+
+void SinglyLinkedListState::populateUpdate() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Update);
+
+    // Update node value option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(0, this->mAlgo.getDSSize() - 1);
+            return func(str);
+        };
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        ActionBox::Input("value = ", "value", valueValidator, 60);
+        curTab->addActionSelector(
+            "Update node value",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60),
+             ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return;
+                }
+                int pos = std::stoi(data["pos"]);
+                int value = std::stoi(data["value"]);
+                this->mAlgo.updateValue(pos, value);
             });
     }
 }
