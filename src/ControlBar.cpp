@@ -125,8 +125,10 @@ void ControlBar::setPause(bool pause) {
 
 void ControlBar::updateDisplayingScene(float dt) {
     if (mActionStatus != Action::None || mIsPaused == false) {
-        mTimeCounter += dt;
         if (mTimeCounter < ANIMATION_TIME) {
+            mTimeCounter += dt;
+            if (mTimeCounter > ANIMATION_TIME)
+                mTimeCounter = ANIMATION_TIME;
             int lastTracker;
             if (mActionStatus == Action::Prev) {
                 lastTracker = mTracker + 1;
