@@ -249,6 +249,7 @@ void SinglyLinkedListAlgo::deleteFirst() {
     // New scene
     newScene({1});
     assignNodePtr(mDSHead, mDSHead->next.node, 1, "head");
+    mVisualization.highlightNode(mDSHead->id);
 
     // New scene
     newScene({2});
@@ -259,6 +260,7 @@ void SinglyLinkedListAlgo::deleteFirst() {
     // New scene
     newScene({});
     relayout();
+    mVisualization.unhighlightNode(mDSHead->id);
 }
 
 void SinglyLinkedListAlgo::deleteMiddle(int pos) {

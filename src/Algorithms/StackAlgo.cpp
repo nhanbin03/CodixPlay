@@ -81,17 +81,21 @@ void StackAlgo::pop() {
     // New scene
     newScene({2});
     assignNodePtr(mDSHead, mDSHead->next.node, 1, "head");
+    if (mDSHead != nullptr)
+        mVisualization.highlightNode(mDSHead->id);
 
     // New scene
     newScene({3});
     removeReference(tmp, "tmp");
-    if (tmp->next.node != nullptr)
+    if (mDSHead != nullptr)
         mVisualization.removeArrow(tmp->next.id);
     mVisualization.removeNode(tmp->id);
 
     // New scene
     newScene({});
     relayout();
+    if (mDSHead != nullptr)
+        mVisualization.unhighlightNode(mDSHead->id);
 }
 
 int StackAlgo::getDSSize() const {
