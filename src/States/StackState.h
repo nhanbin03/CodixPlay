@@ -18,6 +18,7 @@ private:
 
 private:
     void populateInsert();
+    void populateRemove();
 };
 
 #endif // STATES_STACKSTATE_H
