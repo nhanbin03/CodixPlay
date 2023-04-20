@@ -72,7 +72,8 @@ std::function<bool(std::string)> InputBox::integerValidator(int min, int max) {
 std::function<bool(std::string)>
 InputBox::integerSpaceSeparatedListValidator() {
     return [](std::string str) -> bool {
-        return std::regex_match(str, std::regex("(?:-?\\d+)?(?:\\s+-?\\d+)*"));
+        return std::regex_match(str,
+                                std::regex("(?:-?\\d+)?(?:\\s+-?\\d+)*\\s*"));
     };
 }
 
