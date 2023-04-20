@@ -8,7 +8,8 @@
 
 SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
 : State(stack, context)
-, mAlgo(mVisualization) {
+, mAlgo(mVisualization)
+, mActions("Singly Linked List") {
     mActions.addTab(ActionContainer::TabID::Initialize);
     mActions.addTab(ActionContainer::TabID::Insert);
     mActions.addTab(ActionContainer::TabID::Remove);

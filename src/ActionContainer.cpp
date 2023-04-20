@@ -5,7 +5,8 @@
 #include <cassert>
 #include <iostream>
 
-ActionContainer::ActionContainer() {
+ActionContainer::ActionContainer(std::string title) {
+    mTitle = title;
     mRect = {985, 0, 455, 617};
     mColor = AppColor::BACKGROUND_4;
 }
@@ -21,6 +22,12 @@ void ActionContainer::update(float dt) {
 
 void ActionContainer::draw() {
     DrawRectangleRec(mRect, mColor);
+
+    int titleTextSize = 50;
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, titleTextSize),
+               mTitle.c_str(), {mRect.x + 17, 17}, titleTextSize, 0,
+               AppColor::TEXT);
+
     for (auto &tab : mTabs) {
         tab.second->draw();
     }

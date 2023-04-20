@@ -22,7 +22,7 @@ public:
     };
 
 public:
-    ActionContainer();
+    ActionContainer(std::string title);
 
     void update(float dt);
     void draw();
@@ -41,6 +41,8 @@ private:
     TabID mSelectedTab{TabID::None};
 
     Rectangle mTabIndicator;
+
+    std::string mTitle;
 };
 
 #endif // ACTIONCONTAINER_H
