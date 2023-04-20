@@ -42,6 +42,10 @@ void StackState::populateInsert() {
                     std::cout << "Invalid input!\n";
                     return false;
                 }
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_STACK_SIZE) {
+                    std::cout << "Max size reached!\n";
+                    return false;
+                }
                 int value = std::stoi(data["value"]);
                 this->mAlgo.push(value);
                 return true;

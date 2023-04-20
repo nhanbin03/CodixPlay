@@ -10,7 +10,7 @@
 
 class StackAlgo : public Algorithm {
 public:
-    static constexpr int MAX_LIST_SIZE = 7;
+    static constexpr int MAX_STACK_SIZE = 7;
 
 public:
     StackAlgo(Visualization& visualization);
