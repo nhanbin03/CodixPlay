@@ -9,6 +9,10 @@ public:
 
     bool update(float dt);
     void draw();
+
+private:
+    Visualization mVisualization;
+    ActionContainer mActions;
 };
 
 #endif // STATES_DOUBLYLINKEDLISTSTATE_H

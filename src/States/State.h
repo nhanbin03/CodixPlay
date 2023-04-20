@@ -1,6 +1,7 @@
 #ifndef STATES_STATE_H
 #define STATES_STATE_H
 
+#include "../ActionContainer.h"
 #include "../ColorPalettes/AppColorPalette.h"
 #include "../ResourceHolders/TextureHolder.h"
 #include "../Visualization.h"
@@ -22,9 +23,6 @@ public:
 
     virtual bool update(float dt) = 0;
     virtual void draw() = 0;
-
-protected:
-    Visualization mVisualization;
 
 protected:
     void requestStackPush(StateIDs stateID);

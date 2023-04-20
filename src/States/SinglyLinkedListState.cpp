@@ -26,7 +26,6 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
 bool SinglyLinkedListState::update(float dt) {
     mVisualization.update(dt);
     mActions.update(dt);
-
     return true;
 }
 

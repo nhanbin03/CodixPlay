@@ -16,6 +16,7 @@ public:
 
 private:
     SinglyLinkedListAlgo mAlgo;
+    Visualization mVisualization;
     ActionContainer mActions;
 
 private:
