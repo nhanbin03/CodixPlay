@@ -19,6 +19,7 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
     populateRemove();
     populateInitialize();
     populateUpdate();
+    populateSearch();
 }
 
 bool SinglyLinkedListState::update(float dt) {
@@ -238,6 +239,27 @@ void SinglyLinkedListState::populateUpdate() {
                 int pos = std::stoi(data["pos"]);
                 int value = std::stoi(data["value"]);
                 this->mAlgo.updateValue(pos, value);
+                return true;
+            });
+    }
+}
+
+void SinglyLinkedListState::populateSearch() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Search);
+
+    // Search for value option
+    {
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        curTab->addActionSelector(
+            "Search for value",
+            {ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int value = std::stoi(data["value"]);
+                this->mAlgo.searchValue(value);
                 return true;
             });
     }

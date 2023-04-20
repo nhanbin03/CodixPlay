@@ -23,6 +23,7 @@ private:
     void populateInsert();
     void populateRemove();
     void populateUpdate();
+    void populateSearch();
 };
 
 #endif // STATES_SINGLYLINKEDLISTSTATE_H
