@@ -628,6 +628,8 @@ void SinglyLinkedListAlgo::newScene(std::vector<int> lines) {
 
 void SinglyLinkedListAlgo::addReference(Node::Ptr node, int order,
                                         std::string reference) {
+    if (node == nullptr)
+        return;
     node->references[order] = reference;
     if (node->referencesId == -1)
         node->referencesId = mVisualization.createNodeLabel("", node->id);
@@ -637,6 +639,7 @@ void SinglyLinkedListAlgo::addReference(Node::Ptr node, int order,
 
 void SinglyLinkedListAlgo::removeReference(Node::Ptr node,
                                            std::string reference) {
+    assert(node != nullptr);
     for (auto it = node->references.begin(); it != node->references.end();
          it++) {
         if (it->second == reference) {

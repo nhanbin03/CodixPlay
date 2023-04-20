@@ -2,6 +2,9 @@
 
 #include "../Helper.h"
 
+#include <cassert>
+#include <iostream>
+
 StackAlgo::StackAlgo(Visualization& visualization)
 : Algorithm(visualization) {
     mSceneCleanUp = []() {};
@@ -51,6 +54,9 @@ void StackAlgo::push(int value) {
     };
 }
 
+void StackAlgo::pop() {
+}
+
 void StackAlgo::sceneInit() {
     mSceneCleanUp();
     mSceneCleanUp = []() {};
@@ -93,6 +99,8 @@ void StackAlgo::newScene(std::vector<int> lines) {
 }
 
 void StackAlgo::addReference(Node::Ptr node, int order, std::string reference) {
+    if (node == nullptr)
+        return;
     node->references[order] = reference;
     if (node->referencesId == -1)
         node->referencesId = mVisualization.createNodeLabel("", node->id);
@@ -101,6 +109,7 @@ void StackAlgo::addReference(Node::Ptr node, int order, std::string reference) {
 }
 
 void StackAlgo::removeReference(Node::Ptr node, std::string reference) {
+    assert(node != nullptr);
     for (auto it = node->references.begin(); it != node->references.end();
          it++) {
         if (it->second == reference) {
