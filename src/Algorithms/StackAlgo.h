@@ -49,7 +49,7 @@ private:
     };
 
 private:
-    int mListSize{0};
+    int mStackSize{0};
 
     Node::Ptr mDSHead;
 

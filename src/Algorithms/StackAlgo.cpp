@@ -11,6 +11,8 @@ StackAlgo::StackAlgo(Visualization& visualization)
 }
 
 void StackAlgo::push(int value) {
+    mStackSize++;
+
     sceneInit();
 
     mVisualization.addCode("Node* node = new Node(value);");
@@ -68,6 +70,8 @@ void StackAlgo::pop() {
         return;
     }
 
+    mStackSize--;
+
     // New scene
     newScene({1});
     Node::Ptr tmp;
@@ -88,6 +92,10 @@ void StackAlgo::pop() {
     // New scene
     newScene({});
     relayout();
+}
+
+int StackAlgo::getDSSize() const {
+    return mStackSize;
 }
 
 void StackAlgo::sceneInit() {
