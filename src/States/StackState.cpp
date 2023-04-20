@@ -16,6 +16,7 @@ StackState::StackState(StateStack &stack, Context context)
     populateInitialize();
     populateInsert();
     populateRemove();
+    populateSearch();
 }
 
 bool StackState::update(float dt) {
@@ -113,6 +114,19 @@ void StackState::populateRemove() {
         curTab->addActionSelector("Pop", {},
                                   [this](ActionBox::InputData, bool) {
                                       this->mAlgo.pop();
+                                      return true;
+                                  });
+    }
+}
+
+void StackState::populateSearch() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Search);
+
+    // Get top value option
+    {
+        curTab->addActionSelector("Get top value", {},
+                                  [this](ActionBox::InputData, bool) {
+                                      this->mAlgo.getTop();
                                       return true;
                                   });
     }

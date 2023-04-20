@@ -56,9 +56,6 @@ private:
     std::function<void()> mSceneCleanUp;
 
 private:
-    void pushSoleNode(int value);
-    void popSoleNode();
-
     void sceneInit();
     void sceneReset();
 

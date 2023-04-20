@@ -20,6 +20,7 @@ private:
     void populateInitialize();
     void populateInsert();
     void populateRemove();
+    void populateSearch();
 };
 
 #endif // STATES_STACKSTATE_H

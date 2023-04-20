@@ -137,6 +137,23 @@ void StackAlgo::pop() {
         mVisualization.unhighlightNode(mDSHead->id);
 }
 
+void StackAlgo::getTop() {
+    sceneInit();
+
+    mVisualization.addCode("if (isEmpty()) return NOT_FOUND;"); // 0
+    mVisualization.addCode("return head->value;");              // 1
+
+    if (mDSHead == nullptr) {
+        // New scene
+        newScene({0});
+        return;
+    }
+
+    // New scene
+    newScene({1});
+    mVisualization.colorNode(mDSHead->id, VisualColor::getTertiaryColor());
+}
+
 int StackAlgo::getDSSize() const {
     return mStackSize;
 }
