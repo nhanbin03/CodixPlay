@@ -549,6 +549,8 @@ void SinglyLinkedListAlgo::assignNodePtr(Node::Ptr& from, const Node::Ptr& to,
 }
 
 void SinglyLinkedListAlgo::relayout() {
+    if (mDSHead == nullptr)
+        return;
     mVisualization.moveNode(mDSHead->id, STARTING_POSITION);
     mVisualization.attachNodeLabel(mDSHead->referencesId, mDSHead->id);
     for (Node::Ptr cur = mDSHead; cur != mDSTail; cur = cur->next.node) {
