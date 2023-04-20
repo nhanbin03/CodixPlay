@@ -26,7 +26,7 @@ Application::Application()
     loadFonts();
 
     registerStates();
-    mStateStack.pushState(StateIDs::SinglyLinkedList);
+    mStateStack.pushState(StateIDs::Stack);
 }
 
 Application::~Application() {

@@ -1,6 +1,7 @@
 #ifndef STATES_STACKSTATE_H
 #define STATES_STACKSTATE_H
 
+#include "../Algorithms/StackAlgo.h"
 #include "State.h"
 
 class StackState : public State {
@@ -11,8 +12,12 @@ public:
     void draw();
 
 private:
+    StackAlgo mAlgo;
     Visualization mVisualization;
     ActionContainer mActions;
+
+private:
+    void populateInsert();
 };
 
 #endif // STATES_STACKSTATE_H
