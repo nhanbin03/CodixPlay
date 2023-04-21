@@ -42,6 +42,7 @@ public:
 
     int createArrow(Vector2 source, Vector2 destination);
     int createCircularArrow(Vector2 source, Vector2 destination);
+    int createOffsetArrow(Vector2 source, Vector2 destination);
     void moveArrowSource(int arrowID, Vector2 source);
     void moveArrowDestination(int arrowID, Vector2 destination);
     void moveArrowDelta(int arrowID, Vector2 source, Vector2 destination);

@@ -26,6 +26,9 @@ public:
     void setCircular(bool isCircular);
     bool isCircular() const;
 
+    void setSideOffset(int sideOffset);
+    int getSideOffset() const;
+
 private:
     Vector2 mSource, mDestination;
     int mThickness{DEFAULT_THICKNESS};
@@ -34,9 +37,11 @@ private:
 
     bool mIsCircular;
 
+    int mSideOffset{0};
+
 private:
     void drawArrow(Vector2 source, Vector2 destination, float scale,
-                   int headOffset = 0);
+                   float headOffset = 0);
     void drawLine(Vector2 source, Vector2 destination);
 };
 

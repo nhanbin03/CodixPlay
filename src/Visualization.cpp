@@ -81,6 +81,10 @@ int Visualization::createCircularArrow(Vector2 source, Vector2 destination) {
     return mSceneTrack.back().createCircularArrow(source, destination);
 }
 
+int Visualization::createOffsetArrow(Vector2 source, Vector2 destination) {
+    return mSceneTrack.back().createOffsetArrow(source, destination);
+}
+
 void Visualization::moveArrowSource(int arrowID, Vector2 source) {
     mSceneTrack.back().moveArrowSource(arrowID, source);
 }

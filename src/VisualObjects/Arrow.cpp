@@ -21,7 +21,9 @@ void Arrow::draw() {
 }
 
 void Arrow::regularDraw() {
-    drawArrow(mSource, mDestination, getScale(), ELEMENT_SIZE);
+    drawArrow(
+        mSource, mDestination, getScale(),
+        sqrt(ELEMENT_SIZE * ELEMENT_SIZE / 4.0 - mSideOffset * mSideOffset));
 }
 
 // ___________
@@ -69,7 +71,7 @@ void Arrow::circularDraw() {
     } else {
         drawArrow(posThreeFour, mDestination,
                   (curLength - lengthThree) / (lengthFour - lengthThree),
-                  ELEMENT_SIZE);
+                  ELEMENT_SIZE / 2.0);
     }
 }
 
@@ -101,8 +103,16 @@ bool Arrow::isCircular() const {
     return mIsCircular;
 }
 
+void Arrow::setSideOffset(int sideOffset) {
+    mSideOffset = sideOffset;
+}
+
+int Arrow::getSideOffset() const {
+    return mSideOffset;
+}
+
 void Arrow::drawArrow(Vector2 source, Vector2 destination, float scale,
-                      int headOffset) {
+                      float headOffset) {
     Vector2 scaledDestination = source + (destination - source) * scale;
 
     float x = scaledDestination.x - source.x;
@@ -112,29 +122,29 @@ void Arrow::drawArrow(Vector2 source, Vector2 destination, float scale,
     if (x * x + y * y <= headOffset * headOffset) {
         headOffset = 0;
     }
-    Vector2 unitVector = {mThickness * x / sqrt(x * x + y * y),
-                          mThickness * y / sqrt(x * x + y * y)};
-    if (x < unitVector.x && y < unitVector.y)
-        return;
+    Vector2 unitVector = (Vector2){x, y} / sqrt(x * x + y * y);
 
     Vector2 inverseVector = {unitVector.y, -unitVector.x};
 
-    Vector2 headDestination = {
-        scaledDestination.x - unitVector.x * headOffset / mThickness / 2,
-        scaledDestination.y - unitVector.y * headOffset / mThickness / 2};
+    Vector2 headDestination = {scaledDestination.x - unitVector.x * headOffset,
+                               scaledDestination.y - unitVector.y * headOffset};
 
     // Draw arrow head
     Vector2 arrowPoint = headDestination;
-    Vector2 arrowSide1 = headDestination - unitVector * 2 + inverseVector * 1.5;
-    Vector2 arrowSide2 = headDestination - unitVector * 2 - inverseVector * 1.5;
+    Vector2 arrowSide1 = headDestination - unitVector * 2 * mThickness
+                       + inverseVector * 1.5 * mThickness;
+    Vector2 arrowSide2 = headDestination - unitVector * 2 * mThickness
+                       - inverseVector * 1.5 * mThickness;
 
-    DrawTriangle(arrowPoint, arrowSide1, arrowSide2, mColor);
+    DrawTriangle(arrowPoint + inverseVector * mSideOffset,
+                 arrowSide1 + inverseVector * mSideOffset,
+                 arrowSide2 + inverseVector * mSideOffset, mColor);
 
     // Draw arrow line
-    DrawLineEx(
-        source,
-        {headDestination.x - unitVector.x, headDestination.y - unitVector.y},
-        mThickness, mColor);
+    DrawLineEx(source + inverseVector * mSideOffset,
+               headDestination - unitVector * 2 * mThickness
+                   + inverseVector * mSideOffset,
+               mThickness, mColor);
 }
 
 void Arrow::drawLine(Vector2 source, Vector2 destination) {
