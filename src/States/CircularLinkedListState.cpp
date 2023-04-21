@@ -199,4 +199,17 @@ void CircularLinkedListState::populateRemove() {
                 return true;
             });
     }
+
+    // Delete at tail option
+    {
+        curTab->addActionSelector(
+            "Delete at tail", {}, [this](ActionBox::InputData, bool) {
+                if (this->mAlgo.getDSSize() == 0) {
+                    std::cout << "No element to delete!\n";
+                    return false;
+                }
+                this->mAlgo.deleteTail();
+                return true;
+            });
+    }
 }
