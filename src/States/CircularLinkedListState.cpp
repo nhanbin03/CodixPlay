@@ -19,6 +19,7 @@ CircularLinkedListState::CircularLinkedListState(StateStack &stack,
     populateInitialize();
     populateInsert();
     populateRemove();
+    populateUpdate();
 }
 
 bool CircularLinkedListState::update(float dt) {
@@ -209,6 +210,34 @@ void CircularLinkedListState::populateRemove() {
                     return false;
                 }
                 this->mAlgo.deleteTail();
+                return true;
+            });
+    }
+}
+
+void CircularLinkedListState::populateUpdate() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Update);
+
+    // Update node value option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(0, this->mAlgo.getDSSize() - 1);
+            return func(str);
+        };
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        curTab->addActionSelector(
+            "Update node value",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60),
+             ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int pos = std::stoi(data["pos"]);
+                int value = std::stoi(data["value"]);
+                this->mAlgo.updateValue(pos, value);
                 return true;
             });
     }

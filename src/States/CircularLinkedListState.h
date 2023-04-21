@@ -20,6 +20,7 @@ private:
     void populateInitialize();
     void populateInsert();
     void populateRemove();
+    void populateUpdate();
 };
 
 #endif // STATES_CIRCULARLINKEDLISTSTATE_H

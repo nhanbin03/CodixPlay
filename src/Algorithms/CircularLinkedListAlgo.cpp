@@ -437,6 +437,51 @@ void CircularLinkedListAlgo::deleteTail() {
     mVisualization.unhighlightNode(pre->id);
 }
 
+void CircularLinkedListAlgo::updateValue(int pos, int value) {
+    assert(0 <= pos && pos < mDSSize);
+
+    sceneInit();
+
+    mVisualization.addCode("Node* cur = head;");             // 0
+    mVisualization.addCode("for (int i = 0; i < pos; i++)"); // 1
+    mVisualization.addCode("    cur = cur->next;");          // 2
+    mVisualization.addCode("cur->value");                    // 3
+
+    // New scene
+    newScene({0});
+    Node::Ptr cur;
+    assignNodePtr(cur, mDSHead, 5, "cur");
+    mVisualization.highlightNode(cur->id);
+
+    // New scene
+    newScene({1});
+    addReference(cur, 0, "0");
+
+    // Loop
+    for (int i = 0; i < pos; i++) {
+        // New scene
+        newScene({2});
+        mVisualization.unhighlightNode(cur->id);
+        Node::Ptr tmp = cur;
+        assignNodePtr(cur, cur->next.node, 5, "cur");
+        mVisualization.highlightNode(cur->id);
+
+        // New scene
+        newScene({1});
+        removeReference(tmp, std::to_string(i));
+        addReference(cur, 0, std::to_string(i + 1));
+    }
+    // New scene
+    newScene({3});
+    mVisualization.updateNode(cur->id, value);
+    cur->value = value;
+
+    mSceneCleanUp = [pos, cur, this]() {
+        this->removeReference(cur, std::to_string(pos));
+        this->removeReference(cur, "cur");
+    };
+}
+
 int CircularLinkedListAlgo::getDSSize() const {
     return mDSSize;
 }
