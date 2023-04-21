@@ -17,6 +17,48 @@ void CircularLinkedListAlgo::addHead(int value) {
         addSoleNode(value);
         return;
     }
+
+    sceneInit();
+
+    mVisualization.addCode("Node* node = new Node(value);"); // 0
+    mVisualization.addCode("node->next = head;");            // 1
+    mVisualization.addCode("head = node;");                  // 2
+    mVisualization.addCode("tail->next = node;");            // 3
+
+    // New scene
+    newScene({0});
+    Node::Ptr node = std::make_shared<Node>();
+    node->value = value;
+    node->id = mVisualization.createNode(value);
+    mVisualization.colorNode(node->id, VisualColor::getSecondaryColor());
+    mVisualization.moveNode(node->id, STARTING_POSITION + Vector2{0, SPACING});
+    assignNodePtr(node, node, 3, "node");
+
+    // New scene
+    newScene({1});
+    node->next.node = mDSHead;
+    node->next.id =
+        mVisualization.createArrow(mVisualization.getNodePosition(node->id),
+                                   mVisualization.getNodePosition(mDSHead->id));
+
+    // New scene
+    newScene({2});
+    assignNodePtr(mDSHead, node, 1, "head");
+    mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
+    relayout();
+    mVisualization.moveArrowDestination(
+        mDSTail->next.id,
+        mVisualization.getNodePosition(mDSHead->next.node->id));
+
+    // New scene
+    newScene({3});
+    mVisualization.moveArrowDestination(
+        mDSTail->next.id, mVisualization.getNodePosition(mDSHead->id));
+
+    // Clean up
+    mSceneCleanUp = [node, this]() {
+        this->removeReference(node, "node");
+    };
 }
 
 void CircularLinkedListAlgo::deleteHead() {
@@ -140,9 +182,9 @@ void CircularLinkedListAlgo::relayout() {
         mVisualization.attachNodeLabel(nextNode->referencesId, nextNode->id);
     }
     mVisualization.moveArrowSource(mDSTail->next.id,
-                                   mVisualization.getNodePosition(mDSHead->id));
+                                   mVisualization.getNodePosition(mDSTail->id));
     mVisualization.moveArrowDestination(
-        mDSTail->next.id, mVisualization.getNodePosition(mDSTail->id));
+        mDSTail->next.id, mVisualization.getNodePosition(mDSHead->id));
 }
 
 void CircularLinkedListAlgo::newScene(std::vector<int> lines) {
