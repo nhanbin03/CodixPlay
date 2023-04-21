@@ -77,6 +77,10 @@ int Visualization::createArrow(Vector2 source, Vector2 destination) {
     return mSceneTrack.back().createArrow(source, destination);
 }
 
+int Visualization::createCircularArrow(Vector2 source, Vector2 destination) {
+    return mSceneTrack.back().createCircularArrow(source, destination);
+}
+
 void Visualization::moveArrowSource(int arrowID, Vector2 source) {
     mSceneTrack.back().moveArrowSource(arrowID, source);
 }

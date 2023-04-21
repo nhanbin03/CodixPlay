@@ -101,6 +101,19 @@ int VisualScene::createArrow(Vector2 source, Vector2 destination) {
     return objectID;
 }
 
+int VisualScene::createCircularArrow(Vector2 source, Vector2 destination) {
+    Arrow newObject(true);
+    newObject.setSource(source);
+    newObject.setDestination(destination);
+
+    int objectID = newObject.getObjectID();
+    auto insertStatus = mArrowMap.emplace(objectID, newObject);
+
+    assert(insertStatus.second == true);
+
+    return objectID;
+}
+
 void VisualScene::moveArrowSource(int arrowID, Vector2 source) {
     Arrow& obj = getArrow(arrowID);
     obj.setSource(source);
@@ -328,11 +341,13 @@ void VisualScene::transitionArrow(const VisualScene& fromScene,
             from.setSource(to.getSource());
             from.setDestination(to.getDestination());
             from.setScale(0);
+            from.setCircular(to.isCircular());
         }
         if (toFound == toScene.mArrowMap.end()) {
             to.setSource(from.getSource());
             to.setDestination(from.getDestination());
             to.setScale(0);
+            to.setCircular(from.isCircular());
         }
 
         Arrow newObject = to;
