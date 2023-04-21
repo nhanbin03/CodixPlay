@@ -118,7 +118,7 @@ int VisualScene::createOffsetArrow(Vector2 source, Vector2 destination) {
     Arrow newObject;
     newObject.setSource(source);
     newObject.setDestination(destination);
-    newObject.setSideOffset(10);
+    newObject.setSideOffset(7);
 
     int objectID = newObject.getObjectID();
     auto insertStatus = mArrowMap.emplace(objectID, newObject);
