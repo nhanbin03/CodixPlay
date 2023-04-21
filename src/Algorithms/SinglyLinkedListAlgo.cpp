@@ -531,6 +531,8 @@ void SinglyLinkedListAlgo::sceneInit() {
 }
 
 void SinglyLinkedListAlgo::sceneReset() {
+    mSceneCleanUp();
+    mSceneCleanUp = []() {};
     mVisualization.reset();
     mDSHead = nullptr;
     mDSTail = nullptr;
@@ -658,8 +660,10 @@ void SinglyLinkedListAlgo::removeReference(Node::Ptr node,
 
 void SinglyLinkedListAlgo::clearReference(Node::Ptr node) {
     node->references.clear();
-    if (node->referencesId != -1)
+    if (node->referencesId != -1) {
         mVisualization.removeLabel(node->referencesId);
+        node->referencesId = -1;
+    }
 }
 
 std::string SinglyLinkedListAlgo::Node::referencesText() {

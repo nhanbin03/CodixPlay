@@ -160,6 +160,8 @@ void StackAlgo::sceneInit() {
 }
 
 void StackAlgo::sceneReset() {
+    mSceneCleanUp();
+    mSceneCleanUp = []() {};
     mVisualization.reset();
     mDSHead = nullptr;
 }
@@ -219,8 +221,10 @@ void StackAlgo::removeReference(Node::Ptr node, std::string reference) {
 
 void StackAlgo::clearReference(Node::Ptr node) {
     node->references.clear();
-    if (node->referencesId != -1)
+    if (node->referencesId != -1) {
         mVisualization.removeLabel(node->referencesId);
+        node->referencesId = -1;
+    }
 }
 
 void StackAlgo::assignNodePtr(Node::Ptr& from, const Node::Ptr& to, int order,

@@ -159,6 +159,8 @@ void QueueAlgo::sceneInit() {
 }
 
 void QueueAlgo::sceneReset() {
+    mSceneCleanUp();
+    mSceneCleanUp = []() {};
     mVisualization.reset();
     mDSHead = nullptr;
     mDSTail = nullptr;
@@ -284,8 +286,10 @@ void QueueAlgo::removeReference(Node::Ptr node, std::string reference) {
 
 void QueueAlgo::clearReference(Node::Ptr node) {
     node->references.clear();
-    if (node->referencesId != -1)
+    if (node->referencesId != -1) {
         mVisualization.removeLabel(node->referencesId);
+        node->referencesId = -1;
+    }
 }
 
 std::string QueueAlgo::Node::referencesText() {

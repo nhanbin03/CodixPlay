@@ -567,6 +567,8 @@ void CircularLinkedListAlgo::sceneInit() {
 }
 
 void CircularLinkedListAlgo::sceneReset() {
+    mSceneCleanUp();
+    mSceneCleanUp = []() {};
     mVisualization.reset();
     mDSHead = nullptr;
     mDSTail = nullptr;
@@ -703,8 +705,10 @@ void CircularLinkedListAlgo::removeReference(Node::Ptr node,
 
 void CircularLinkedListAlgo::clearReference(Node::Ptr node) {
     node->references.clear();
-    if (node->referencesId != -1)
+    if (node->referencesId != -1) {
         mVisualization.removeLabel(node->referencesId);
+        node->referencesId = -1;
+    }
 }
 
 void CircularLinkedListAlgo::assignNodePtr(Node::Ptr& from, const Node::Ptr& to,
