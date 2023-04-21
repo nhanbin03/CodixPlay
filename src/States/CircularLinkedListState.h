@@ -1,6 +1,7 @@
 #ifndef STATES_CIRCULARLINKEDLISTSTATE_H
 #define STATES_CIRCULARLINKEDLISTSTATE_H
 
+#include "../Algorithms/CircularLinkedListAlgo.h"
 #include "State.h"
 
 class CircularLinkedListState : public State {
@@ -11,8 +12,13 @@ public:
     void draw();
 
 private:
+    CircularLinkedListAlgo mAlgo;
     Visualization mVisualization;
     ActionContainer mActions;
+
+private:
+    void populateInsert();
+    void populateRemove();
 };
 
 #endif // STATES_CIRCULARLINKEDLISTSTATE_H

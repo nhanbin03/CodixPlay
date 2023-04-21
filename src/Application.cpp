@@ -26,7 +26,7 @@ Application::Application()
     loadFonts();
 
     registerStates();
-    mStateStack.pushState(StateIDs::Queue);
+    mStateStack.pushState(StateIDs::CircularLinkedList);
 }
 
 Application::~Application() {
