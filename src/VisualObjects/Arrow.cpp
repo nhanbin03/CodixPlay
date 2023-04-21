@@ -125,12 +125,8 @@ void Arrow::drawArrow(Vector2 source, Vector2 destination, float scale,
 
     // Draw arrow head
     Vector2 arrowPoint = headDestination;
-    Vector2 arrowSide1 = {
-        headDestination.x - 2 * unitVector.x + inverseVector.x,
-        headDestination.y - 2 * unitVector.y + inverseVector.y};
-    Vector2 arrowSide2 = {
-        headDestination.x - 2 * unitVector.x - inverseVector.x,
-        headDestination.y - 2 * unitVector.y - inverseVector.y};
+    Vector2 arrowSide1 = headDestination - unitVector * 2 + inverseVector * 1.5;
+    Vector2 arrowSide2 = headDestination - unitVector * 2 - inverseVector * 1.5;
 
     DrawTriangle(arrowPoint, arrowSide1, arrowSide2, mColor);
 
