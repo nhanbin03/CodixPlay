@@ -96,35 +96,29 @@ void StackAlgo::push(int value) {
 }
 
 void StackAlgo::pop() {
-    sceneInit();
-
-    mVisualization.addCode("if (isEmpty()) return;"); // 0
-    mVisualization.addCode("Node* tmp = head;");      // 1
-    mVisualization.addCode("head = head->next");      // 2
-    mVisualization.addCode("delete tmp;");            // 3
-
-    if (mDSHead == nullptr) {
-        // New scene
-        newScene({0});
-        return;
-    }
-
+    assert(mDSSize > 0);
     mDSSize--;
 
+    sceneInit();
+
+    mVisualization.addCode("Node* tmp = head;"); // 0
+    mVisualization.addCode("head = head->next"); // 1
+    mVisualization.addCode("delete tmp;");       // 2
+
     // New scene
-    newScene({1});
+    newScene({0});
     Node::Ptr tmp;
     assignNodePtr(tmp, mDSHead, 3, "tmp");
     mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
 
     // New scene
-    newScene({2});
+    newScene({1});
     assignNodePtr(mDSHead, mDSHead->next.node, 1, "head");
     if (mDSHead != nullptr)
         mVisualization.highlightNode(mDSHead->id);
 
     // New scene
-    newScene({3});
+    newScene({2});
     removeReference(tmp, "tmp");
     if (mDSHead != nullptr)
         mVisualization.removeArrow(tmp->next.id);

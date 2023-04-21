@@ -113,6 +113,10 @@ void StackState::populateRemove() {
     {
         curTab->addActionSelector("Pop", {},
                                   [this](ActionBox::InputData, bool) {
+                                      if (this->mAlgo.getDSSize() == 0) {
+                                          std::cout << "No element to pop!\n";
+                                          return false;
+                                      }
                                       this->mAlgo.pop();
                                       return true;
                                   });
