@@ -25,6 +25,9 @@ Application::Application()
     loadTextures();
     loadFonts();
 
+    SetWindowIcon(LoadImageFromTexture(
+        TextureHolder::getInstance().get(TextureID::IconLogo)));
+
     registerStates();
     mStateStack.pushState(StateIDs::CircularLinkedList);
 }
@@ -66,6 +69,9 @@ void Application::registerStates() {
 
 void Application::loadTextures() {
     std::string BASE_PATH = "asset/texture/";
+    TextureHolder::getInstance().load(TextureID::Logo, BASE_PATH + "Logo.png");
+    TextureHolder::getInstance().load(TextureID::IconLogo,
+                                      BASE_PATH + "IconLogo.png");
     TextureHolder::getInstance().load(TextureID::RewindSceneButton,
                                       BASE_PATH + "RewindSceneButton.png");
     TextureHolder::getInstance().load(TextureID::PrevSceneButton,

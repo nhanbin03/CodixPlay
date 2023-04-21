@@ -3,6 +3,8 @@
 
 enum class TextureID {
     None,
+    Logo,
+    IconLogo,
     RewindSceneButton,
     PrevSceneButton,
     PlaySceneButton,
