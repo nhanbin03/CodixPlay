@@ -20,6 +20,7 @@ CircularLinkedListState::CircularLinkedListState(StateStack &stack,
     populateInsert();
     populateRemove();
     populateUpdate();
+    populateSearch();
 }
 
 bool CircularLinkedListState::update(float dt) {
@@ -238,6 +239,27 @@ void CircularLinkedListState::populateUpdate() {
                 int pos = std::stoi(data["pos"]);
                 int value = std::stoi(data["value"]);
                 this->mAlgo.updateValue(pos, value);
+                return true;
+            });
+    }
+}
+
+void CircularLinkedListState::populateSearch() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Search);
+
+    // Search for value option
+    {
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        curTab->addActionSelector(
+            "Search for value",
+            {ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int value = std::stoi(data["value"]);
+                this->mAlgo.searchValue(value);
                 return true;
             });
     }

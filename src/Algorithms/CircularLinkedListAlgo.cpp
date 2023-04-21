@@ -44,6 +44,7 @@ void CircularLinkedListAlgo::initialize(std::vector<int> list) {
         cur = cur->next.node;
     }
     assignNodePtr(mDSTail, cur, 2, "tail");
+    mDSTail->next.node = mDSHead;
     mDSTail->next.id = mVisualization.createCircularArrow(
         mVisualization.getNodePosition(mDSTail->id),
         mVisualization.getNodePosition(mDSHead->id));
@@ -95,6 +96,7 @@ void CircularLinkedListAlgo::addHead(int value) {
 
     // New scene
     newScene({3});
+    mDSTail->next.node = mDSHead;
     mVisualization.moveArrowDestination(
         mDSTail->next.id, mVisualization.getNodePosition(mDSHead->id));
 
@@ -232,6 +234,7 @@ void CircularLinkedListAlgo::addTail(int value) {
 
     // New scene
     newScene({3});
+    mDSTail->next.node = mDSHead;
     mDSTail->next.id = mVisualization.createCircularArrow(
         mVisualization.getNodePosition(mDSTail->id),
         mVisualization.getNodePosition(mDSHead->id));
@@ -271,6 +274,7 @@ void CircularLinkedListAlgo::deleteHead() {
 
     // New scene
     newScene({2});
+    mDSTail->next.node = mDSHead;
     mVisualization.moveArrowDestination(
         mDSTail->next.id, mVisualization.getNodePosition(mDSHead->id));
 
@@ -427,6 +431,7 @@ void CircularLinkedListAlgo::deleteTail() {
 
     // New scene
     newScene({8});
+    mDSTail->next.node = mDSHead;
     mDSTail->next.id = mVisualization.createCircularArrow(
         mVisualization.getNodePosition(mDSTail->id),
         mVisualization.getNodePosition(mDSHead->id));
@@ -478,6 +483,74 @@ void CircularLinkedListAlgo::updateValue(int pos, int value) {
 
     mSceneCleanUp = [pos, cur, this]() {
         this->removeReference(cur, std::to_string(pos));
+        this->removeReference(cur, "cur");
+    };
+}
+
+void CircularLinkedListAlgo::searchValue(int value) {
+    sceneInit();
+
+    mVisualization.addCode("if (isEmpty()) return NOT_FOUND;"); // 0
+    mVisualization.addCode("Node* cur = head;");                // 1
+    mVisualization.addCode("int index = 0");                    // 2
+    mVisualization.addCode("while(cur->value != value) {");     // 3
+    mVisualization.addCode("    index++, cur = cur->next;");    // 4
+    mVisualization.addCode("    if (cur == head)");             // 5
+    mVisualization.addCode("        return NOT_FOUND;");        // 6
+    mVisualization.addCode("}");                                // 7
+    mVisualization.addCode("return index;");                    // 8
+
+    if (mDSHead == nullptr) {
+        // New scene
+        newScene({0});
+        return;
+    }
+
+    // New scene
+    newScene({1, 2});
+    Node::Ptr cur;
+    assignNodePtr(cur, mDSHead, 5, "cur");
+    addReference(cur, 0, "0");
+    mVisualization.colorNode(cur->id, VisualColor::getSecondaryColor());
+    int idx = 0;
+
+    // New scene
+    newScene({3});
+    mVisualization.unhighlightNode(cur->id);
+
+    // Loop
+    while (cur->value != value) {
+        // New scene
+        newScene({4, 5});
+        removeReference(cur, std::to_string(idx));
+        idx++;
+        assignNodePtr(cur, cur->next.node, 5, "cur");
+        addReference(cur, 0, std::to_string(idx));
+        mVisualization.colorNode(cur->id, VisualColor::getSecondaryColor());
+
+        if (cur == mDSHead) {
+            // New scene
+            newScene({5, 6});
+
+            mSceneCleanUp = [this, cur, idx]() {
+                this->removeReference(cur, std::to_string(idx));
+                this->removeReference(cur, "cur");
+            };
+            return;
+        }
+
+        // New scene
+        newScene({3});
+        mVisualization.unhighlightNode(cur->id);
+    }
+
+    // New scene
+    newScene({8});
+    mVisualization.colorNode(cur->id, VisualColor::getTertiaryColor());
+
+    // Clean up
+    mSceneCleanUp = [this, cur, idx]() {
+        this->removeReference(cur, std::to_string(idx));
         this->removeReference(cur, "cur");
     };
 }
@@ -534,6 +607,7 @@ void CircularLinkedListAlgo::addSoleNode(int value) {
 
     // New scene
     newScene({2});
+    mDSHead->next.node = mDSHead;
     mDSHead->next.id = mVisualization.createCircularArrow(
         mVisualization.getNodePosition(mDSHead->id),
         mVisualization.getNodePosition(mDSHead->id));
