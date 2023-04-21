@@ -29,7 +29,7 @@ Application::Application()
         TextureHolder::getInstance().get(TextureID::IconLogo)));
 
     registerStates();
-    mStateStack.pushState(StateIDs::CircularLinkedList);
+    mStateStack.pushState(StateIDs::DoublyLinkedList);
 }
 
 Application::~Application() {
