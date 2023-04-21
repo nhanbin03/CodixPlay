@@ -43,7 +43,7 @@ private:
     std::vector<Button> mBtnContainer;
 
     Action mActionStatus{Action::None};
-    float mTimeCounter;
+    float mTimeCounter{0};
 
 private:
     void rewindScene();
