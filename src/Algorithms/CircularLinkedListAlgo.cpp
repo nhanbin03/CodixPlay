@@ -236,6 +236,84 @@ void CircularLinkedListAlgo::deleteHead() {
     mVisualization.unhighlightNode(mDSHead->id);
 }
 
+void CircularLinkedListAlgo::deleteMiddle(int pos) {
+    assert(0 < pos && pos < mDSSize - 1);
+    mDSSize--;
+
+    sceneInit();
+
+    mVisualization.addCode("Node* pre = head;");                 // 0
+    mVisualization.addCode("for (int i = 0; i < pos - 1; i++)"); // 1
+    mVisualization.addCode("    pre = pre->next;");              // 2
+    mVisualization.addCode("Node *tmp = pre->next;");            // 3
+    mVisualization.addCode("Node* aft = del->next;");            // 4
+    mVisualization.addCode("pre->next = aft;");                  // 5
+    mVisualization.addCode("delete del;");                       // 6
+
+    // New scene
+    newScene({0});
+    Node::Ptr pre;
+    assignNodePtr(pre, mDSHead, 5, "pre");
+    mVisualization.highlightNode(mDSHead->id);
+
+    // New scene
+    newScene({1});
+    addReference(pre, 0, "0");
+
+    // Loop
+    for (int i = 0; i < pos - 1; i++) {
+        // New scene
+        newScene({2});
+        mVisualization.unhighlightNode(pre->id);
+        Node::Ptr tmp = pre;
+        assignNodePtr(pre, pre->next.node, 5, "pre");
+        mVisualization.highlightNode(pre->id);
+
+        // New scene
+        newScene({1});
+        removeReference(tmp, std::to_string(i));
+        addReference(pre, 0, std::to_string(i + 1));
+    }
+
+    // New scene
+    newScene({3});
+    Node::Ptr tmp;
+    assignNodePtr(tmp, pre->next.node, 5, "tmp");
+    addReference(tmp, 0, std::to_string(pos));
+    mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
+
+    // New scene
+    newScene({4});
+    Node::Ptr aft;
+    assignNodePtr(aft, tmp->next.node, 5, "aft");
+    mVisualization.colorNode(aft->id, VisualColor::getTertiaryColor());
+
+    // New scene
+    newScene({5});
+    mVisualization.moveNodeDelta(tmp->id, {0, -SPACING});
+    mVisualization.moveArrowDelta(tmp->next.id, {0, -SPACING}, {0, 0});
+    mVisualization.attachNodeLabel(tmp->referencesId, tmp->id);
+    pre->next.node = aft;
+    mVisualization.moveArrowDestination(
+        pre->next.id, mVisualization.getNodePosition(aft->id));
+
+    // New scene
+    newScene({6});
+    clearReference(tmp);
+    mVisualization.removeNode(tmp->id);
+    mVisualization.removeArrow(tmp->next.id);
+
+    // New scene
+    newScene({});
+    removeReference(pre, std::to_string(pos - 1));
+    removeReference(pre, "pre");
+    removeReference(aft, "aft");
+    mVisualization.colorNode(aft->id, VisualColor::getPrimaryColor());
+    mVisualization.unhighlightNode(pre->id);
+    mVisualization.unhighlightNode(aft->id);
+    relayout();
+}
+
 int CircularLinkedListAlgo::getDSSize() const {
     return mDSSize;
 }

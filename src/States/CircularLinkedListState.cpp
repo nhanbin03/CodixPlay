@@ -153,4 +153,29 @@ void CircularLinkedListState::populateRemove() {
                 return true;
             });
     }
+
+    // Delete in the middle option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(1, this->mAlgo.getDSSize() - 2);
+            return func(str);
+        };
+        curTab->addActionSelector(
+            "Delete in the middle",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                if (this->mAlgo.getDSSize() == 0) {
+                    std::cout << "No element to delete!\n";
+                    return false;
+                }
+                int pos = std::stoi(data["pos"]);
+                this->mAlgo.deleteMiddle(pos);
+                return true;
+            });
+    }
 }
