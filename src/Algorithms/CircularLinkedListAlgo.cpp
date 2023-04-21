@@ -192,6 +192,56 @@ void CircularLinkedListAlgo::addMiddle(int pos, int value) {
     };
 }
 
+void CircularLinkedListAlgo::addTail(int value) {
+    mDSSize++;
+
+    if (mDSHead == nullptr) {
+        addSoleNode(value);
+        return;
+    }
+    sceneInit();
+
+    mVisualization.addCode("Node* node = new Node(value);"); // 0
+    mVisualization.addCode("tail->next = node;");            // 1
+    mVisualization.addCode("tail = node;");                  // 2
+    mVisualization.addCode("tail->next = mDSHead;");         // 3
+
+    // New scene
+    newScene({0});
+    Node::Ptr node = std::make_shared<Node>();
+    node->value = value;
+    node->id = mVisualization.createNode(value);
+    mVisualization.colorNode(node->id, VisualColor::getSecondaryColor());
+    mVisualization.moveNode(
+        node->id,
+        mVisualization.getNodePosition(mDSTail->id) + Vector2{SPACING, 0});
+    assignNodePtr(node, node, 3, "node");
+
+    // New scene
+    newScene({1});
+    mDSTail->next.node = node;
+    mVisualization.removeArrow(mDSTail->next.id);
+    mDSTail->next.id =
+        mVisualization.createArrow(mVisualization.getNodePosition(mDSTail->id),
+                                   mVisualization.getNodePosition(node->id));
+
+    // New scene
+    newScene({2});
+    mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
+    assignNodePtr(mDSTail, node, 2, "tail");
+
+    // New scene
+    newScene({3});
+    mDSTail->next.id = mVisualization.createCircularArrow(
+        mVisualization.getNodePosition(mDSTail->id),
+        mVisualization.getNodePosition(mDSHead->id));
+
+    // Clean up
+    mSceneCleanUp = [node, this]() {
+        this->removeReference(node, "node");
+    };
+}
+
 void CircularLinkedListAlgo::deleteHead() {
     assert(mDSSize > 0);
     mDSSize--;

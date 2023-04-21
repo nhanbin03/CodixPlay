@@ -136,6 +136,27 @@ void CircularLinkedListState::populateInsert() {
                 return true;
             });
     }
+
+    // Insert at tail option
+    {
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        curTab->addActionSelector(
+            "Insert at tail",
+            {ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_DS_SIZE) {
+                    std::cout << "Max size reached!\n";
+                    return false;
+                }
+                int value = std::stoi(data["value"]);
+                this->mAlgo.addTail(value);
+                return true;
+            });
+    }
 }
 
 void CircularLinkedListState::populateRemove() {
