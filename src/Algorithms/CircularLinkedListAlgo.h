@@ -20,9 +20,11 @@ public:
 
     void addHead(int value);
     void addMiddle(int pos, int value);
+    void addTail(int value);
 
     void deleteHead();
     void deleteMiddle(int pos);
+    void deleteTail();
 
     void updateValue(int pos, int value);
 
