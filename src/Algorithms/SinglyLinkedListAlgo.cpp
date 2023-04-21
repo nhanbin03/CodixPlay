@@ -352,15 +352,17 @@ void SinglyLinkedListAlgo::deleteLast() {
 
     sceneInit();
 
-    mVisualization.addCode("Node* pre = head, tmp = pre->next;");    // 0
-    mVisualization.addCode("while (tmp != tail)");                   // 1
-    mVisualization.addCode("    tmp = tmp->next, pre = pre->next;"); // 2
-    mVisualization.addCode("pre->next = nullptr;");                  // 3
-    mVisualization.addCode("tail = pre;");                           // 4
-    mVisualization.addCode("delete tmp;");                           // 5
+    mVisualization.addCode("Node* pre = head,");      // 0
+    mVisualization.addCode("      tmp = pre->next;"); // 1
+    mVisualization.addCode("while (tmp != tail)");    // 2
+    mVisualization.addCode("    tmp = tmp->next,");   // 3
+    mVisualization.addCode("    pre = pre->next;");   // 4
+    mVisualization.addCode("pre->next = nullptr;");   // 5
+    mVisualization.addCode("tail = pre;");            // 6
+    mVisualization.addCode("delete tmp;");            // 7
 
     // New scene
-    newScene({0});
+    newScene({0, 1});
     Node::Ptr pre, tmp;
     assignNodePtr(pre, mDSHead, 3, "pre");
     assignNodePtr(tmp, mDSHead->next.node, 4, "tmp");
@@ -368,12 +370,12 @@ void SinglyLinkedListAlgo::deleteLast() {
     mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
 
     // New scene
-    newScene({1});
+    newScene({2});
 
     // Loop
     while (tmp != mDSTail) {
         // New scene
-        newScene({2});
+        newScene({3, 4});
         assignNodePtr(tmp, tmp->next.node, 4, "tmp");
         mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
         mVisualization.unhighlightNode(pre->id);
@@ -381,20 +383,20 @@ void SinglyLinkedListAlgo::deleteLast() {
         mVisualization.colorNode(pre->id, VisualColor::getPrimaryColor());
 
         // New scene
-        newScene({1});
+        newScene({2});
     }
 
     // New scene
-    newScene({3});
+    newScene({5});
     mVisualization.removeArrow(pre->next.id);
     pre->next.node = nullptr;
 
     // New scene
-    newScene({4});
+    newScene({6});
     assignNodePtr(mDSTail, pre, 2, "tail");
 
     // New scene
-    newScene({5});
+    newScene({7});
     removeReference(tmp, "tmp");
     mVisualization.removeNode(tmp->id);
 
