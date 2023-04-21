@@ -19,7 +19,7 @@ void StackAlgo::initializeRandomFixSize(int size) {
 }
 
 void StackAlgo::initialize(std::vector<int> list) {
-    mStackSize = list.size();
+    mDSSize = list.size();
     sceneReset();
     if (list.size() == 0)
         return;
@@ -50,7 +50,7 @@ void StackAlgo::initialize(std::vector<int> list) {
 }
 
 void StackAlgo::push(int value) {
-    mStackSize++;
+    mDSSize++;
 
     sceneInit();
 
@@ -109,7 +109,7 @@ void StackAlgo::pop() {
         return;
     }
 
-    mStackSize--;
+    mDSSize--;
 
     // New scene
     newScene({1});
@@ -155,7 +155,7 @@ void StackAlgo::getTop() {
 }
 
 int StackAlgo::getDSSize() const {
-    return mStackSize;
+    return mDSSize;
 }
 
 void StackAlgo::sceneInit() {

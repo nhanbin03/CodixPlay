@@ -72,7 +72,7 @@ void StackState::populateInitialize() {
                     }
                     list.push_back(element);
                 }
-                if (list.size() > this->mAlgo.MAX_STACK_SIZE) {
+                if (list.size() > this->mAlgo.MAX_DS_SIZE) {
                     std::cout << "List is too long!\n";
                     return false;
                 }
@@ -95,7 +95,7 @@ void StackState::populateInsert() {
                     std::cout << "Invalid input!\n";
                     return false;
                 }
-                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_STACK_SIZE) {
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_DS_SIZE) {
                     std::cout << "Max size reached!\n";
                     return false;
                 }

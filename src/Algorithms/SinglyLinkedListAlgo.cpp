@@ -19,7 +19,7 @@ void SinglyLinkedListAlgo::initializeRandomFixSize(int size) {
 }
 
 void SinglyLinkedListAlgo::initialize(std::vector<int> list) {
-    mListSize = list.size();
+    mDSSize = list.size();
     sceneReset();
     if (list.size() == 0)
         return;
@@ -51,7 +51,7 @@ void SinglyLinkedListAlgo::initialize(std::vector<int> list) {
 }
 
 void SinglyLinkedListAlgo::addFirst(int value) {
-    mListSize++;
+    mDSSize++;
 
     if (mDSHead == nullptr) {
         addSoleNode(value);
@@ -96,9 +96,9 @@ void SinglyLinkedListAlgo::addFirst(int value) {
 }
 
 void SinglyLinkedListAlgo::addMiddle(int pos, int value) {
-    assert(pos != 0 && pos != mListSize);
+    assert(pos != 0 && pos != mDSSize);
 
-    mListSize++;
+    mDSSize++;
 
     sceneInit();
 
@@ -184,7 +184,7 @@ void SinglyLinkedListAlgo::addMiddle(int pos, int value) {
 }
 
 void SinglyLinkedListAlgo::addLast(int value) {
-    mListSize++;
+    mDSSize++;
 
     if (mDSHead == nullptr) {
         addSoleNode(value);
@@ -226,10 +226,10 @@ void SinglyLinkedListAlgo::addLast(int value) {
 }
 
 void SinglyLinkedListAlgo::deleteFirst() {
-    assert(mListSize > 0);
-    mListSize--;
+    assert(mDSSize > 0);
+    mDSSize--;
 
-    if (mListSize == 0) {
+    if (mDSSize == 0) {
         deleteSoleNode();
         return;
     }
@@ -264,8 +264,8 @@ void SinglyLinkedListAlgo::deleteFirst() {
 }
 
 void SinglyLinkedListAlgo::deleteMiddle(int pos) {
-    assert(0 < pos && pos < mListSize - 1);
-    mListSize--;
+    assert(0 < pos && pos < mDSSize - 1);
+    mDSSize--;
 
     sceneInit();
 
@@ -342,10 +342,10 @@ void SinglyLinkedListAlgo::deleteMiddle(int pos) {
 }
 
 void SinglyLinkedListAlgo::deleteLast() {
-    assert(mListSize > 0);
-    mListSize--;
+    assert(mDSSize > 0);
+    mDSSize--;
 
-    if (mListSize == 0) {
+    if (mDSSize == 0) {
         deleteSoleNode();
         return;
     }
@@ -405,7 +405,7 @@ void SinglyLinkedListAlgo::deleteLast() {
 }
 
 void SinglyLinkedListAlgo::updateValue(int pos, int value) {
-    assert(0 <= pos && pos < mListSize);
+    assert(0 <= pos && pos < mDSSize);
 
     sceneInit();
 
@@ -518,7 +518,7 @@ void SinglyLinkedListAlgo::searchValue(int value) {
 }
 
 int SinglyLinkedListAlgo::getDSSize() const {
-    return mListSize;
+    return mDSSize;
 }
 
 void SinglyLinkedListAlgo::sceneInit() {

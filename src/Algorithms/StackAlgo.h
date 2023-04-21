@@ -10,7 +10,7 @@
 
 class StackAlgo : public Algorithm {
 public:
-    static constexpr int MAX_STACK_SIZE = 7;
+    static constexpr int MAX_DS_SIZE = 7;
 
 public:
     StackAlgo(Visualization& visualization);
@@ -49,7 +49,7 @@ private:
     };
 
 private:
-    int mStackSize{0};
+    int mDSSize{0};
 
     Node::Ptr mDSHead;
 
