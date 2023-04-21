@@ -69,6 +69,40 @@ void CircularLinkedListAlgo::deleteHead() {
         deleteSoleNode();
         return;
     }
+
+    sceneInit();
+
+    mVisualization.addCode("Node* tmp = head;");  // 0
+    mVisualization.addCode("head = head->next;"); // 1
+    mVisualization.addCode("tail->next = head;"); // 2
+    mVisualization.addCode("delete tmp;");        // 3
+
+    // New scene
+    newScene({0});
+    Node::Ptr tmp;
+    assignNodePtr(tmp, mDSHead, 3, "tmp");
+    mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
+
+    // New scene
+    newScene({1});
+    assignNodePtr(mDSHead, mDSHead->next.node, 1, "head");
+    mVisualization.highlightNode(mDSHead->id);
+
+    // New scene
+    newScene({2});
+    mVisualization.moveArrowDestination(
+        mDSTail->next.id, mVisualization.getNodePosition(mDSHead->id));
+
+    // New scene
+    newScene({3});
+    removeReference(tmp, "tmp");
+    mVisualization.removeArrow(tmp->next.id);
+    mVisualization.removeNode(tmp->id);
+
+    // New scene
+    newScene({});
+    relayout();
+    mVisualization.unhighlightNode(mDSHead->id);
 }
 
 int CircularLinkedListAlgo::getDSSize() const {
