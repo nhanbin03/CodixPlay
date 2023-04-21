@@ -17,6 +17,46 @@ void DoublyLinkedListAlgo::addFirst(int value) {
         addSoleNode(value);
         return;
     }
+    sceneInit();
+
+    mVisualization.addCode("Node* node = new Node(value);"); // 0
+    mVisualization.addCode("node->next = head,");            // 1
+    mVisualization.addCode("head->prev = node;");            // 2
+    mVisualization.addCode("head = node;");                  // 3
+
+    // New scene
+    newScene({0});
+    Node::Ptr node = std::make_shared<Node>();
+    node->value = value;
+    node->id = mVisualization.createNode(value);
+    mVisualization.colorNode(node->id, VisualColor::getSecondaryColor());
+    mVisualization.moveNode(node->id, STARTING_POSITION + Vector2{0, SPACING});
+    assignNodePtr(node, node, 3, "node");
+
+    // New scene
+    newScene({1, 2});
+    node->next.node = mDSHead;
+    node->next.id = mVisualization.createOffsetArrow(
+        mVisualization.getNodePosition(node->id),
+        mVisualization.getNodePosition(mDSHead->id));
+    mDSHead->prev.node = node;
+    mDSHead->prev.id = mVisualization.createOffsetArrow(
+        mVisualization.getNodePosition(mDSHead->id),
+        mVisualization.getNodePosition(node->id));
+
+    // New scene
+    newScene({3});
+    mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
+    assignNodePtr(mDSHead, node, 1, "head");
+
+    // New scene
+    newScene({});
+    relayout();
+
+    // Clean up
+    mSceneCleanUp = [node, this]() {
+        this->removeReference(node, "node");
+    };
 }
 
 void DoublyLinkedListAlgo::deleteFirst() {
@@ -27,6 +67,42 @@ void DoublyLinkedListAlgo::deleteFirst() {
         deleteSoleNode();
         return;
     }
+    sceneInit();
+
+    mVisualization.addCode("Node* tmp = head;");     // 0
+    mVisualization.addCode("head = head->next;");    // 1
+    mVisualization.addCode("head->prev = nullptr;"); // 2
+    mVisualization.addCode("delete tmp;");           // 3
+
+    // New scene
+    newScene({0});
+    Node::Ptr tmp;
+    assignNodePtr(tmp, mDSHead, 3, "tmp");
+    mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
+
+    // New scene
+    newScene({1});
+    assignNodePtr(mDSHead, mDSHead->next.node, 1, "head");
+    mVisualization.highlightNode(mDSHead->id);
+
+    // New scene
+    newScene({2});
+    mDSHead->prev.node = nullptr;
+    mVisualization.removeArrow(mDSHead->prev.id);
+
+    // New scene
+    newScene({3});
+    mVisualization.removeArrow(tmp->next.id);
+
+    // New scene
+    newScene({3});
+    removeReference(tmp, "tmp");
+    mVisualization.removeNode(tmp->id);
+
+    // New scene
+    newScene({});
+    relayout();
+    mVisualization.unhighlightNode(mDSHead->id);
 }
 
 int DoublyLinkedListAlgo::getDSSize() const {
