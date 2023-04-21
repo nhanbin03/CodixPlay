@@ -10,6 +10,49 @@ CircularLinkedListAlgo::CircularLinkedListAlgo(Visualization& visualization)
     mSceneCleanUp = []() {};
 }
 
+void CircularLinkedListAlgo::initializeRandomFixSize(int size) {
+    std::vector<int> list(size);
+    for (auto& element : list) {
+        element = rand() % 100;
+    }
+    initialize(list);
+}
+
+void CircularLinkedListAlgo::initialize(std::vector<int> list) {
+    mDSSize = list.size();
+    sceneReset();
+    if (list.size() == 0)
+        return;
+
+    mDSHead = std::make_shared<Node>();
+    mDSHead->value = list[0];
+    mDSHead->id = mVisualization.createNode(list[0]);
+    mVisualization.moveNode(mDSHead->id, STARTING_POSITION);
+    assignNodePtr(mDSHead, mDSHead, 1, "head");
+
+    Node::Ptr cur = mDSHead;
+    for (int i = 1; i < list.size(); i++) {
+        Node::Ptr newNode = std::make_shared<Node>();
+        newNode->value = list[i];
+        newNode->id = mVisualization.createNode(list[i]);
+        newNode->next.node = nullptr;
+        mVisualization.moveNode(newNode->id, STARTING_POSITION);
+
+        cur->next.node = newNode;
+        cur->next.id =
+            mVisualization.createArrow(STARTING_POSITION, STARTING_POSITION);
+        cur = cur->next.node;
+    }
+    assignNodePtr(mDSTail, cur, 2, "tail");
+    mDSTail->next.id = mVisualization.createCircularArrow(
+        mVisualization.getNodePosition(mDSTail->id),
+        mVisualization.getNodePosition(mDSHead->id));
+
+    // New scene
+    newScene({});
+    relayout();
+}
+
 void CircularLinkedListAlgo::addHead(int value) {
     mDSSize++;
 
