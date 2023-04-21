@@ -55,7 +55,7 @@ private:
 private:
     int mDSSize{0};
 
-    Node::Ptr mDSHead;
+    Node::Ptr mDSHead, mDSTail;
 
     std::function<void()> mSceneCleanUp;
 

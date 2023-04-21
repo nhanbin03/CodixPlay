@@ -43,12 +43,17 @@ void CircularLinkedListAlgo::sceneInit() {
 void CircularLinkedListAlgo::sceneReset() {
     mVisualization.reset();
     mDSHead = nullptr;
+    mDSTail = nullptr;
 }
 
 void CircularLinkedListAlgo::generalCleanUp() {
-    for (Node::Ptr cur = mDSHead; cur != nullptr; cur = cur->next.node) {
+    if (mDSHead == nullptr)
+        return;
+    for (Node::Ptr cur = mDSHead;; cur = cur->next.node) {
         mVisualization.colorNode(cur->id, VisualColor::getPrimaryColor());
         mVisualization.unhighlightNode(cur->id);
+        if (cur == mDSTail)
+            break;
     }
 }
 
@@ -56,7 +61,7 @@ void CircularLinkedListAlgo::addSoleNode(int value) {
     sceneInit();
 
     mVisualization.addCode("Node* node = new Node(value);"); // 0
-    mVisualization.addCode("head = node;");                  // 1
+    mVisualization.addCode("head = node, tail = node;");     // 1
     mVisualization.addCode("head->next = head;");            // 2
 
     // New scene
@@ -72,6 +77,7 @@ void CircularLinkedListAlgo::addSoleNode(int value) {
     newScene({1});
     mVisualization.colorNode(node->id, VisualColor::getPrimaryColor());
     assignNodePtr(mDSHead, node, 1, "head");
+    assignNodePtr(mDSTail, node, 2, "tail");
 
     // New scene
     newScene({2});
@@ -88,9 +94,9 @@ void CircularLinkedListAlgo::addSoleNode(int value) {
 void CircularLinkedListAlgo::deleteSoleNode() {
     sceneInit();
 
-    mVisualization.addCode("Node* tmp = head;"); // 0
-    mVisualization.addCode("head = nullptr;");   // 1
-    mVisualization.addCode("delete tmp;");       // 2
+    mVisualization.addCode("Node* tmp = head;");               // 0
+    mVisualization.addCode("head = nullptr, tail = nullptr;"); // 1
+    mVisualization.addCode("delete tmp;");                     // 2
 
     // New scene
     newScene({0});
@@ -102,6 +108,8 @@ void CircularLinkedListAlgo::deleteSoleNode() {
     newScene({1});
     mDSHead = nullptr;
     removeReference(tmp, "head");
+    mDSTail = nullptr;
+    removeReference(tmp, "tail");
 
     // New scene
     newScene({2});
@@ -119,8 +127,8 @@ void CircularLinkedListAlgo::relayout() {
         return;
     mVisualization.moveNode(mDSHead->id, STARTING_POSITION);
     mVisualization.attachNodeLabel(mDSHead->referencesId, mDSHead->id);
-    Node::Ptr cur;
-    for (cur = mDSHead; cur->next.node != mDSHead; cur = cur->next.node) {
+
+    for (Node::Ptr cur = mDSHead; cur != mDSTail; cur = cur->next.node) {
         Node::Ptr nextNode = cur->next.node;
         mVisualization.moveNode(
             nextNode->id,
@@ -131,10 +139,10 @@ void CircularLinkedListAlgo::relayout() {
             cur->next.id, mVisualization.getNodePosition(nextNode->id));
         mVisualization.attachNodeLabel(nextNode->referencesId, nextNode->id);
     }
-    mVisualization.moveArrowSource(cur->next.id,
+    mVisualization.moveArrowSource(mDSTail->next.id,
                                    mVisualization.getNodePosition(mDSHead->id));
     mVisualization.moveArrowDestination(
-        cur->next.id, mVisualization.getNodePosition(cur->id));
+        mDSTail->next.id, mVisualization.getNodePosition(mDSTail->id));
 }
 
 void CircularLinkedListAlgo::newScene(std::vector<int> lines) {
