@@ -16,9 +16,9 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
     mActions.addTab(ActionContainer::TabID::Update);
     mActions.addTab(ActionContainer::TabID::Search);
 
+    populateInitialize();
     populateInsert();
     populateRemove();
-    populateInitialize();
     populateUpdate();
     populateSearch();
 }
