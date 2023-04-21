@@ -26,7 +26,7 @@ Application::Application()
     loadFonts();
 
     registerStates();
-    mStateStack.pushState(StateIDs::Stack);
+    mStateStack.pushState(StateIDs::Queue);
 }
 
 Application::~Application() {
