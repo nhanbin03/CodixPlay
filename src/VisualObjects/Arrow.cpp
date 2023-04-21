@@ -59,7 +59,6 @@ void Arrow::circularDraw() {
 
     // Draw arrow
     if (curLength <= lengthOne) {
-        std::cout << "???\n";
         drawArrow(mSource, posOneTwo, curLength / lengthOne);
     } else if (curLength <= lengthTwo) {
         drawArrow(posOneTwo, posTwoThree,
@@ -108,8 +107,6 @@ void Arrow::drawArrow(Vector2 source, Vector2 destination, float scale,
 
     float x = scaledDestination.x - source.x;
     float y = scaledDestination.y - source.y;
-    // if (mIsCircular && headOffset == -100)
-    //     std::cout << x * x + y * y << " " << scale << "\n";
     if (x * x + y * y <= 2 * mThickness * 2 * mThickness)
         return;
     if (x * x + y * y <= headOffset * headOffset) {
