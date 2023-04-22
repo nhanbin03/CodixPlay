@@ -109,34 +109,34 @@ void DoublyLinkedListState::populateInsert() {
             });
     }
 
-    // // Insert in the middle option
-    // {
-    //     auto posValidator = [this](std::string str) -> bool {
-    //         auto func =
-    //             InputBox::integerValidator(1, this->mAlgo.getDSSize() - 1);
-    //         return func(str);
-    //     };
-    //     auto valueValidator = InputBox::integerValidator(0, 99);
+    // Insert in the middle option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(1, this->mAlgo.getDSSize() - 1);
+            return func(str);
+        };
+        auto valueValidator = InputBox::integerValidator(0, 99);
 
-    //     curTab->addActionSelector(
-    //         "Insert in the middle",
-    //         {ActionBox::Input("pos = ", "pos", posValidator, 60),
-    //          ActionBox::Input("value = ", "value", valueValidator, 60)},
-    //         [this](ActionBox::InputData data, bool status) {
-    //             if (!status) {
-    //                 std::cout << "Invalid input!\n";
-    //                 return false;
-    //             }
-    //             if (this->mAlgo.getDSSize() == this->mAlgo.MAX_DS_SIZE) {
-    //                 std::cout << "Max size reached!\n";
-    //                 return false;
-    //             }
-    //             int pos = std::stoi(data["pos"]);
-    //             int value = std::stoi(data["value"]);
-    //             this->mAlgo.addMiddle(pos, value);
-    //             return true;
-    //         });
-    // }
+        curTab->addActionSelector(
+            "Insert in the middle",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60),
+             ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_DS_SIZE) {
+                    std::cout << "Max size reached!\n";
+                    return false;
+                }
+                int pos = std::stoi(data["pos"]);
+                int value = std::stoi(data["value"]);
+                this->mAlgo.addMiddle(pos, value);
+                return true;
+            });
+    }
 
     // Insert at the end option
     {
