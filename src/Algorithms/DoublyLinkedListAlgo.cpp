@@ -196,6 +196,53 @@ void DoublyLinkedListAlgo::deleteFirst() {
     mVisualization.unhighlightNode(mDSHead->id);
 }
 
+void DoublyLinkedListAlgo::deleteLast() {
+    assert(mDSSize > 0);
+    mDSSize--;
+
+    if (mDSSize == 0) {
+        deleteSoleNode();
+        return;
+    }
+
+    sceneInit();
+
+    mVisualization.addCode("Node* tmp = tail;");     // 0
+    mVisualization.addCode("tail = tail->prev;");    // 1
+    mVisualization.addCode("tail->next = nullptr;"); // 2
+    mVisualization.addCode("delete tmp;");           // 3
+
+    // New scene
+    newScene({0});
+    Node::Ptr tmp;
+    assignNodePtr(tmp, mDSTail, 3, "tmp");
+    mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
+
+    // New scene
+    newScene({1});
+    assignNodePtr(mDSTail, mDSTail->prev.node, 1, "tail");
+    mVisualization.highlightNode(mDSTail->id);
+
+    // New scene
+    newScene({2});
+    mDSTail->next.node = nullptr;
+    mVisualization.removeArrow(mDSTail->next.id);
+
+    // New scene
+    newScene({3});
+    mVisualization.removeArrow(tmp->prev.id);
+
+    // New scene
+    newScene({3});
+    removeReference(tmp, "tmp");
+    mVisualization.removeNode(tmp->id);
+
+    // New scene
+    newScene({});
+    relayout();
+    mVisualization.unhighlightNode(mDSTail->id);
+}
+
 int DoublyLinkedListAlgo::getDSSize() const {
     return mDSSize;
 }

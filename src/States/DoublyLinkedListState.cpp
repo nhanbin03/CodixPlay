@@ -201,18 +201,18 @@ void DoublyLinkedListState::populateRemove() {
     //         });
     // }
 
-    // // Delete the end option
-    // {
-    //     curTab->addActionSelector(
-    //         "Delete at the end", {}, [this](ActionBox::InputData, bool) {
-    //             if (this->mAlgo.getDSSize() == 0) {
-    //                 std::cout << "No element to delete!\n";
-    //                 return false;
-    //             }
-    //             this->mAlgo.deleteLast();
-    //             return true;
-    //         });
-    // }
+    // Delete the end option
+    {
+        curTab->addActionSelector(
+            "Delete at the end", {}, [this](ActionBox::InputData, bool) {
+                if (this->mAlgo.getDSSize() == 0) {
+                    std::cout << "No element to delete!\n";
+                    return false;
+                }
+                this->mAlgo.deleteLast();
+                return true;
+            });
+    }
 }
 
 void DoublyLinkedListState::populateUpdate() {
