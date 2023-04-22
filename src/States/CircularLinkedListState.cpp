@@ -24,6 +24,7 @@ CircularLinkedListState::CircularLinkedListState(StateStack &stack,
 }
 
 bool CircularLinkedListState::update(float dt) {
+    mNavBar.update(dt);
     mVisualization.update(dt);
     mActions.update(dt);
     return true;
@@ -31,6 +32,7 @@ bool CircularLinkedListState::update(float dt) {
 
 void CircularLinkedListState::draw() {
     ClearBackground(AppColor::BACKGROUND_2);
+    mNavBar.draw();
     mVisualization.draw();
     mActions.draw();
 }

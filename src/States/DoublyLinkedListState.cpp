@@ -23,6 +23,7 @@ DoublyLinkedListState::DoublyLinkedListState(StateStack &stack, Context context)
 }
 
 bool DoublyLinkedListState::update(float dt) {
+    mNavBar.update(dt);
     mVisualization.update(dt);
     mActions.update(dt);
     return true;
@@ -30,6 +31,7 @@ bool DoublyLinkedListState::update(float dt) {
 
 void DoublyLinkedListState::draw() {
     ClearBackground(AppColor::BACKGROUND_2);
+    mNavBar.draw();
     mVisualization.draw();
     mActions.draw();
 }

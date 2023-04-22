@@ -4,6 +4,7 @@
 enum class StateIDs {
     None,
     Home,
+    Settings,
     StaticArray,
     DynamicArray,
     SinglyLinkedList,

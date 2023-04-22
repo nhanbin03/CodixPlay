@@ -5,6 +5,8 @@ enum class TextureID {
     None,
     Logo,
     IconLogo,
+    NavHomeButton,
+    NavSettingsButton,
     RewindSceneButton,
     PrevSceneButton,
     PlaySceneButton,

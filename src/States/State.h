@@ -3,6 +3,7 @@
 
 #include "../ActionContainer.h"
 #include "../ColorPalettes/AppColorPalette.h"
+#include "../NavBar.h"
 #include "../ResourceHolders/TextureHolder.h"
 #include "../Visualization.h"
 #include "StateIdentifiers.h"
@@ -23,6 +24,9 @@ public:
 
     virtual bool update(float dt) = 0;
     virtual void draw() = 0;
+
+protected:
+    NavBar mNavBar;
 
 protected:
     void requestStackPush(StateIDs stateID);

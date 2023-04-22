@@ -21,6 +21,7 @@ QueueState::QueueState(StateStack &stack, Context context)
 }
 
 bool QueueState::update(float dt) {
+    mNavBar.update(dt);
     mVisualization.update(dt);
     mActions.update(dt);
 
@@ -29,6 +30,7 @@ bool QueueState::update(float dt) {
 
 void QueueState::draw() {
     ClearBackground(AppColor::BACKGROUND_2);
+    mNavBar.draw();
     mVisualization.draw();
     mActions.draw();
 }

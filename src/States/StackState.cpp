@@ -20,6 +20,7 @@ StackState::StackState(StateStack &stack, Context context)
 }
 
 bool StackState::update(float dt) {
+    mNavBar.update(dt);
     mVisualization.update(dt);
     mActions.update(dt);
     return true;
@@ -27,6 +28,7 @@ bool StackState::update(float dt) {
 
 void StackState::draw() {
     ClearBackground(AppColor::BACKGROUND_2);
+    mNavBar.draw();
     mVisualization.draw();
     mActions.draw();
 }

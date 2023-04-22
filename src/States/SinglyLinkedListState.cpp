@@ -24,6 +24,7 @@ SinglyLinkedListState::SinglyLinkedListState(StateStack &stack, Context context)
 }
 
 bool SinglyLinkedListState::update(float dt) {
+    mNavBar.update(dt);
     mVisualization.update(dt);
     mActions.update(dt);
     return true;
@@ -31,6 +32,7 @@ bool SinglyLinkedListState::update(float dt) {
 
 void SinglyLinkedListState::draw() {
     ClearBackground(AppColor::BACKGROUND_2);
+    mNavBar.draw();
     mVisualization.draw();
     mActions.draw();
 }

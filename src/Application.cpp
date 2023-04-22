@@ -74,6 +74,10 @@ void Application::loadTextures() {
     TextureHolder::getInstance().load(TextureID::Logo, BASE_PATH + "Logo.png");
     TextureHolder::getInstance().load(TextureID::IconLogo,
                                       BASE_PATH + "IconLogo.png");
+    TextureHolder::getInstance().load(TextureID::NavHomeButton,
+                                      BASE_PATH + "NavHomeButton.png");
+    TextureHolder::getInstance().load(TextureID::NavSettingsButton,
+                                      BASE_PATH + "NavSettingsButton.png");
     TextureHolder::getInstance().load(TextureID::RewindSceneButton,
                                       BASE_PATH + "RewindSceneButton.png");
     TextureHolder::getInstance().load(TextureID::PrevSceneButton,

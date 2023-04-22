@@ -8,6 +8,7 @@ DynamicArrayState::DynamicArrayState(StateStack &stack, Context context)
 }
 
 bool DynamicArrayState::update(float dt) {
+    mNavBar.update(dt);
     mVisualization.update(dt);
     mActions.update(dt);
     return true;
@@ -15,6 +16,7 @@ bool DynamicArrayState::update(float dt) {
 
 void DynamicArrayState::draw() {
     ClearBackground(AppColor::BACKGROUND_2);
+    mNavBar.draw();
     mVisualization.draw();
     mActions.draw();
 }
