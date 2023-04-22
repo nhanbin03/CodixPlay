@@ -95,7 +95,7 @@ void Button::setText(const std::string text) {
 }
 
 void Button::setTextSize(int size) {
-    mTextSize = 30;
+    mTextSize = size;
 }
 
 void Button::setContentColor(Color color) {
