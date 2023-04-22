@@ -37,52 +37,52 @@ void DoublyLinkedListState::draw() {
 void DoublyLinkedListState::populateInitialize() {
     ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Initialize);
 
-    // // Initialize randomly (fixed size) option
-    // {
-    //     auto sizeValidator = InputBox::integerValidator(0, 7);
-    //     curTab->addActionSelector(
-    //         "Initialize randomly (fixed size)",
-    //         {ActionBox::Input("size = ", "size", sizeValidator, 60)},
-    //         [this](ActionBox::InputData data, bool status) {
-    //             if (!status) {
-    //                 std::cout << "Invalid input!\n";
-    //                 return false;
-    //             }
-    //             int size = std::stoi(data["size"]);
-    //             this->mAlgo.initializeRandomFixSize(size);
-    //             return true;
-    //         });
-    // }
+    // Initialize randomly (fixed size) option
+    {
+        auto sizeValidator = InputBox::integerValidator(0, 7);
+        curTab->addActionSelector(
+            "Initialize randomly (fixed size)",
+            {ActionBox::Input("size = ", "size", sizeValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int size = std::stoi(data["size"]);
+                this->mAlgo.initializeRandomFixSize(size);
+                return true;
+            });
+    }
 
-    // // Initialize by manual input option
-    // {
-    //     auto listValidator = InputBox::integerSpaceSeparatedListValidator();
-    //     curTab->addActionSelector(
-    //         "Initialize by manual input",
-    //         {ActionBox::Input("list = ", "list", listValidator, 220)},
-    //         [this](ActionBox::InputData data, bool status) {
-    //             if (!status) {
-    //                 std::cout << "Invalid input!\n";
-    //                 return false;
-    //             }
-    //             std::stringstream ss(data["list"]);
-    //             int element;
-    //             std::vector<int> list;
-    //             while (ss >> element) {
-    //                 if (element < 0 || element > 99) {
-    //                     std::cout << "Invalid input!\n";
-    //                     return false;
-    //                 }
-    //                 list.push_back(element);
-    //             }
-    //             if (list.size() > this->mAlgo.MAX_DS_SIZE) {
-    //                 std::cout << "List is too long!\n";
-    //                 return false;
-    //             }
-    //             this->mAlgo.initialize(list);
-    //             return true;
-    //         });
-    // }
+    // Initialize by manual input option
+    {
+        auto listValidator = InputBox::integerSpaceSeparatedListValidator();
+        curTab->addActionSelector(
+            "Initialize by manual input",
+            {ActionBox::Input("list = ", "list", listValidator, 220)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                std::stringstream ss(data["list"]);
+                int element;
+                std::vector<int> list;
+                while (ss >> element) {
+                    if (element < 0 || element > 99) {
+                        std::cout << "Invalid input!\n";
+                        return false;
+                    }
+                    list.push_back(element);
+                }
+                if (list.size() > this->mAlgo.MAX_DS_SIZE) {
+                    std::cout << "List is too long!\n";
+                    return false;
+                }
+                this->mAlgo.initialize(list);
+                return true;
+            });
+    }
 }
 
 void DoublyLinkedListState::populateInsert() {
