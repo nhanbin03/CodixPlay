@@ -11,6 +11,8 @@
 
 class Button : public GUIComponent {
 public:
+    typedef std::function<Color(Color)> Filter;
+
     typedef std::function<void()> Callback;
 
     enum class ButtonState {
@@ -40,6 +42,8 @@ public:
 
     void setCornerRoundness(float cornerRoundness);
 
+    void setInactivatedFilter(Filter filter);
+
     void activate();
     void deactivate();
 
@@ -62,6 +66,7 @@ private:
     float mCornerRoundness{0.5};
 
     bool mIsActivated{true};
+    Filter mInactivatedFilter;
 };
 
 #endif // GUICOMPONENTS_BUTTON_H

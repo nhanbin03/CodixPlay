@@ -7,6 +7,18 @@
 Button::Button(Rectangle bounds) {
     mRect = bounds;
     mColor = GRAY;
+
+    mInactivatedFilter = [](Color color) {
+        int r = color.r;
+        int g = color.g;
+        int b = color.b;
+        float luminance =
+            0.2126 * r + 0.7125 * g + 0.0722 * b; // Grayscaling from wiki
+        color.r = luminance;
+        color.g = luminance;
+        color.b = luminance;
+        return color;
+    };
 }
 
 Button::~Button() {
@@ -31,23 +43,13 @@ void Button::draw() {
         filterBrightness = -0.2;
     }
 
-    std::function<Color(Color)> colorFilter;
+    Filter colorFilter;
     if (mIsActivated) {
         colorFilter = [filterBrightness](Color color) {
             return ColorBrightness(color, filterBrightness);
         };
     } else {
-        colorFilter = [](Color color) {
-            int r = color.r;
-            int g = color.g;
-            int b = color.b;
-            float luminance =
-                0.2126 * r + 0.7125 * g + 0.0722 * b; // Grayscaling from wiki
-            color.r = luminance;
-            color.g = luminance;
-            color.b = luminance;
-            return color;
-        };
+        colorFilter = mInactivatedFilter;
     }
 
     DrawRectangleRounded(mRect, mCornerRoundness, ROUNDED_SEGMENTS,
@@ -108,6 +110,10 @@ void Button::setTexture(Texture2D texture) {
 
 void Button::setCornerRoundness(float cornerRoundness) {
     mCornerRoundness = cornerRoundness;
+}
+
+void Button::setInactivatedFilter(Filter filter) {
+    mInactivatedFilter = filter;
 }
 
 void Button::activate() {
