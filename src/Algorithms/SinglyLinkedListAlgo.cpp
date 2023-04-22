@@ -414,7 +414,7 @@ void SinglyLinkedListAlgo::updateValue(int pos, int value) {
     mVisualization.addCode("Node* cur = head;");             // 0
     mVisualization.addCode("for (int i = 0; i < pos; i++)"); // 1
     mVisualization.addCode("    cur = cur->next;");          // 2
-    mVisualization.addCode("cur->value");                    // 3
+    mVisualization.addCode("cur->value = value;");           // 3
 
     // New scene
     newScene({0});
