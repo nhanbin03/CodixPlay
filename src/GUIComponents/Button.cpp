@@ -76,7 +76,8 @@ void Button::draw() {
 
 void Button::setSize(Vector2 size) {
     GUIComponent::setSize(size);
-    scaleTexture(mTexture, getSize());
+    if (mHasTexture)
+        scaleTexture(mTexture, getSize());
 }
 
 void Button::setCallback(Callback callback) {
