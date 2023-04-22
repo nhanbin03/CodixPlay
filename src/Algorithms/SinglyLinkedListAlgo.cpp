@@ -273,9 +273,9 @@ void SinglyLinkedListAlgo::deleteMiddle(int pos) {
     mVisualization.addCode("for (int i = 0; i < pos - 1; i++)"); // 1
     mVisualization.addCode("    pre = pre->next;");              // 2
     mVisualization.addCode("Node *tmp = pre->next;");            // 3
-    mVisualization.addCode("Node* aft = del->next;");            // 4
+    mVisualization.addCode("Node* aft = tmp->next;");            // 4
     mVisualization.addCode("pre->next = aft;");                  // 5
-    mVisualization.addCode("delete del;");                       // 6
+    mVisualization.addCode("delete tmp;");                       // 6
 
     // New scene
     newScene({0});
