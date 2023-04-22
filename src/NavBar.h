@@ -13,6 +13,7 @@
 class NavBar : public GUIComponent {
 public:
     enum class NavID {
+        None,
         Home,
         Settings
     };
@@ -29,7 +30,7 @@ public:
 private:
     Texture2D mLogoTexture;
     std::map<NavID, Button> mNavButtons;
-    NavID mSelection;
+    NavID mSelection{NavID::None};
 };
 
 #endif // NAVBAR_H
