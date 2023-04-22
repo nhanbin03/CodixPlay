@@ -8,8 +8,10 @@ CategoryScroller::CategoryScroller(int rectY) {
     mRect = (Rectangle){138, rectY, 847, 314};
 
     mPrevButton.setRect((Rectangle){160, rectY + 48, 24, 258});
-    mPrevButton.setColor(AppColor::BACKGROUND_4);
-    mPrevButton.setText("");
+    mPrevButton.setColor(AppColor::BACKGROUND_2);
+    mPrevButton.setText("<");
+    mPrevButton.setTextSize(40);
+    mPrevButton.setContentColor(AppColor::BACKGROUND_4);
     mPrevButton.setInactivatedFilter([](Color) {
         return BLANK;
     });
@@ -21,8 +23,10 @@ CategoryScroller::CategoryScroller(int rectY) {
     });
 
     mNextButton.setRect((Rectangle){939, rectY + 48, 24, 258});
-    mNextButton.setColor(AppColor::BACKGROUND_4);
-    mNextButton.setText("");
+    mNextButton.setColor(AppColor::BACKGROUND_2);
+    mNextButton.setText(">");
+    mNextButton.setTextSize(40);
+    mNextButton.setContentColor(AppColor::BACKGROUND_4);
     mNextButton.setInactivatedFilter([](Color) {
         return BLANK;
     });
@@ -88,6 +92,7 @@ void CategoryScroller::addCard(std::string title, Button::Callback onClick) {
     newCard.clickBox.setSize({352, 234});
     newCard.clickBox.setBorderThickness(7);
     newCard.clickBox.setBorderColor(AppColor::BACKGROUND_1);
+    newCard.clickBox.setCornerRoundness(0.2);
     newCard.clickBox.setCallback(onClick);
 
     mCardList.push_back(std::move(newCard));
