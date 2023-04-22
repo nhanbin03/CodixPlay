@@ -5,6 +5,7 @@
 #include "States/DynamicArrayState.h"
 #include "States/HomeState.h"
 #include "States/QueueState.h"
+#include "States/SettingsState.h"
 #include "States/SinglyLinkedListState.h"
 #include "States/StackState.h"
 #include "States/StateIdentifiers.h"
@@ -55,6 +56,7 @@ void Application::render() {
 
 void Application::registerStates() {
     mStateStack.registerState<HomeState>(StateIDs::Home);
+    mStateStack.registerState<SettingsState>(StateIDs::Settings);
     mStateStack.registerState<StaticArrayState>(StateIDs::StaticArray);
     mStateStack.registerState<DynamicArrayState>(StateIDs::DynamicArray);
     mStateStack.registerState<SinglyLinkedListState>(
