@@ -29,6 +29,7 @@ public:
 private:
     Texture2D mLogoTexture;
     std::map<NavID, Button> mNavButtons;
+    NavID mSelection;
 };
 
 #endif // NAVBAR_H

@@ -3,6 +3,7 @@
 #include "Helper.h"
 
 #include <cassert>
+#include <iostream>
 
 NavBar::NavBar() {
     mRect = {0, 0, 138, 950};
@@ -23,6 +24,11 @@ void NavBar::draw() {
     DrawTexture(mLogoTexture, 22, 33, WHITE);
     for (auto& p : mNavButtons) {
         p.second.draw();
+        if (p.first == mSelection) {
+            Rectangle rect = p.second.getRect();
+            DrawLineEx({0, rect.y}, {0, rect.y + rect.height}, 8,
+                       AppColor::PRIMARY); // Indicator
+        }
     }
 }
 
@@ -56,4 +62,5 @@ void NavBar::setCurNav(NavID id) {
     assert(found != mNavButtons.end());
 
     found->second.setContentColor(AppColor::TEXT_ACCENT);
+    mSelection = id;
 }
