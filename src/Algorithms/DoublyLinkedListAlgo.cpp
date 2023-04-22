@@ -293,6 +293,92 @@ void DoublyLinkedListAlgo::deleteFirst() {
     mVisualization.unhighlightNode(mDSHead->id);
 }
 
+void DoublyLinkedListAlgo::deleteMiddle(int pos) {
+    assert(0 < pos && pos < mDSSize - 1);
+    mDSSize--;
+
+    sceneInit();
+
+    mVisualization.addCode("Node* tmp = head;");             // 0
+    mVisualization.addCode("for (int i = 0; i < pos; i++)"); // 1
+    mVisualization.addCode("    tmp = tmp->next;");          // 2
+    mVisualization.addCode("Node *pre = tmp->prev;");        // 3
+    mVisualization.addCode("Node* aft = tmp->next;");        // 4
+    mVisualization.addCode("pre->next = aft,");              // 5
+    mVisualization.addCode("aft->prev = pre;");              // 6
+    mVisualization.addCode("delete tmp;");                   // 7
+
+    // New scene
+    newScene({0});
+    Node::Ptr tmp;
+    assignNodePtr(tmp, mDSHead, 5, "tmp");
+    mVisualization.highlightNode(mDSHead->id);
+
+    // New scene
+    newScene({1});
+    addReference(tmp, 0, "0");
+
+    // Loop
+    for (int i = 0; i < pos; i++) {
+        // New scene
+        newScene({2});
+        mVisualization.unhighlightNode(tmp->id);
+        Node::Ptr preTmp = tmp;
+        assignNodePtr(tmp, tmp->next.node, 5, "tmp");
+        mVisualization.highlightNode(tmp->id);
+
+        // New scene
+        newScene({1});
+        removeReference(preTmp, std::to_string(i));
+        addReference(tmp, 0, std::to_string(i + 1));
+    }
+
+    // New scene
+    newScene({3});
+    Node::Ptr pre;
+    assignNodePtr(pre, tmp->prev.node, 5, "pre");
+    mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
+    mVisualization.highlightNode(pre->id);
+
+    // New scene
+    newScene({4});
+    Node::Ptr aft;
+    assignNodePtr(aft, tmp->next.node, 5, "aft");
+    mVisualization.colorNode(aft->id, VisualColor::getTertiaryColor());
+
+    // New scene
+    newScene({5, 6});
+    mVisualization.moveNodeDelta(tmp->id, {0, -SPACING});
+    mVisualization.moveArrowDelta(tmp->next.id, {0, -SPACING}, {0, 0});
+    mVisualization.moveArrowDelta(tmp->prev.id, {0, -SPACING}, {0, 0});
+    mVisualization.attachNodeLabel(tmp->referencesId, tmp->id);
+    pre->next.node = aft;
+    mVisualization.moveArrowDestination(
+        pre->next.id, mVisualization.getNodePosition(aft->id));
+    aft->prev.node = pre;
+    mVisualization.moveArrowDestination(
+        aft->prev.id, mVisualization.getNodePosition(pre->id));
+
+    // New scene
+    newScene({7});
+    mVisualization.removeArrow(tmp->next.id);
+    mVisualization.removeArrow(tmp->prev.id);
+
+    // New scene
+    newScene({7});
+    clearReference(tmp);
+    mVisualization.removeNode(tmp->id);
+
+    // New scene
+    newScene({});
+    removeReference(pre, "pre");
+    removeReference(aft, "aft");
+    mVisualization.colorNode(aft->id, VisualColor::getPrimaryColor());
+    mVisualization.unhighlightNode(pre->id);
+    mVisualization.unhighlightNode(aft->id);
+    relayout();
+}
+
 void DoublyLinkedListAlgo::deleteLast() {
     assert(mDSSize > 0);
     mDSSize--;
