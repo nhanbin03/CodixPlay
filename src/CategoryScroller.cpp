@@ -4,8 +4,9 @@
 
 #include <iostream>
 
-CategoryScroller::CategoryScroller(int rectY) {
+CategoryScroller::CategoryScroller(int rectY, std::string title) {
     mRect = (Rectangle){138, rectY, 847, 314};
+    mTitle = title;
 
     mPrevButton.setRect((Rectangle){160, rectY + 48, 24, 258});
     mPrevButton.setColor(AppColor::BACKGROUND_2);
@@ -57,7 +58,6 @@ void CategoryScroller::update(float dt) {
 
     mPrevButton.update(dt);
     mNextButton.update(dt);
-
     int startingX = mCardVirtualX;
     for (auto& card : mCardList) {
         card.clickBox.setPosition((Vector2){startingX, mRect.y + 60});
@@ -70,6 +70,10 @@ void CategoryScroller::update(float dt) {
 }
 
 void CategoryScroller::draw() {
+    int titleSize = 50;
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, titleSize),
+               mTitle.c_str(), {197, mRect.y}, titleSize, 0, AppColor::TEXT);
+
     mPrevButton.draw();
     mNextButton.draw();
 

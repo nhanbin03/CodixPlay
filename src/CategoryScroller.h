@@ -15,13 +15,15 @@ public:
     static constexpr float SLIDE_TIME = 1;
 
 public:
+    typedef std::unique_ptr<CategoryScroller> Ptr;
+
     struct Card {
         Button clickBox;
         std::string title;
     };
 
 public:
-    CategoryScroller(int rectY);
+    CategoryScroller(int rectY, std::string title = "");
     ~CategoryScroller();
 
     void update(float dt);
