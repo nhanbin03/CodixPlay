@@ -111,7 +111,7 @@ void CategoryScroller::updateAnimCardVirtualX(float dt) {
             if (mTracker < mCardList.size())
                 mCardList[mTracker].clickBox.activate();
             if (mTracker + 1 < mCardList.size())
-                mCardList[mTracker + 1].clickBox.deactivate();
+                mCardList[mTracker + 1].clickBox.activate();
         }
         mCardVirtualX = easeInOut(mAnimStartCardVirtualX, mAnimEndCardVirtualX,
                                   SLIDE_TIME - mTimeCounter, SLIDE_TIME);
