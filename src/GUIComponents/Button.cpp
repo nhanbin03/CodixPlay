@@ -121,8 +121,9 @@ void Button::activate() {
 }
 
 void Button::deactivate() {
+    if (mIsActivated)
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
     mIsActivated = false;
-    SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 }
 
 void Button::checkInteraction() {
