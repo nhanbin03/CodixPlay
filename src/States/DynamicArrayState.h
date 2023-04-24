@@ -15,6 +15,9 @@ private:
     Visualization mVisualization;
     DynamicArrayAlgo mAlgo;
     ActionContainer mActions;
+
+private:
+    void populateInitialize();
 };
 
 #endif // STATES_DYNAMICARRAYSTATE_H

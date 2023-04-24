@@ -10,8 +10,34 @@ DynamicArrayAlgo::DynamicArrayAlgo(Visualization& visualization)
 : Algorithm(visualization) {
     mSceneCleanUp = []() {};
     sceneInit();
-    createArray(mDSArray, "arr :", 1);
+    createArray(mDSArray, "arr", 1);
     assignSize(0);
+}
+
+void DynamicArrayAlgo::initializeRandomFixSize(int size) {
+    std::vector<int> list(size);
+    for (auto& element : list) {
+        element = rand() % 100;
+    }
+    initialize(list);
+}
+
+void DynamicArrayAlgo::initialize(std::vector<int> list) {
+    assert(list.size() <= MAX_DS_SIZE);
+    sceneReset();
+
+    // New scene
+    newScene({});
+    int capacity = 1;
+    while (capacity < list.size()) {
+        capacity *= 2;
+    }
+    createArray(mDSArray, "arr", capacity);
+    assignSize(list.size());
+    for (int i = 0; i < mDSSize; i++) {
+        mDSArray.array[i]->value = list[i];
+        mVisualization.setValueBlock(mDSArray.array[i]->id, list[i]);
+    }
 }
 
 int DynamicArrayAlgo::getDSSize() const {
@@ -49,8 +75,9 @@ void DynamicArrayAlgo::createArray(Array& arr, std::string name, int length,
     }
     arr = Array();
     arr.nameId = mVisualization.createLabel(
-        name, STARTING_POSITION
-                  + (Vector2){0, yOffset + VisualObject::ELEMENT_SIZE / 2});
+        name + " :",
+        STARTING_POSITION
+            + (Vector2){0, yOffset + VisualObject::ELEMENT_SIZE / 2});
     mVisualization.setSizeLabel(arr.nameId, 40);
 
     for (int i = 0; i < length; i++) {
