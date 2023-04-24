@@ -115,6 +115,7 @@ void ControlBar::fowardScene() {
 
 void ControlBar::setPause(bool pause) {
     mIsPaused = pause;
+    std::cout << mTracker << " " << mSceneTrack->size() << "\n";
     if (mIsPaused == true)
         mBtnContainer[2].setTexture(
             TextureHolder::getInstance().get(TextureID::PlaySceneButton));
@@ -124,6 +125,7 @@ void ControlBar::setPause(bool pause) {
 }
 
 void ControlBar::updateDisplayingScene(float dt) {
+    *mDisplayingScene = (*mSceneTrack)[mTracker];
     if (mActionStatus != Action::None || mIsPaused == false) {
         if (mTimeCounter < ANIMATION_TIME) {
             mTimeCounter += dt;
@@ -146,8 +148,6 @@ void ControlBar::updateDisplayingScene(float dt) {
                 nextScene();
             }
         }
-    } else {
-        *mDisplayingScene = (*mSceneTrack)[mTracker];
     }
 }
 
