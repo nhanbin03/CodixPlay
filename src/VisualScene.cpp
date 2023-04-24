@@ -26,6 +26,9 @@ VisualScene VisualScene::transitionScene(const VisualScene& fromScene,
 
 // Priority: label -> nodes/arrays -> arrow
 void VisualScene::draw() {
+    for (auto obj : mBlockMap) {
+        obj.second.draw();
+    }
     for (auto obj : mArrowMap) {
         obj.second.draw();
     }
@@ -35,6 +38,60 @@ void VisualScene::draw() {
     for (auto obj : mLabelMap) {
         obj.second.draw();
     }
+}
+
+int VisualScene::createBlock() {
+    SquareNode newObject;
+
+    int objectID = newObject.getObjectID();
+    auto insertStatus = mBlockMap.emplace(objectID, newObject);
+
+    assert(insertStatus.second == true);
+
+    return objectID;
+}
+
+void VisualScene::moveBlock(int blockID, Vector2 position) {
+    getBlock(blockID).setPosition(position);
+}
+
+void VisualScene::moveBlockDelta(int blockID, Vector2 position) {
+    SquareNode& obj = getBlock(blockID);
+    obj.setPosition(obj.getPosition() + position);
+}
+
+void VisualScene::colorBlock(int blockID, Color color) {
+    SquareNode& obj = getBlock(blockID);
+    obj.setBorderColor(color);
+    highlightBlock(blockID);
+}
+
+void VisualScene::highlightBlock(int blockID) {
+    SquareNode& obj = getBlock(blockID);
+    obj.setColor(obj.getBorderColor());
+    obj.setValueColor(AppColor::BACKGROUND_2);
+}
+
+void VisualScene::unhighlightBlock(int blockID) {
+    SquareNode& obj = getBlock(blockID);
+    obj.setColor(AppColor::BACKGROUND_2);
+    obj.setValueColor(obj.getBorderColor());
+}
+
+void VisualScene::setValueBlock(int blockID, int value) {
+    getBlock(blockID).setValue(value);
+}
+
+void VisualScene::removeValueBlock(int blockID) {
+    getBlock(blockID).removeValue();
+}
+
+void VisualScene::removeBlock(int blockID) {
+    mBlockMap.erase(blockID);
+}
+
+Vector2 VisualScene::getBlockPosition(int blockID) const {
+    return getBlock(blockID).getPosition();
 }
 
 int VisualScene::createNode(int value) {
@@ -154,8 +211,7 @@ int VisualScene::createLabel(const std::string text, Vector2 position) {
     newObject.setPosition(position);
 
     int objectID = newObject.getObjectID();
-    auto insertStatus = mLabelMap.emplace(objectID, newObject);
-
+    auto insertStatus = mLabelMap.insert(std::make_pair(objectID, newObject));
     assert(insertStatus.second == true);
 
     return objectID;
@@ -189,6 +245,20 @@ void VisualScene::updateLabel(int labelID, const std::string text) {
 
 void VisualScene::removeLabel(int labelID) {
     mLabelMap.erase(labelID);
+}
+
+SquareNode& VisualScene::getBlock(int blockID) {
+    auto found = mBlockMap.find(blockID);
+    assert(found != mBlockMap.end());
+
+    return found->second;
+}
+
+const SquareNode& VisualScene::getBlock(int blockID) const {
+    auto found = mBlockMap.find(blockID);
+    assert(found != mBlockMap.end());
+
+    return found->second;
 }
 
 CircleNode& VisualScene::getNode(int nodeID) {
@@ -246,6 +316,82 @@ Color VisualScene::easeInOutColor(Color fromColor, Color toColor, float time,
     newColor.b = easeInOut(fromColor.b, toColor.b, time, totalTime);
     newColor.a = easeInOut(fromColor.a, toColor.a, time, totalTime);
     return newColor;
+}
+
+void VisualScene::transitionBlock(const VisualScene& fromScene,
+                                  const VisualScene& toScene, float time,
+                                  float totalTime, VisualScene& visualScene) {
+    std::set<int> idSet;
+
+    for (const auto& p : fromScene.mBlockMap) {
+        idSet.insert(p.first);
+    }
+    for (const auto& p : toScene.mBlockMap) {
+        idSet.insert(p.first);
+    }
+
+    for (int id : idSet) {
+        SquareNode from, to;
+
+        auto fromFound = fromScene.mBlockMap.find(id);
+        auto toFound = toScene.mBlockMap.find(id);
+
+        assert(fromFound != fromScene.mBlockMap.end()
+               || toFound != toScene.mBlockMap.end());
+
+        if (fromFound != fromScene.mBlockMap.end()) {
+            from = fromFound->second;
+        }
+        if (toFound != toScene.mBlockMap.end()) {
+            to = toFound->second;
+        }
+        if (fromFound == fromScene.mBlockMap.end()) {
+            from.setPosition(to.getPosition());
+            from.setScale(0);
+            from.setValue(to.getValue());
+            from.setColor(to.getColor());
+            from.setBorderColor(to.getBorderColor());
+            from.setValueColor(to.getValueColor());
+        }
+        if (toFound == toScene.mBlockMap.end()) {
+            to.setPosition(from.getPosition());
+            to.setScale(0);
+            to.setValue(from.getValue());
+            to.setColor(from.getColor());
+            to.setBorderColor(from.getBorderColor());
+            to.setValueColor(from.getValueColor());
+        }
+
+        SquareNode newObject = to;
+        int objectID = newObject.getObjectID();
+
+        // Animate position
+        Vector2 newPos;
+        newPos.x = easeInOut(from.getPosition().x, to.getPosition().x, time,
+                             totalTime);
+        newPos.y = easeInOut(from.getPosition().y, to.getPosition().y, time,
+                             totalTime);
+        newObject.setPosition(newPos);
+
+        // Animate scale
+        newObject.setScale(
+            easeInOut(from.getScale(), to.getScale(), time, totalTime));
+
+        // Animate value
+        newObject.setValue(
+            easeInOut(from.getValue(), to.getValue(), time, totalTime));
+
+        // Animate color
+        newObject.setColor(
+            easeInOutColor(from.getColor(), to.getColor(), time, totalTime));
+        newObject.setBorderColor(easeInOutColor(
+            from.getBorderColor(), to.getBorderColor(), time, totalTime));
+        newObject.setValueColor(easeInOutColor(
+            from.getValueColor(), to.getValueColor(), time, totalTime));
+
+        auto insertStatus = visualScene.mBlockMap.emplace(objectID, newObject);
+        assert(insertStatus.second == true);
+    }
 }
 
 void VisualScene::transitionNode(const VisualScene& fromScene,

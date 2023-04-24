@@ -24,10 +24,16 @@ public:
     void createNewScene();
     VisualScene getLastScene() const;
 
-    void createArray(int size);
-    void colorArrayElement(int index, Color color);
-    void updateArrayElement(int index, int value);
-    void removeArray();
+    int createBlock();
+    void moveBlock(int blockID, Vector2 position);
+    void moveBlockDelta(int blockID, Vector2 position);
+    void colorBlock(int blockID, Color color);
+    void highlightBlock(int blockID);
+    void unhighlightBlock(int blockID);
+    void setValueBlock(int blockID, int value);
+    void removeValueBlock(int blockID);
+    void removeBlock(int blockID);
+    Vector2 getBlockPosition(int blockID) const;
 
     int createNode(int value);
     void moveNode(int nodeID, Vector2 position);

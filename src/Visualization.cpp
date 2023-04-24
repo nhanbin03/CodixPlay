@@ -37,6 +37,46 @@ VisualScene Visualization::getLastScene() const {
     return mSceneTrack.back();
 }
 
+int Visualization::createBlock() {
+    return mSceneTrack.back().createBlock();
+}
+
+void Visualization::moveBlock(int blockID, Vector2 position) {
+    mSceneTrack.back().moveBlock(blockID, position);
+}
+
+void Visualization::moveBlockDelta(int blockID, Vector2 position) {
+    mSceneTrack.back().moveBlockDelta(blockID, position);
+}
+
+void Visualization::colorBlock(int blockID, Color color) {
+    mSceneTrack.back().colorBlock(blockID, color);
+}
+
+void Visualization::highlightBlock(int blockID) {
+    mSceneTrack.back().highlightBlock(blockID);
+}
+
+void Visualization::unhighlightBlock(int blockID) {
+    mSceneTrack.back().unhighlightBlock(blockID);
+}
+
+void Visualization::setValueBlock(int blockID, int value) {
+    mSceneTrack.back().setValueBlock(blockID, value);
+}
+
+void Visualization::removeValueBlock(int blockID) {
+    mSceneTrack.back().removeValueBlock(blockID);
+}
+
+void Visualization::removeBlock(int blockID) {
+    mSceneTrack.back().removeBlock(blockID);
+}
+
+Vector2 Visualization::getBlockPosition(int blockID) const {
+    return mSceneTrack.back().getBlockPosition(blockID);
+}
+
 int Visualization::createNode(int value) {
     return mSceneTrack.back().createNode(value);
 }
