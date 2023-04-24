@@ -15,10 +15,18 @@ void SquareNode::draw() {
     float displaySize = mSize * getScale();
     float displayBorder = BORDER_THICKNESS * getScale();
 
-    DrawRectangle(x, y, displaySize, displaySize, mColor);
+    std::function<Color(Color)> colorFilter = [](Color color) {
+        return color;
+    };
+    if (!mHasValue) {
+        colorFilter = [](Color color) {
+            return ColorAlpha(color, 0.25);
+        };
+    }
+    DrawRectangle(x, y, displaySize, displaySize, colorFilter(mColor));
     DrawRectangleLinesEx((Rectangle){x, y, displaySize, displaySize},
                          displayBorder,
-                         mBorderColor); // Draw border inside
+                         colorFilter(mBorderColor)); // Draw border inside
 
     if (mHasValue) {
         const char *valueText = std::to_string(mValue).c_str();

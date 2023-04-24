@@ -5,6 +5,7 @@
 
 #include "raylib.h"
 
+#include <functional>
 #include <string>
 
 class SquareNode : public VisualObject {
