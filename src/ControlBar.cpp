@@ -115,7 +115,6 @@ void ControlBar::fowardScene() {
 
 void ControlBar::setPause(bool pause) {
     mIsPaused = pause;
-    std::cout << mTracker << " " << mSceneTrack->size() << "\n";
     if (mIsPaused == true)
         mBtnContainer[2].setTexture(
             TextureHolder::getInstance().get(TextureID::PlaySceneButton));
