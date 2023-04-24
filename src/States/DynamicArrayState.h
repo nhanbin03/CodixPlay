@@ -1,6 +1,7 @@
 #ifndef STATES_DYNAMICARRAYSTATE_H
 #define STATES_DYNAMICARRAYSTATE_H
 
+#include "../Algorithms/DynamicArrayAlgo.h"
 #include "State.h"
 
 class DynamicArrayState : public State {
@@ -12,6 +13,7 @@ public:
 
 private:
     Visualization mVisualization;
+    DynamicArrayAlgo mAlgo;
     ActionContainer mActions;
 };
 

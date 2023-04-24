@@ -2,8 +2,11 @@
 
 #include "raylib.h"
 
+#include <iostream>
+
 DynamicArrayState::DynamicArrayState(StateStack &stack, Context context)
 : State(stack, context)
+, mAlgo(mVisualization)
 , mActions("Dynamic Array") {
 }
 

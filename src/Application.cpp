@@ -30,7 +30,7 @@ Application::Application()
         TextureHolder::getInstance().get(TextureID::IconLogo)));
 
     registerStates();
-    mStateStack.pushState(StateIDs::Home);
+    mStateStack.pushState(StateIDs::DynamicArray);
 }
 
 Application::~Application() {
