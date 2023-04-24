@@ -228,6 +228,10 @@ int VisualScene::createNodeLabel(const std::string text, int idAttached) {
     return objectID;
 }
 
+void VisualScene::setSizeLabel(int labelID, int size) {
+    getLabel(labelID).setSize(size);
+}
+
 void VisualScene::moveLabel(int labelID, Vector2 position) {
     getLabel(labelID).setPosition(position);
 }

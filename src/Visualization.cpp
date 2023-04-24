@@ -150,6 +150,10 @@ int Visualization::createNodeLabel(const std::string text, int idAttached) {
     return mSceneTrack.back().createNodeLabel(text, idAttached);
 }
 
+void Visualization::setSizeLabel(int labelID, int size) {
+    mSceneTrack.back().setSizeLabel(labelID, size);
+}
+
 void Visualization::moveLabel(int labelID, Vector2 position) {
     mSceneTrack.back().moveLabel(labelID, position);
 }

@@ -55,6 +55,7 @@ public:
 
     int createLabel(const std::string text, Vector2 position);
     int createNodeLabel(const std::string text, int idAttached);
+    void setSizeLabel(int labelID, int size);
     void moveLabel(int labelID, Vector2 position);
     void attachNodeLabel(int labelID, int idAttached);
     void updateLabel(int labelID, const std::string text);

@@ -26,3 +26,7 @@ void Label::setText(std::string text) {
 void Label::setColor(Color color) {
     mColor = color;
 }
+
+void Label::setSize(int size) {
+    mSize = size;
+}
