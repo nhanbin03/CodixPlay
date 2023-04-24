@@ -16,6 +16,7 @@ public:
 
     void setValue(int value);
     int getValue() const;
+    void removeValue();
 
     void setValueColor(Color color);
     Color getValueColor() const;
@@ -29,6 +30,7 @@ public:
 private:
     float mSize{ELEMENT_SIZE};
 
+    bool mHasValue{false};
     int mValue{0};
     Color mValueColor{VisualColor::getPrimaryColor()};
 
