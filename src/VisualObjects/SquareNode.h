@@ -16,7 +16,9 @@ public:
 
     void setValue(int value);
     int getValue() const;
+
     void removeValue();
+    bool hasValue() const;
 
     void setValueColor(Color color);
     Color getValueColor() const;

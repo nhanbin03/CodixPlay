@@ -48,6 +48,10 @@ void SquareNode::removeValue() {
     mHasValue = false;
 }
 
+bool SquareNode::hasValue() const {
+    return mHasValue;
+}
+
 void SquareNode::setValueColor(Color color) {
     mValueColor = color;
 }

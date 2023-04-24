@@ -17,6 +17,7 @@ VisualScene VisualScene::transitionScene(const VisualScene& fromScene,
                                          float totalTime) {
     VisualScene ret;
 
+    transitionBlock(fromScene, toScene, time, totalTime, ret);
     transitionNode(fromScene, toScene, time, totalTime, ret);
     transitionArrow(fromScene, toScene, time, totalTime, ret);
     transitionLabel(fromScene, toScene, time, totalTime, ret);
@@ -352,7 +353,8 @@ void VisualScene::transitionBlock(const VisualScene& fromScene,
         if (fromFound == fromScene.mBlockMap.end()) {
             from.setPosition(to.getPosition());
             from.setScale(0);
-            from.setValue(to.getValue());
+            if (to.hasValue())
+                from.setValue(to.getValue());
             from.setColor(to.getColor());
             from.setBorderColor(to.getBorderColor());
             from.setValueColor(to.getValueColor());
@@ -360,7 +362,8 @@ void VisualScene::transitionBlock(const VisualScene& fromScene,
         if (toFound == toScene.mBlockMap.end()) {
             to.setPosition(from.getPosition());
             to.setScale(0);
-            to.setValue(from.getValue());
+            if (from.hasValue())
+                to.setValue(from.getValue());
             to.setColor(from.getColor());
             to.setBorderColor(from.getBorderColor());
             to.setValueColor(from.getValueColor());
@@ -382,8 +385,22 @@ void VisualScene::transitionBlock(const VisualScene& fromScene,
             easeInOut(from.getScale(), to.getScale(), time, totalTime));
 
         // Animate value
-        newObject.setValue(
-            easeInOut(from.getValue(), to.getValue(), time, totalTime));
+        if (from.hasValue() && to.hasValue())
+            newObject.setValue(
+                easeInOut(from.getValue(), to.getValue(), time, totalTime));
+        else {
+            // Fading effect
+            Color fromColor, toColor;
+            if (from.hasValue()) {
+                fromColor = from.getValueColor();
+                toColor = to.getColor();
+            } else {
+                fromColor = from.getColor();
+                toColor = to.getValueColor();
+            }
+            newObject.setValueColor(
+                easeInOutColor(fromColor, toColor, time, totalTime));
+        }
 
         // Animate color
         newObject.setColor(
