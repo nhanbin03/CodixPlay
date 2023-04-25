@@ -221,6 +221,38 @@ void DynamicArrayAlgo::accessElement(int pos) {
                               VisualColor::getSecondaryColor());
 }
 
+void DynamicArrayAlgo::searchFirstValue(int value) {
+    sceneInit();
+
+    mVisualization.addCode("for (int i = 0; i < size; i++)"); // 0
+    mVisualization.addCode("    if (arr[i] == value)");       // 1
+    mVisualization.addCode("        return i;");              // 2
+    mVisualization.addCode("return NOT_FOUND;");              // 3
+
+    // Loop
+    for (int i = 0; i < mDSSize; i++) {
+        // New scene
+        newScene({0});
+        mVisualization.colorBlock(mDSArray.array[i]->id,
+                                  VisualColor::getSecondaryColor());
+
+        if (mDSArray.array[i]->value == value) {
+            // New scene
+            newScene({1, 2});
+            mVisualization.colorBlock(mDSArray.array[i]->id,
+                                      VisualColor::getTertiaryColor());
+            return;
+        }
+
+        // New scene
+        newScene({1});
+        mVisualization.unhighlightBlock(mDSArray.array[i]->id);
+    }
+
+    // New scene
+    newScene({3});
+}
+
 int DynamicArrayAlgo::getDSSize() const {
     return mDSSize;
 }

@@ -216,4 +216,21 @@ void DynamicArrayState::populateSearch() {
                 return true;
             });
     }
+
+    // Search for first value option
+    {
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        curTab->addActionSelector(
+            "Search for first value",
+            {ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int value = std::stoi(data["value"]);
+                this->mAlgo.searchFirstValue(value);
+                return true;
+            });
+    }
 }
