@@ -10,7 +10,7 @@
 
 class DynamicArrayAlgo : public Algorithm {
 public:
-    static constexpr int MAX_DS_SIZE = 8;
+    static constexpr int MAX_DS_SIZE = 12;
 
 public:
     DynamicArrayAlgo(Visualization& visualization);
@@ -19,7 +19,7 @@ public:
     void initialize(std::vector<int> list);
 
     void addElement(int pos, int value);
-    void reserveSpaceDouble();
+    void reserveSpace(int newCap);
 
     void deleteElement(int pos);
 

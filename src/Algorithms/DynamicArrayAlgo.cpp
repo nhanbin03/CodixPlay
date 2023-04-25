@@ -28,10 +28,7 @@ void DynamicArrayAlgo::initialize(std::vector<int> list) {
 
     // New scene
     newScene({});
-    int capacity = 1;
-    while (capacity < list.size()) {
-        capacity *= 2;
-    }
+    int capacity = list.size();
     createArray(mDSArray, "arr", capacity);
     assignSize(list.size());
     for (int i = 0; i < mDSSize; i++) {
@@ -44,12 +41,12 @@ void DynamicArrayAlgo::addElement(int pos, int value) {
     assert(0 <= pos && pos <= mDSSize);
     sceneInit();
 
-    mVisualization.addCode("if (size == capacity)");                // 0
-    mVisualization.addCode("    reserveDouble();");                 // 1
-    mVisualization.addCode("size++;");                              // 2
-    mVisualization.addCode("for (int i = size - 1; i > pos; i--)"); // 3
-    mVisualization.addCode("    arr[i] = arr[i - 1];");             // 4
-    mVisualization.addCode("arr[pos] = value;");                    // 5
+    mVisualization.addCode("if (size == capacity)");              // 0
+    mVisualization.addCode("    reserveSpace(2 * capacity);");    // 1
+    mVisualization.addCode("size++;");                            // 2
+    mVisualization.addCode("for (int i = size-1; i > pos; i--)"); // 3
+    mVisualization.addCode("    arr[i] = arr[i - 1];");           // 4
+    mVisualization.addCode("arr[pos] = value;");                  // 5
 
     // New scene
     newScene({0});
@@ -109,40 +106,52 @@ void DynamicArrayAlgo::addElement(int pos, int value) {
     mDSArray.array[pos]->value = value;
 }
 
-void DynamicArrayAlgo::reserveSpaceDouble() {
+void DynamicArrayAlgo::reserveSpace(int newCap) {
     int capacity = mDSArray.capacity;
-    assert(capacity <= MAX_DS_SIZE / 2);
 
     sceneInit();
 
-    mVisualization.addCode("int *tmp = new int[2 * capacity];"); // 0
-    mVisualization.addCode("for (int i = 0; i < size; i++)");    // 1
-    mVisualization.addCode("    tmp[i] = arr[i];");              // 2
-    mVisualization.addCode("capacity *= 2;");                    // 3
-    mVisualization.addCode("std::swap(tmp, arr);");              // 4
-    mVisualization.addCode("delete tmp;");                       // 5
+    mVisualization.addCode("if (newCap <= size) return;");     // 0
+    mVisualization.addCode("newCap = min(newCap, MAX_SIZE);"); // 1
+    mVisualization.addCode("int *tmp = new int[newCap];");     // 2
+    mVisualization.addCode("for (int i = 0; i < size; i++)");  // 3
+    mVisualization.addCode("    tmp[i] = arr[i];");            // 4
+    mVisualization.addCode("capacity = newCap;");              // 5
+    mVisualization.addCode("std::swap(tmp, arr);");            // 6
+    mVisualization.addCode("delete tmp;");                     // 7
 
-    // New scene
-    newScene({0});
-    Array tmp;
-    createArray(tmp, "tmp", 2 * capacity, -SPACING);
+    if (newCap <= mDSSize) {
+        // New scene
+        newScene({0});
+        return;
+    }
 
     // New scene
     newScene({1, 2});
+    Array tmp;
+    std::cout << "?\n";
+    createArray(tmp, "tmp", newCap, -SPACING);
+    std::cout << "?\n";
+
+    // New scene
+    newScene({3, 4});
     for (int i = 0; i < mDSSize; i++) {
         mVisualization.setValueBlock(tmp.array[i]->id,
                                      mDSArray.array[i]->value);
         tmp.array[i]->value = mDSArray.array[i]->value;
     }
 
+    std::cout << "?\n";
     // New scene
-    newScene({3, 4});
+    newScene({5, 6});
     std::swap(tmp.array, mDSArray.array);
+    std::swap(tmp.capacity, mDSArray.capacity);
     moveArray(tmp, -SPACING);
     moveArray(mDSArray, 0);
+    std::cout << "?\n";
 
     // New scene
-    newScene({5});
+    newScene({7});
     for (int i = 0; i < tmp.capacity; i++) {
         clearReference(tmp.array[i]);
         mVisualization.removeBlock(tmp.array[i]->id);
@@ -180,6 +189,7 @@ void DynamicArrayAlgo::sceneReset() {
 
 void DynamicArrayAlgo::createArray(Array& arr, std::string name, int length,
                                    int yOffset) {
+    length = std::min(length, MAX_DS_SIZE);
     if (arr.nameId != -1) {
         mVisualization.removeLabel(arr.nameId);
     }
@@ -204,7 +214,6 @@ void DynamicArrayAlgo::moveArray(Array& arr, int yOffset) {
         STARTING_POSITION
             + (Vector2){0, yOffset + VisualObject::ELEMENT_SIZE / 2});
     for (int i = 0; i < arr.capacity; i++) {
-        std::cout << arr.array[i] << "\n";
         mVisualization.moveBlock(
             arr.array[i]->id,
             STARTING_POSITION

@@ -37,7 +37,7 @@ void DynamicArrayState::populateInitialize() {
 
     // Initialize randomly (fixed size) option
     {
-        auto sizeValidator = InputBox::integerValidator(0, 8);
+        auto sizeValidator = InputBox::integerValidator(0, mAlgo.MAX_DS_SIZE);
         curTab->addActionSelector(
             "Initialize randomly (fixed size)",
             {ActionBox::Input("size = ", "size", sizeValidator, 60)},
@@ -114,12 +114,20 @@ void DynamicArrayState::populateInsert() {
             });
     }
 
-    // Reserve more space (double) option
+    // Reserve more space option
     {
-        curTab->addActionSelector("Reserve more space (double)", {},
-                                  [this](ActionBox::InputData, bool) {
-                                      this->mAlgo.reserveSpaceDouble();
-                                      return true;
-                                  });
+        auto newCapValidator = InputBox::integerValidator(1, mAlgo.MAX_DS_SIZE);
+        curTab->addActionSelector(
+            "Reserve more space",
+            {ActionBox::Input("newCap = ", "newCap", newCapValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int newCap = std::stoi(data["newCap"]);
+                this->mAlgo.reserveSpace(newCap);
+                return true;
+            });
     }
 }
