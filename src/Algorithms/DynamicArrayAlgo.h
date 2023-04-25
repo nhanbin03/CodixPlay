@@ -48,7 +48,8 @@ private:
     class Array {
     public:
         int nameId{-1};
-        std::vector<Block::Ptr> array;
+        int capacity;
+        Block::Ptr* array;
     };
 
 private:

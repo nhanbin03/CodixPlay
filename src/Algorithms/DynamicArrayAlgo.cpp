@@ -53,7 +53,7 @@ void DynamicArrayAlgo::addElement(int pos, int value) {
 
     // New scene
     newScene({0});
-    int capacity = mDSArray.array.size();
+    int capacity = mDSArray.capacity;
 
     if (mDSSize == capacity) {
         // New scene
@@ -66,11 +66,12 @@ void DynamicArrayAlgo::addElement(int pos, int value) {
             tmp.array[i]->value = mDSArray.array[i]->value;
         }
         std::swap(tmp.array, mDSArray.array);
+        std::swap(tmp.capacity, mDSArray.capacity);
         moveArray(tmp, -SPACING);
         moveArray(mDSArray, 0);
-        for (auto it : tmp.array) {
-            clearReference(it);
-            mVisualization.removeBlock(it->id);
+        for (int i = 0; i < tmp.capacity; i++) {
+            clearReference(tmp.array[i]);
+            mVisualization.removeBlock(tmp.array[i]->id);
         }
         mVisualization.removeLabel(tmp.nameId);
     }
@@ -109,7 +110,7 @@ void DynamicArrayAlgo::addElement(int pos, int value) {
 }
 
 void DynamicArrayAlgo::reserveSpaceDouble() {
-    int capacity = mDSArray.array.size();
+    int capacity = mDSArray.capacity;
     assert(capacity <= MAX_DS_SIZE / 2);
 
     sceneInit();
@@ -142,9 +143,9 @@ void DynamicArrayAlgo::reserveSpaceDouble() {
 
     // New scene
     newScene({5});
-    for (auto it : tmp.array) {
-        clearReference(it);
-        mVisualization.removeBlock(it->id);
+    for (int i = 0; i < tmp.capacity; i++) {
+        clearReference(tmp.array[i]);
+        mVisualization.removeBlock(tmp.array[i]->id);
     }
     mVisualization.removeLabel(tmp.nameId);
 }
@@ -185,11 +186,13 @@ void DynamicArrayAlgo::createArray(Array& arr, std::string name, int length,
     arr = Array();
     arr.nameId = mVisualization.createLabel(name + " :");
     mVisualization.setSizeLabel(arr.nameId, 40);
+    arr.array = new Block::Ptr[length];
+    arr.capacity = length;
 
     for (int i = 0; i < length; i++) {
         Block::Ptr block = std::make_shared<Block>();
         block->id = mVisualization.createBlock();
-        arr.array.push_back(block);
+        arr.array[i] = block;
         addReference(block, 0, std::to_string(i));
     }
     moveArray(arr, yOffset);
@@ -200,7 +203,8 @@ void DynamicArrayAlgo::moveArray(Array& arr, int yOffset) {
         arr.nameId,
         STARTING_POSITION
             + (Vector2){0, yOffset + VisualObject::ELEMENT_SIZE / 2});
-    for (int i = 0; i < arr.array.size(); i++) {
+    for (int i = 0; i < arr.capacity; i++) {
+        std::cout << arr.array[i] << "\n";
         mVisualization.moveBlock(
             arr.array[i]->id,
             STARTING_POSITION
@@ -216,7 +220,7 @@ void DynamicArrayAlgo::attachReferences(Block::Ptr block) {
 }
 
 void DynamicArrayAlgo::generalCleanUp() {
-    for (int i = 0; i < mDSArray.array.size(); i++) {
+    for (int i = 0; i < mDSArray.capacity; i++) {
         mVisualization.colorBlock(mDSArray.array[i]->id,
                                   VisualColor::getPrimaryColor());
         mVisualization.unhighlightBlock(mDSArray.array[i]->id);
