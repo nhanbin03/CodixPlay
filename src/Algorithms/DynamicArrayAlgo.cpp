@@ -206,7 +206,7 @@ void DynamicArrayAlgo::updateValue(int pos, int value) {
     mDSArray.array[pos]->value = value;
     mVisualization.setValueBlock(mDSArray.array[pos]->id, value);
     mVisualization.colorBlock(mDSArray.array[pos]->id,
-                              VisualColor::getTertiaryColor());
+                              VisualColor::getSecondaryColor());
 }
 
 void DynamicArrayAlgo::accessElement(int pos) {
