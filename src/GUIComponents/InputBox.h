@@ -20,6 +20,8 @@ public:
     void update(float dt);
     void draw();
 
+    void setCornerRoundness(float cornerRoundness);
+
     std::string getInputText() const;
 
 public:
@@ -35,6 +37,8 @@ private:
     Color mTextColor{BLACK};
 
     bool mIsFocused{false};
+
+    float mCornerRoundness{0.5};
 };
 
 #endif // GUICOMPONENTS_INPUTBOX_H

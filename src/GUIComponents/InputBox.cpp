@@ -33,9 +33,9 @@ void InputBox::update(float dt) {
 }
 
 void InputBox::draw() {
-    DrawRectangleRounded(mRect, 0.5, ROUNDED_SEGMENTS, mColor);
+    DrawRectangleRounded(mRect, mCornerRoundness, ROUNDED_SEGMENTS, mColor);
     if (mBorderThickness != 0)
-        DrawRectangleRoundedLines(mRect, 0.5, ROUNDED_SEGMENTS,
+        DrawRectangleRoundedLines(mRect, mCornerRoundness, ROUNDED_SEGMENTS,
                                   mBorderThickness, mBorderColor);
 
     int textSize = mRect.height * 2 / 3;
@@ -53,6 +53,10 @@ void InputBox::draw() {
         {mRect.x + textSize / 3, mRect.y + mRect.height / 2 - textBounds.y / 2},
         textSize, 0, mTextColor);
     EndScissorMode();
+}
+
+void InputBox::setCornerRoundness(float cornerRoundness) {
+    mCornerRoundness = cornerRoundness;
 }
 
 std::string InputBox::getInputText() const {
