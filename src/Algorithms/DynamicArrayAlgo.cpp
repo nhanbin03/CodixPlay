@@ -40,18 +40,86 @@ void DynamicArrayAlgo::initialize(std::vector<int> list) {
     }
 }
 
+void DynamicArrayAlgo::addElement(int pos, int value) {
+    assert(0 <= pos && pos <= mDSSize);
+    sceneInit();
+
+    mVisualization.addCode("if (size == capacity)");                // 0
+    mVisualization.addCode("    reserveDouble();");                 // 1
+    mVisualization.addCode("size++;");                              // 2
+    mVisualization.addCode("for (int i = size - 1; i > pos; i--)"); // 3
+    mVisualization.addCode("    arr[i] = arr[i - 1];");             // 4
+    mVisualization.addCode("arr[pos] = value;");                    // 5
+
+    // New scene
+    newScene({0});
+    int capacity = mDSArray.array.size();
+
+    if (mDSSize == capacity) {
+        // New scene
+        newScene({1});
+        Array tmp;
+        createArray(tmp, "tmp", 2 * capacity, -SPACING);
+        for (int i = 0; i < mDSSize; i++) {
+            mVisualization.setValueBlock(tmp.array[i]->id,
+                                         mDSArray.array[i]->value);
+            tmp.array[i]->value = mDSArray.array[i]->value;
+        }
+        std::swap(tmp.array, mDSArray.array);
+        moveArray(tmp, -SPACING);
+        moveArray(mDSArray, 0);
+        for (auto it : tmp.array) {
+            clearReference(it);
+            mVisualization.removeBlock(it->id);
+        }
+        mVisualization.removeLabel(tmp.nameId);
+    }
+
+    // New scene
+    newScene({2});
+    mVisualization.setValueBlock(mDSArray.array[mDSSize]->id, 0);
+    mDSSize++;
+
+    // New scene
+    newScene({3});
+    mVisualization.colorBlock(mDSArray.array[mDSSize - 1]->id,
+                              VisualColor::getSecondaryColor());
+
+    // Loop
+    for (int i = mDSSize - 1; i > pos; i--) {
+        // New scene
+        newScene({4});
+        mVisualization.highlightBlock(mDSArray.array[i - 1]->id);
+        mVisualization.setValueBlock(mDSArray.array[i]->id,
+                                     mDSArray.array[i - 1]->value);
+        mDSArray.array[i]->value = mDSArray.array[i - 1]->value;
+
+        // New scene
+        newScene({3});
+        mVisualization.unhighlightBlock(mDSArray.array[i]->id);
+        mVisualization.colorBlock(mDSArray.array[i - 1]->id,
+                                  VisualColor::getSecondaryColor());
+    }
+
+    newScene({5});
+    mVisualization.colorBlock(mDSArray.array[pos]->id,
+                              VisualColor::getTertiaryColor());
+    mVisualization.setValueBlock(mDSArray.array[pos]->id, value);
+    mDSArray.array[pos]->value = value;
+}
+
 void DynamicArrayAlgo::reserveSpaceDouble() {
     int capacity = mDSArray.array.size();
     assert(capacity <= MAX_DS_SIZE / 2);
 
     sceneInit();
 
-    mVisualization.addCode("int *tmp = new int[2 * capacity];");
-    mVisualization.addCode("for (int i = 0; i < size; i++)");
-    mVisualization.addCode("    tmp[i] = arr[i];");
-    mVisualization.addCode("capacity *= 2;");
-    mVisualization.addCode("std::swap(tmp, arr);");
-    mVisualization.addCode("delete tmp;");
+    mVisualization.addCode("int *tmp = new int[2 * capacity];"); // 0
+    mVisualization.addCode("for (int i = 0; i < size; i++)");    // 1
+    mVisualization.addCode("    tmp[i] = arr[i];");              // 2
+    mVisualization.addCode("capacity *= 2;");                    // 3
+    mVisualization.addCode("std::swap(tmp, arr);");              // 4
+    mVisualization.addCode("delete tmp;");                       // 5
 
     // New scene
     newScene({0});
@@ -196,7 +264,6 @@ void DynamicArrayAlgo::clearReference(Block::Ptr block) {
 
 void DynamicArrayAlgo::assignSize(int newSize) {
     mDSSize = newSize;
-    generalCleanUp();
 }
 
 Vector2 DynamicArrayAlgo::getBlockCenter(Block::Ptr block) const {

@@ -86,33 +86,33 @@ void DynamicArrayState::populateInitialize() {
 void DynamicArrayState::populateInsert() {
     ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Insert);
 
-    // // Insert an element option
-    // {
-    //     auto posValidator = [this](std::string str) -> bool {
-    //         auto func = InputBox::integerValidator(0,
-    //         this->mAlgo.getDSSize()); return func(str);
-    //     };
-    //     auto valueValidator = InputBox::integerValidator(0, 99);
+    // Insert an element option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func = InputBox::integerValidator(0, this->mAlgo.getDSSize());
+            return func(str);
+        };
+        auto valueValidator = InputBox::integerValidator(0, 99);
 
-    //     curTab->addActionSelector(
-    //         "Insert an element",
-    //         {ActionBox::Input("pos = ", "pos", posValidator, 60),
-    //          ActionBox::Input("value = ", "value", valueValidator, 60)},
-    //         [this](ActionBox::InputData data, bool status) {
-    //             if (!status) {
-    //                 std::cout << "Invalid input!\n";
-    //                 return false;
-    //             }
-    //             if (this->mAlgo.getDSSize() == this->mAlgo.MAX_DS_SIZE) {
-    //                 std::cout << "Max size reached!\n";
-    //                 return false;
-    //             }
-    //             int pos = std::stoi(data["pos"]);
-    //             int value = std::stoi(data["value"]);
-    //             this->mAlgo.addElement(pos, value);
-    //             return true;
-    //         });
-    // }
+        curTab->addActionSelector(
+            "Insert an element",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60),
+             ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                if (this->mAlgo.getDSSize() == this->mAlgo.MAX_DS_SIZE) {
+                    std::cout << "Max size reached!\n";
+                    return false;
+                }
+                int pos = std::stoi(data["pos"]);
+                int value = std::stoi(data["value"]);
+                this->mAlgo.addElement(pos, value);
+                return true;
+            });
+    }
 
     // Reserve more space (double) option
     {
