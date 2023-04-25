@@ -18,7 +18,7 @@ void CodeHighlighter::draw() {
     }
     int lineHeight = mRect.height / MAX_LINES;
     int textSize = lineHeight * 2 / 3;
-    int leftAlign = 32;
+    int leftAlign = 20;
     for (int i = 0; i < mCode.size(); i++) {
         Color backgroundColor, codeColor;
         if (mCode[i].second) {
