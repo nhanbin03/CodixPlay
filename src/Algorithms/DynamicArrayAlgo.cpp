@@ -28,7 +28,7 @@ void DynamicArrayAlgo::initialize(std::vector<int> list) {
 
     // New scene
     newScene({});
-    int capacity = list.size();
+    int capacity = std::max((int)list.size(), 1);
     createArray(mDSArray, "arr", capacity);
     assignSize(list.size());
     for (int i = 0; i < mDSSize; i++) {
