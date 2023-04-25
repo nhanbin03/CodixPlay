@@ -19,6 +19,7 @@ public:
     void initialize(std::vector<int> list);
 
     void addElement(int pos, int value);
+    void reserveSpaceDouble();
 
     void deleteElement(int pos);
 
@@ -62,6 +63,8 @@ private:
     void sceneReset();
 
     void createArray(Array& arr, std::string name, int length, int yOffset = 0);
+    void moveArray(Array& arr, int yOffset);
+    void attachReferences(Block::Ptr block);
 
     void generalCleanUp();
 

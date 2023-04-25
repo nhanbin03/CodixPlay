@@ -40,6 +40,47 @@ void DynamicArrayAlgo::initialize(std::vector<int> list) {
     }
 }
 
+void DynamicArrayAlgo::reserveSpaceDouble() {
+    int capacity = mDSArray.array.size();
+    assert(capacity <= MAX_DS_SIZE / 2);
+
+    sceneInit();
+
+    mVisualization.addCode("int *tmp = new int[2 * capacity];");
+    mVisualization.addCode("for (int i = 0; i < size; i++)");
+    mVisualization.addCode("    tmp[i] = arr[i];");
+    mVisualization.addCode("capacity *= 2;");
+    mVisualization.addCode("std::swap(tmp, arr);");
+    mVisualization.addCode("delete tmp;");
+
+    // New scene
+    newScene({0});
+    Array tmp;
+    createArray(tmp, "tmp", 2 * capacity, -SPACING);
+
+    // New scene
+    newScene({1, 2});
+    for (int i = 0; i < mDSSize; i++) {
+        mVisualization.setValueBlock(tmp.array[i]->id,
+                                     mDSArray.array[i]->value);
+        tmp.array[i]->value = mDSArray.array[i]->value;
+    }
+
+    // New scene
+    newScene({3, 4});
+    std::swap(tmp.array, mDSArray.array);
+    moveArray(tmp, -SPACING);
+    moveArray(mDSArray, 0);
+
+    // New scene
+    newScene({5});
+    for (auto it : tmp.array) {
+        clearReference(it);
+        mVisualization.removeBlock(it->id);
+    }
+    mVisualization.removeLabel(tmp.nameId);
+}
+
 int DynamicArrayAlgo::getDSSize() const {
     return mDSSize;
 }
@@ -74,34 +115,42 @@ void DynamicArrayAlgo::createArray(Array& arr, std::string name, int length,
         mVisualization.removeLabel(arr.nameId);
     }
     arr = Array();
-    arr.nameId = mVisualization.createLabel(
-        name + " :",
-        STARTING_POSITION
-            + (Vector2){0, yOffset + VisualObject::ELEMENT_SIZE / 2});
+    arr.nameId = mVisualization.createLabel(name + " :");
     mVisualization.setSizeLabel(arr.nameId, 40);
 
     for (int i = 0; i < length; i++) {
         Block::Ptr block = std::make_shared<Block>();
         block->id = mVisualization.createBlock();
-        mVisualization.moveBlock(
-            block->id,
-            STARTING_POSITION
-                + (Vector2){
-                    SPACING + arr.array.size() * VisualObject::ELEMENT_SIZE,
-                    yOffset});
         arr.array.push_back(block);
         addReference(block, 0, std::to_string(i));
     }
+    moveArray(arr, yOffset);
+}
+
+void DynamicArrayAlgo::moveArray(Array& arr, int yOffset) {
+    mVisualization.moveLabel(
+        arr.nameId,
+        STARTING_POSITION
+            + (Vector2){0, yOffset + VisualObject::ELEMENT_SIZE / 2});
+    for (int i = 0; i < arr.array.size(); i++) {
+        mVisualization.moveBlock(
+            arr.array[i]->id,
+            STARTING_POSITION
+                + (Vector2){SPACING + i * VisualObject::ELEMENT_SIZE, yOffset});
+        attachReferences(arr.array[i]);
+    }
+}
+
+void DynamicArrayAlgo::attachReferences(Block::Ptr block) {
+    mVisualization.moveLabel(
+        block->referencesId,
+        getBlockCenter(block) + (Vector2){0, VisualObject::ELEMENT_SIZE});
 }
 
 void DynamicArrayAlgo::generalCleanUp() {
     for (int i = 0; i < mDSArray.array.size(); i++) {
-        if (i < mDSSize)
-            mVisualization.colorBlock(mDSArray.array[i]->id,
-                                      VisualColor::getPrimaryColor());
-        else
-            mVisualization.colorBlock(mDSArray.array[i]->id,
-                                      VisualColor::getSecondaryColor());
+        mVisualization.colorBlock(mDSArray.array[i]->id,
+                                  VisualColor::getPrimaryColor());
         mVisualization.unhighlightBlock(mDSArray.array[i]->id);
     }
 }
@@ -116,10 +165,10 @@ void DynamicArrayAlgo::addReference(Block::Ptr block, int order,
     if (block == nullptr)
         return;
     block->references[order] = reference;
-    if (block->referencesId == -1)
-        block->referencesId = mVisualization.createLabel(
-            "",
-            getBlockCenter(block) + (Vector2){0, VisualObject::ELEMENT_SIZE});
+    if (block->referencesId == -1) {
+        block->referencesId = mVisualization.createLabel("");
+        attachReferences(block);
+    }
 
     mVisualization.updateLabel(block->referencesId, block->referencesText());
 }
