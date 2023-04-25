@@ -1,6 +1,5 @@
 #include "Application.h"
 
-#include "raygui.h"
 #include "raylib.h"
 
 int main(void) {
