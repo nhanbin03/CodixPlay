@@ -358,6 +358,7 @@ void VisualScene::transitionBlock(const VisualScene& fromScene,
             from.setColor(to.getColor());
             from.setBorderColor(to.getBorderColor());
             from.setValueColor(to.getValueColor());
+            from.setTransparency(to.getTransparency());
         }
         if (toFound == toScene.mBlockMap.end()) {
             to.setPosition(from.getPosition());
@@ -367,6 +368,7 @@ void VisualScene::transitionBlock(const VisualScene& fromScene,
             to.setColor(from.getColor());
             to.setBorderColor(from.getBorderColor());
             to.setValueColor(from.getValueColor());
+            to.setTransparency(to.getTransparency());
         }
 
         SquareNode newObject = to;
@@ -385,19 +387,27 @@ void VisualScene::transitionBlock(const VisualScene& fromScene,
             easeInOut(from.getScale(), to.getScale(), time, totalTime));
 
         // Animate value
-        if (from.hasValue() && to.hasValue())
+        if (from.hasValue() && to.hasValue()) {
             newObject.setValue(
                 easeInOut(from.getValue(), to.getValue(), time, totalTime));
-        else {
+            newObject.setValueColor(easeInOutColor(
+                from.getValueColor(), to.getValueColor(), time, totalTime));
+        } else {
             // Fading effect
             Color fromColor, toColor;
+            int value;
             if (from.hasValue()) {
                 fromColor = from.getValueColor();
                 toColor = to.getColor();
-            } else {
+                value = from.getValue();
+            }
+            if (to.hasValue()) {
                 fromColor = from.getColor();
                 toColor = to.getValueColor();
+                value = to.getValue();
             }
+            if (from.hasValue() || to.hasValue())
+                newObject.setValue(value);
             newObject.setValueColor(
                 easeInOutColor(fromColor, toColor, time, totalTime));
         }
@@ -407,8 +417,8 @@ void VisualScene::transitionBlock(const VisualScene& fromScene,
             easeInOutColor(from.getColor(), to.getColor(), time, totalTime));
         newObject.setBorderColor(easeInOutColor(
             from.getBorderColor(), to.getBorderColor(), time, totalTime));
-        newObject.setValueColor(easeInOutColor(
-            from.getValueColor(), to.getValueColor(), time, totalTime));
+        newObject.setTransparency(easeInOut(
+            from.getTransparency(), to.getTransparency(), time, totalTime));
 
         auto insertStatus = visualScene.mBlockMap.emplace(objectID, newObject);
         assert(insertStatus.second == true);

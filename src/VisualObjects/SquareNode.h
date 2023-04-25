@@ -10,6 +10,9 @@
 
 class SquareNode : public VisualObject {
 public:
+    static constexpr float NO_VALUE_ALPHA = 0.25;
+
+public:
     SquareNode();
     ~SquareNode();
 
@@ -30,6 +33,9 @@ public:
     void setBorderColor(Color color);
     Color getBorderColor() const;
 
+    void setTransparency(float alpha);
+    float getTransparency() const;
+
 private:
     float mSize{ELEMENT_SIZE};
 
@@ -40,6 +46,9 @@ private:
     Color mColor{AppColor::BACKGROUND_2};
 
     Color mBorderColor{VisualColor::getPrimaryColor()};
+
+    // std::function<Color(Color)> mColorFilter;
+    float mTransparency{0.25};
 };
 
 #endif // VISUALOBJECTS_SQUARENODE_H

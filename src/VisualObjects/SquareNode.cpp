@@ -1,8 +1,10 @@
 #include "SquareNode.h"
 
 #include <cassert>
+#include <iostream>
 
 SquareNode::SquareNode() {
+    setTransparency(NO_VALUE_ALPHA);
 }
 
 SquareNode::~SquareNode() {
@@ -15,18 +17,14 @@ void SquareNode::draw() {
     float displaySize = mSize * getScale();
     float displayBorder = BORDER_THICKNESS * getScale();
 
-    std::function<Color(Color)> colorFilter = [](Color color) {
-        return color;
+    auto mColorFilter = [this](Color color) {
+        return ColorAlpha(color, this->mTransparency);
     };
-    if (!mHasValue) {
-        colorFilter = [](Color color) {
-            return ColorAlpha(color, 0.25);
-        };
-    }
-    DrawRectangle(x, y, displaySize, displaySize, colorFilter(mColor));
+
+    DrawRectangle(x, y, displaySize, displaySize, mColorFilter(mColor));
     DrawRectangleLinesEx((Rectangle){x, y, displaySize, displaySize},
                          displayBorder,
-                         colorFilter(mBorderColor)); // Draw border inside
+                         mColorFilter(mBorderColor)); // Draw border inside
 
     if (mHasValue) {
         const char *valueText = std::to_string(mValue).c_str();
@@ -38,13 +36,14 @@ void SquareNode::draw() {
                    valueText,
                    {x + displaySize / 2 - textBounds.x / 2,
                     y + displaySize / 2 - textBounds.y / 2},
-                   textSize, 0, mValueColor);
+                   textSize, 0, mColorFilter(mValueColor));
     }
 }
 
 void SquareNode::setValue(int value) {
     mHasValue = true;
     mValue = value;
+    setTransparency(1);
 }
 
 int SquareNode::getValue() const {
@@ -54,6 +53,7 @@ int SquareNode::getValue() const {
 
 void SquareNode::removeValue() {
     mHasValue = false;
+    setTransparency(NO_VALUE_ALPHA);
 }
 
 bool SquareNode::hasValue() const {
@@ -82,4 +82,14 @@ void SquareNode::setBorderColor(Color color) {
 
 Color SquareNode::getBorderColor() const {
     return mBorderColor;
+}
+
+void SquareNode::setTransparency(float alpha) {
+    if (alpha < 0 || alpha > 1)
+        return;
+    mTransparency = alpha;
+}
+
+float SquareNode::getTransparency() const {
+    return mTransparency;
 }
