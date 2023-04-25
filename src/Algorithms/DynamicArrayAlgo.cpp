@@ -209,6 +209,18 @@ void DynamicArrayAlgo::updateValue(int pos, int value) {
                               VisualColor::getTertiaryColor());
 }
 
+void DynamicArrayAlgo::accessElement(int pos) {
+    assert(0 <= pos && pos < mDSSize);
+
+    sceneInit();
+    mVisualization.addCode("return arr[pos];"); // 0
+
+    // New scene
+    newScene({0});
+    mVisualization.colorBlock(mDSArray.array[pos]->id,
+                              VisualColor::getSecondaryColor());
+}
+
 int DynamicArrayAlgo::getDSSize() const {
     return mDSSize;
 }

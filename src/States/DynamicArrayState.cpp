@@ -18,6 +18,7 @@ DynamicArrayState::DynamicArrayState(StateStack &stack, Context context)
     populateInsert();
     populateRemove();
     populateUpdate();
+    populateSearch();
 }
 
 bool DynamicArrayState::update(float dt) {
@@ -186,6 +187,32 @@ void DynamicArrayState::populateUpdate() {
                 int pos = std::stoi(data["pos"]);
                 int value = std::stoi(data["value"]);
                 this->mAlgo.updateValue(pos, value);
+                return true;
+            });
+    }
+}
+
+void DynamicArrayState::populateSearch() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Search);
+
+    // Access an element option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(0, this->mAlgo.getDSSize() - 1);
+            return func(str);
+        };
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        curTab->addActionSelector(
+            "Access an element",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int pos = std::stoi(data["pos"]);
+                this->mAlgo.accessElement(pos);
                 return true;
             });
     }
