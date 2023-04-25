@@ -53,7 +53,7 @@ public:
     void moveArrowDelta(int arrowID, Vector2 source, Vector2 destination);
     void removeArrow(int arrowID);
 
-    int createLabel(const std::string text, Vector2 position);
+    int createLabel(const std::string text, Vector2 position = {0, 0});
     int createNodeLabel(const std::string text, int idAttached);
     void setSizeLabel(int labelID, int size);
     void moveLabel(int labelID, Vector2 position);
