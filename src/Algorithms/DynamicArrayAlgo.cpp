@@ -159,6 +159,56 @@ void DynamicArrayAlgo::reserveSpace(int newCap) {
     mVisualization.removeLabel(tmp.nameId);
 }
 
+void DynamicArrayAlgo::deleteElement(int pos) {
+    assert(0 <= pos && pos < mDSSize);
+
+    sceneInit();
+    mVisualization.addCode("for (int i = pos; i < size-1; i++)"); // 0
+    mVisualization.addCode("    arr[i]=arr[i + 1];");             // 1
+    mVisualization.addCode("size--;");                            // 2
+
+    // New scene
+    newScene({0});
+    mVisualization.colorBlock(mDSArray.array[pos]->id,
+                              VisualColor::getSecondaryColor());
+
+    // Loop
+    for (int i = pos; i < mDSSize - 1; i++) {
+        // New scene
+        newScene({1});
+        mVisualization.highlightBlock(mDSArray.array[i + 1]->id);
+        mVisualization.setValueBlock(mDSArray.array[i]->id,
+                                     mDSArray.array[i + 1]->value);
+        mDSArray.array[i]->value = mDSArray.array[i + 1]->value;
+
+        // New scene
+        newScene({0});
+        mVisualization.unhighlightBlock(mDSArray.array[i]->id);
+        mVisualization.colorBlock(mDSArray.array[i + 1]->id,
+                                  VisualColor::getSecondaryColor());
+    }
+
+    // New scene
+    newScene({2});
+    mDSSize--;
+    mVisualization.unhighlightBlock(mDSArray.array[mDSSize]->id);
+    mVisualization.removeValueBlock(mDSArray.array[mDSSize]->id);
+}
+
+void DynamicArrayAlgo::updateValue(int pos, int value) {
+    assert(0 <= pos && pos < mDSSize);
+
+    sceneInit();
+    mVisualization.addCode("arr[pos] = value;"); // 0
+
+    // New scene
+    newScene({0});
+    mDSArray.array[pos]->value = value;
+    mVisualization.setValueBlock(mDSArray.array[pos]->id, value);
+    mVisualization.colorBlock(mDSArray.array[pos]->id,
+                              VisualColor::getTertiaryColor());
+}
+
 int DynamicArrayAlgo::getDSSize() const {
     return mDSSize;
 }

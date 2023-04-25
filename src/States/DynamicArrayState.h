@@ -19,6 +19,8 @@ private:
 private:
     void populateInitialize();
     void populateInsert();
+    void populateRemove();
+    void populateUpdate();
 };
 
 #endif // STATES_DYNAMICARRAYSTATE_H

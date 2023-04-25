@@ -25,7 +25,8 @@ public:
 
     void updateValue(int pos, int value);
 
-    void searchValue(int value);
+    void accessElement(int pos);
+    void searchFirstValue(int value);
 
     int getDSSize() const;
 

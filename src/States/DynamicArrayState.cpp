@@ -16,6 +16,8 @@ DynamicArrayState::DynamicArrayState(StateStack &stack, Context context)
 
     populateInitialize();
     populateInsert();
+    populateRemove();
+    populateUpdate();
 }
 
 bool DynamicArrayState::update(float dt) {
@@ -127,6 +129,63 @@ void DynamicArrayState::populateInsert() {
                 }
                 int newCap = std::stoi(data["newCap"]);
                 this->mAlgo.reserveSpace(newCap);
+                return true;
+            });
+    }
+}
+
+void DynamicArrayState::populateRemove() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Remove);
+
+    // Delete an element option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(0, this->mAlgo.getDSSize() - 1);
+            return func(str);
+        };
+        curTab->addActionSelector(
+            "Delete an element",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                if (this->mAlgo.getDSSize() == 0) {
+                    std::cout << "No element to delete!\n";
+                    return false;
+                }
+                int pos = std::stoi(data["pos"]);
+                this->mAlgo.deleteElement(pos);
+                return true;
+            });
+    }
+}
+
+void DynamicArrayState::populateUpdate() {
+    ActionTab::Ptr curTab = mActions.getTab(ActionContainer::TabID::Update);
+
+    // Update element value option
+    {
+        auto posValidator = [this](std::string str) -> bool {
+            auto func =
+                InputBox::integerValidator(0, this->mAlgo.getDSSize() - 1);
+            return func(str);
+        };
+        auto valueValidator = InputBox::integerValidator(0, 99);
+        curTab->addActionSelector(
+            "Update element value",
+            {ActionBox::Input("pos = ", "pos", posValidator, 60),
+             ActionBox::Input("value = ", "value", valueValidator, 60)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                int pos = std::stoi(data["pos"]);
+                int value = std::stoi(data["value"]);
+                this->mAlgo.updateValue(pos, value);
                 return true;
             });
     }
