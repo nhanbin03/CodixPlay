@@ -7,6 +7,7 @@ enum class TextureID {
     IconLogo,
     NavHomeButton,
     NavSettingsButton,
+    HeroBanner,
     StaticArrayCard,
     DynamicArrayCard,
     SinglyLinkedListCard,

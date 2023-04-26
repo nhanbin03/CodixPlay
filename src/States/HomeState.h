@@ -25,6 +25,11 @@ private:
     std::map<CategoryID, CategoryScroller::Ptr> mCategories;
 
 private:
+    Texture2D mHeroBanner;
+    Rectangle mBannerRect;
+
+    void drawHeroBanner();
+
     void addCategory(CategoryID id, std::string title);
     void addAlgoCard(CategoryID categoryID, TextureID img, StateIDs stateID);
 

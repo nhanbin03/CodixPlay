@@ -1,4 +1,5 @@
 #include "HomeState.h"
+#include "../Helper.h"
 
 #include "raylib.h"
 
@@ -26,6 +27,10 @@ HomeState::HomeState(StateStack &stack, Context context)
                 StateIDs::CircularLinkedList);
     addAlgoCard(CategoryID::LinkedList, TextureID::StackCard, StateIDs::Stack);
     addAlgoCard(CategoryID::LinkedList, TextureID::QueueCard, StateIDs::Queue);
+
+    mHeroBanner = TextureHolder::getInstance().get(TextureID::HeroBanner);
+    mBannerRect = {191, 51, 741, 194};
+    scaleTexture(mHeroBanner, {mBannerRect.width, mBannerRect.height});
 }
 
 HomeState::~HomeState() {
@@ -42,9 +47,14 @@ bool HomeState::update(float dt) {
 void HomeState::draw() {
     ClearBackground(AppColor::BACKGROUND_2);
     mNavBar.draw();
+    drawHeroBanner();
     for (auto &category : mCategories) {
         category.second->draw();
     }
+}
+
+void HomeState::drawHeroBanner() {
+    DrawTexture(mHeroBanner, mBannerRect.x, mBannerRect.y, WHITE);
 }
 
 void HomeState::addCategory(CategoryID id, std::string title) {
