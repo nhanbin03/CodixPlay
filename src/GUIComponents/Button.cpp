@@ -108,6 +108,10 @@ void Button::setTexture(Texture2D texture) {
     scaleTexture(mTexture, getSize());
 }
 
+Color Button::getColor() const {
+    return mColor;
+}
+
 void Button::setCornerRoundness(float cornerRoundness) {
     mCornerRoundness = cornerRoundness;
 }

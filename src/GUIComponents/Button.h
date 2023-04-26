@@ -11,6 +11,8 @@
 
 class Button : public GUIComponent {
 public:
+    typedef std::shared_ptr<Button> Ptr;
+
     typedef std::function<Color(Color)> Filter;
 
     typedef std::function<void()> Callback;
@@ -39,6 +41,8 @@ public:
     void setTextSize(int size);
 
     void setTexture(Texture2D texture);
+
+    Color getColor() const;
 
     void setCornerRoundness(float cornerRoundness);
 
