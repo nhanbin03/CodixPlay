@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 
 Vector2 operator+ (const Vector2 &a, const Vector2 &b);
 
