@@ -11,7 +11,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	mkdir -p $(dir $@)
-	g++ $(OBJS) -o $@ -Llib -lraylib -lopengl32 -lgdi32 -lwinmm
+	g++ $(OBJS) -o $@ -Llib -lraylib -ltinyfiledialogs -lopengl32 -lgdi32 -lwinmm -lcomdlg32 -lole32
 
 $(BUILD)/%.o: $(SRC)/%.cpp
 	mkdir -p $(dir $@)
