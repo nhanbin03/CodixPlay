@@ -7,10 +7,14 @@
 #include "raylib.h"
 
 #include <functional>
+#include <memory>
 #include <regex>
 #include <string>
 
 class InputBox : public GUIComponent {
+public:
+    typedef std::shared_ptr<InputBox> Ptr;
+
 public:
     explicit InputBox(Rectangle bounds = {0, 0, 0, 0});
     ~InputBox();

@@ -23,8 +23,8 @@ public:
 
     void addActionSelector(
         std::string title, std::vector<ActionBox::Input> inputs,
-        std::function<bool(ActionBox::InputData, bool)> onSubmit);
-
+        std::function<bool(ActionBox::InputData, bool)> onSubmit,
+        bool fromFile = false);
     void activate();
     void deactivate();
 

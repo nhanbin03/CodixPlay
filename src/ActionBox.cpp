@@ -5,9 +5,9 @@
 #include <iostream>
 
 ActionBox::ActionBox(Rectangle bounds, std::string title,
-                     std::vector<Input> inputs, std::function<void()> onSelect)
+                     std::vector<Input> inputs, std::function<void()> onSelect,
+                     bool fromFile)
 : mTitle(title)
-, mInputs(inputs)
 , mOnSelect(onSelect) {
     mRect = bounds;
 
@@ -24,27 +24,57 @@ ActionBox::ActionBox(Rectangle bounds, std::string title,
     mBorderThickness = 2;
     mTextColor = AppColor::TEXT;
 
+    if (fromFile) {
+        mFileOpens = inputs;
+        for (auto& input : mFileOpens) {
+            FileBrowser::Ptr newBox = std::make_shared<FileBrowser>();
+
+            int startingX;
+            if (mFileBrowsers.empty()) {
+                startingX = mRect.x + 50;
+            } else {
+                startingX = mFileBrowsers.back()->getPosition().x
+                          + mFileBrowsers.back()->getSize().x + 50;
+            }
+            Vector2 labelBounds =
+                MeasureTextEx(FontHolder::getInstance().get(FontID::Consolas,
+                                                            INPUT_LABEL_SIZE),
+                              input.label.c_str(), INPUT_LABEL_SIZE, 0);
+
+            newBox->setRect((Rectangle){startingX + labelBounds.x, mRect.y + 45,
+                                        input.width, 24});
+            newBox->setColor(AppColor::TEXT);
+            newBox->setBorderColor(AppColor::BACKGROUND_1);
+            newBox->setBorderThickness(1);
+            newBox->setCornerRoundness(0.75);
+
+            mFileBrowsers.push_back(std::move(newBox));
+        }
+        return;
+    }
+    mInputs = inputs;
     for (auto& input : mInputs) {
-        InputBox newBox;
+        InputBox::Ptr newBox = std::make_shared<InputBox>();
 
         int startingX;
         if (mInputBoxes.empty()) {
             startingX = mRect.x + 50;
         } else {
-            startingX = mInputBoxes.back().getPosition().x
-                      + mInputBoxes.back().getSize().x + 50;
+            startingX = mInputBoxes.back()->getPosition().x
+                      + mInputBoxes.back()->getSize().x + 50;
         }
         Vector2 labelBounds = MeasureTextEx(
             FontHolder::getInstance().get(FontID::Consolas, INPUT_LABEL_SIZE),
             input.label.c_str(), INPUT_LABEL_SIZE, 0);
 
-        newBox.setRect((Rectangle){startingX + labelBounds.x, mRect.y + 45,
-                                   input.width, 24});
-        newBox.setColor(AppColor::TEXT);
-        newBox.setBorderColor(AppColor::BACKGROUND_1);
-        newBox.setBorderThickness(1);
+        newBox->setRect((Rectangle){startingX + labelBounds.x, mRect.y + 45,
+                                    input.width, 24});
+        newBox->setColor(AppColor::TEXT);
+        newBox->setBorderColor(AppColor::BACKGROUND_1);
+        newBox->setBorderThickness(1);
+        newBox->setCornerRoundness(0.75);
 
-        mInputBoxes.push_back(newBox);
+        mInputBoxes.push_back(std::move(newBox));
     }
 }
 
@@ -65,8 +95,11 @@ void ActionBox::draw() {
 }
 
 void ActionBox::activeUpdate(float dt) {
-    for (auto& input : mInputBoxes) {
-        input.update(dt);
+    for (const auto& input : mInputBoxes) {
+        input->update(dt);
+    }
+    for (const auto& file : mFileBrowsers) {
+        file->update(dt);
     }
 }
 
@@ -90,13 +123,11 @@ void ActionBox::activeDraw() {
                          AppColor::PRIMARY); // Draw active indicator
 
     for (int i = 0; i < mInputs.size(); i++) {
-        int startingX;
-        if (i == 0) {
-            startingX = mRect.x + 50;
-        } else {
-            startingX = mInputBoxes[i - 1].getPosition().x
-                      + mInputBoxes[i - 1].getSize().x + 50;
-        }
+        Vector2 labelBounds = MeasureTextEx(
+            FontHolder::getInstance().get(FontID::Consolas, INPUT_LABEL_SIZE),
+            mInputs[i].label.c_str(), INPUT_LABEL_SIZE, 0);
+
+        int startingX = mInputBoxes[i]->getPosition().x - labelBounds.x;
 
         const Font& font =
             FontHolder::getInstance().get(FontID::Consolas, INPUT_LABEL_SIZE);
@@ -104,7 +135,22 @@ void ActionBox::activeDraw() {
                    (Vector2){startingX, mRect.y + 48}, INPUT_LABEL_SIZE, 0,
                    AppColor::TEXT);
 
-        mInputBoxes[i].draw();
+        mInputBoxes[i]->draw();
+    }
+    for (int i = 0; i < mFileOpens.size(); i++) {
+        Vector2 labelBounds = MeasureTextEx(
+            FontHolder::getInstance().get(FontID::Consolas, INPUT_LABEL_SIZE),
+            mFileOpens[i].label.c_str(), INPUT_LABEL_SIZE, 0);
+
+        int startingX = mFileBrowsers[i]->getPosition().x - labelBounds.x;
+
+        const Font& font =
+            FontHolder::getInstance().get(FontID::Consolas, INPUT_LABEL_SIZE);
+        DrawTextEx(font, mFileOpens[i].label.c_str(),
+                   (Vector2){startingX, mRect.y + 48}, INPUT_LABEL_SIZE, 0,
+                   AppColor::TEXT);
+
+        mFileBrowsers[i]->draw();
     }
 }
 
@@ -118,19 +164,29 @@ void ActionBox::activate() {
 
 void ActionBox::deactivate() {
     mIsActivated = false;
-    for (auto& input : mInputBoxes) {
-        input.reset();
+    for (const auto& input : mInputBoxes) {
+        input->reset();
+    }
+    for (const auto& file : mFileBrowsers) {
+        file->reset();
     }
 }
 
 std::pair<bool, ActionBox::InputData> ActionBox::getInputs() const {
     InputData ret;
     for (int i = 0; i < mInputs.size(); i++) {
-        std::string inputString = mInputBoxes[i].getInputText();
+        std::string inputString = mInputBoxes[i]->getInputText();
         if (mInputs[i].validator(inputString) == false) {
             return {false, InputData()};
         }
         ret[mInputs[i].name] = inputString;
+    }
+    for (int i = 0; i < mFileOpens.size(); i++) {
+        std::string inputString = mFileBrowsers[i]->getInputPath();
+        if (mFileOpens[i].validator(inputString) == false) {
+            return {false, InputData()};
+        }
+        ret[mFileOpens[i].name] = inputString;
     }
     return {true, ret};
 }

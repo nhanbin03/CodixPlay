@@ -38,7 +38,7 @@ void ActionTab::draw() {
 
 void ActionTab::addActionSelector(
     std::string title, std::vector<ActionBox::Input> inputs,
-    std::function<bool(ActionBox::InputData, bool)> onSubmit) {
+    std::function<bool(ActionBox::InputData, bool)> onSubmit, bool fromFile) {
     mOnSubmits.push_back(onSubmit);
 
     const int curIndex = mActions.size();
@@ -55,7 +55,7 @@ void ActionTab::addActionSelector(
     }
 
     ActionBox newBox = ActionBox((Rectangle){1020, startingY, 385, 77}, title,
-                                 inputs, onSelect);
+                                 inputs, onSelect, fromFile);
 
     mActions.push_back(newBox);
 }
