@@ -9,7 +9,7 @@
 StaticArrayAlgo::StaticArrayAlgo(Visualization& visualization)
 : Algorithm(visualization) {
     mSceneCleanUp = []() {};
-    sceneInit();
+    sceneReset();
     createArray(mDSArray, "arr", MAX_DS_SIZE);
     assignSize(0);
 }

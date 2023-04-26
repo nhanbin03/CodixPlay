@@ -9,7 +9,7 @@
 DynamicArrayAlgo::DynamicArrayAlgo(Visualization& visualization)
 : Algorithm(visualization) {
     mSceneCleanUp = []() {};
-    sceneInit();
+    sceneReset();
     createArray(mDSArray, "arr", 1);
     assignSize(0);
 }
