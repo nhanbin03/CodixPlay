@@ -90,13 +90,10 @@ void CategoryScroller::setTitle(std::string title) {
     mTitle = title;
 }
 
-void CategoryScroller::addCard(std::string title, Button::Callback onClick) {
+void CategoryScroller::addCard(TextureID img, Button::Callback onClick) {
     Card newCard;
-    newCard.title = title;
     newCard.clickBox.setSize({352, 234});
-    newCard.clickBox.setBorderThickness(7);
-    newCard.clickBox.setBorderColor(AppColor::BACKGROUND_1);
-    newCard.clickBox.setCornerRoundness(0.2);
+    newCard.clickBox.setTexture(TextureHolder::getInstance().get(img));
     newCard.clickBox.setCallback(onClick);
 
     mCardList.push_back(std::move(newCard));

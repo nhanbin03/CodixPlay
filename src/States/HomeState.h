@@ -26,7 +26,7 @@ private:
 
 private:
     void addCategory(CategoryID id, std::string title);
-    void addAlgoCard(CategoryID categoryID, std::string title);
+    void addAlgoCard(CategoryID categoryID, TextureID img, StateIDs stateID);
 
     CategoryScroller& getCategory(CategoryID id) const;
 };

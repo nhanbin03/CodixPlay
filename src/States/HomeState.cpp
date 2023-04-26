@@ -10,14 +10,22 @@ HomeState::HomeState(StateStack &stack, Context context)
     mNavBar.setCurNav(NavBar::NavID::Home);
 
     addCategory(CategoryID::Array, "Array");
-    addAlgoCard(CategoryID::Array, "1");
-    addAlgoCard(CategoryID::Array, "2");
-    addAlgoCard(CategoryID::Array, "3");
+
+    addAlgoCard(CategoryID::Array, TextureID::StaticArrayCard,
+                StateIDs::StaticArray);
+    addAlgoCard(CategoryID::Array, TextureID::DynamicArrayCard,
+                StateIDs::DynamicArray);
 
     addCategory(CategoryID::LinkedList, "Linked List");
-    addAlgoCard(CategoryID::LinkedList, "4");
-    addAlgoCard(CategoryID::LinkedList, "5");
-    addAlgoCard(CategoryID::LinkedList, "6");
+
+    addAlgoCard(CategoryID::LinkedList, TextureID::SinglyLinkedListCard,
+                StateIDs::SinglyLinkedList);
+    addAlgoCard(CategoryID::LinkedList, TextureID::DoublyLinkedListCard,
+                StateIDs::DoublyLinkedList);
+    addAlgoCard(CategoryID::LinkedList, TextureID::CircularLinkedListCard,
+                StateIDs::CircularLinkedList);
+    addAlgoCard(CategoryID::LinkedList, TextureID::StackCard, StateIDs::Stack);
+    addAlgoCard(CategoryID::LinkedList, TextureID::QueueCard, StateIDs::Queue);
 }
 
 HomeState::~HomeState() {
@@ -54,9 +62,11 @@ CategoryScroller &HomeState::getCategory(CategoryID id) const {
     return *found->second;
 }
 
-void HomeState::addAlgoCard(CategoryID categoryID, std::string title) {
+void HomeState::addAlgoCard(CategoryID categoryID, TextureID img,
+                            StateIDs stateID) {
     auto &category = getCategory(categoryID);
-    category.addCard(title, [this, title]() {
-        std::cout << title << "\n";
+    category.addCard(img, [this, stateID]() {
+        this->requestStackPop();
+        this->requestStackPush(stateID);
     });
 }

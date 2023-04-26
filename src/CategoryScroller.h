@@ -31,7 +31,7 @@ public:
 
     void setTitle(std::string title);
 
-    void addCard(std::string title, Button::Callback onClick);
+    void addCard(TextureID img, Button::Callback onClick);
 
 private:
     std::string mTitle;
