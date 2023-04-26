@@ -129,9 +129,7 @@ void DynamicArrayAlgo::reserveSpace(int newCap) {
     // New scene
     newScene({1, 2});
     Array tmp;
-    std::cout << "?\n";
     createArray(tmp, "tmp", newCap, -SPACING);
-    std::cout << "?\n";
 
     // New scene
     newScene({3, 4});
@@ -141,14 +139,12 @@ void DynamicArrayAlgo::reserveSpace(int newCap) {
         tmp.array[i]->value = mDSArray.array[i]->value;
     }
 
-    std::cout << "?\n";
     // New scene
     newScene({5, 6});
     std::swap(tmp.array, mDSArray.array);
     std::swap(tmp.capacity, mDSArray.capacity);
     moveArray(tmp, -SPACING);
     moveArray(mDSArray, 0);
-    std::cout << "?\n";
 
     // New scene
     newScene({7});
