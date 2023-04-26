@@ -6,6 +6,15 @@ SettingsPanel::SettingsPanel() {
     mRect = {985, 0, 455, 950};
     mColor = AppColor::BACKGROUND_4;
 
+    mIcon = TextureHolder::getInstance().get(TextureID::SettingIcon);
+
+    mToggleButton.setRect({985, 0, 455, 113});
+    mToggleButton.setColor(mColor);
+    mToggleButton.setCornerRoundness(0);
+    mToggleButton.setCallback([this]() {
+        this->mIsHidden = !(this->mIsHidden);
+    });
+
     populatePrimaryPalette(mPrimary, 215);
     populateSecondaryPalette(mSecondary, 399);
     populateTertiaryPalette(mTertiary, 583);
@@ -13,6 +22,9 @@ SettingsPanel::SettingsPanel() {
 }
 
 void SettingsPanel::update(float dt) {
+    mToggleButton.update(dt);
+    if (mIsHidden)
+        return;
     for (auto it : mPrimary) {
         it->update(dt);
         if (ColorToInt(VisualColor::getPrimaryColor())
@@ -41,6 +53,25 @@ void SettingsPanel::update(float dt) {
 
 void SettingsPanel::draw() {
     DrawRectangleRec(mRect, mColor);
+    mToggleButton.draw();
+    DrawTexture(mIcon, 1005, 20, AppColor::TEXT);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, 40),
+               "Settings", {1100, 36}, 40, 0, AppColor::TEXT);
+    DrawLine(985, 113, 1440, 113, AppColor::BACKGROUND_1);
+    if (mIsHidden)
+        return;
+
+    // Draw text
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, 34),
+               "Primary Color", {1023, 163}, 34, 0, AppColor::TEXT);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, 34),
+               "Secondary Color", {1023, 347}, 34, 0, AppColor::TEXT);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, 34),
+               "Tertiary Color", {1023, 531}, 34, 0, AppColor::TEXT);
+    DrawTextEx(FontHolder::getInstance().get(FontID::Inter_Bold, 34),
+               "Reference Color", {1023, 715}, 34, 0, AppColor::TEXT);
+
+    // Draw color picker
     for (auto it : mPrimary) {
         it->draw();
     }

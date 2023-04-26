@@ -20,6 +20,11 @@ public:
     void draw();
 
 private:
+    Texture2D mIcon;
+
+    Button mToggleButton;
+    bool mIsHidden{true};
+
     std::vector<Button::Ptr> mPrimary, mSecondary, mTertiary, mReference;
     Rectangle mPrimaryInd, mSecondaryInd, mTertiaryInd, mReferenceInd;
 
