@@ -84,6 +84,20 @@ void DynamicArrayState::populateInitialize() {
                 return true;
             });
     }
+
+    // Initialize by file input option
+    {
+        curTab->addActionSelector(
+            "Initialize by file input", {ActionBox::FileOpen("", "path", 220)},
+            [this](ActionBox::InputData data, bool status) {
+                if (!status) {
+                    std::cout << "Invalid input!\n";
+                    return false;
+                }
+                std::cout << data["path"] << "?\n";
+                return true;
+            });
+    }
 }
 
 void DynamicArrayState::populateInsert() {
