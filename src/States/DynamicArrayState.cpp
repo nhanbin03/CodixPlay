@@ -1,4 +1,5 @@
 #include "DynamicArrayState.h"
+#include "../Helper.h"
 
 #include "raylib.h"
 
@@ -87,16 +88,22 @@ void DynamicArrayState::populateInitialize() {
 
     // Initialize by file input option
     {
+        auto pathValidator = [](std::string str) {
+            return str != "";
+        };
         curTab->addActionSelector(
-            "Initialize by file input", {ActionBox::FileOpen("", "path", 220)},
+            "Initialize by file input",
+            {ActionBox::Input("", "path", pathValidator, 220)},
             [this](ActionBox::InputData data, bool status) {
                 if (!status) {
                     std::cout << "Invalid input!\n";
                     return false;
                 }
-                std::cout << data["path"] << "?\n";
+                std::vector<int> list = readListFromFile<int>(data["path"]);
+                this->mAlgo.initialize(list);
                 return true;
-            });
+            },
+            true);
     }
 }
 
