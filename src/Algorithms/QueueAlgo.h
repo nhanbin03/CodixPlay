@@ -21,6 +21,7 @@ public:
     void enqueue(int value);
 
     void dequeue();
+    void clear();
 
     void getFront();
 

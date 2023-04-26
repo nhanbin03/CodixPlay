@@ -101,9 +101,9 @@ void StackAlgo::pop() {
 
     sceneInit();
 
-    mVisualization.addCode("Node* tmp = head;"); // 0
-    mVisualization.addCode("head = head->next"); // 1
-    mVisualization.addCode("delete tmp;");       // 2
+    mVisualization.addCode("Node* tmp = head;");  // 0
+    mVisualization.addCode("head = head->next;"); // 1
+    mVisualization.addCode("delete tmp;");        // 2
 
     // New scene
     newScene({0});
@@ -123,6 +123,50 @@ void StackAlgo::pop() {
     if (mDSHead != nullptr)
         mVisualization.removeArrow(tmp->next.id);
     mVisualization.removeNode(tmp->id);
+
+    // New scene
+    newScene({});
+    relayout();
+    if (mDSHead != nullptr)
+        mVisualization.unhighlightNode(mDSHead->id);
+}
+
+void StackAlgo::clear() {
+    sceneInit();
+
+    mVisualization.addCode("while (head != nullptr) {"); // 0
+    mVisualization.addCode("    tmp = head,");           // 1
+    mVisualization.addCode("    head = head->next;");    // 2
+    mVisualization.addCode("    delete tmp;");           // 3
+    mVisualization.addCode("}");                         // 4
+
+    // New scene
+    newScene({0});
+
+    // Loop
+    while (mDSHead != nullptr) {
+        // New scene
+        newScene({1});
+        Node::Ptr tmp;
+        assignNodePtr(tmp, mDSHead, 3, "tmp");
+        mVisualization.colorNode(tmp->id, VisualColor::getSecondaryColor());
+
+        // New scene
+        newScene({2});
+        assignNodePtr(mDSHead, mDSHead->next.node, 1, "head");
+        if (mDSHead != nullptr)
+            mVisualization.highlightNode(mDSHead->id);
+
+        // New scene
+        newScene({3});
+        removeReference(tmp, "tmp");
+        if (mDSHead != nullptr)
+            mVisualization.removeArrow(tmp->next.id);
+        mVisualization.removeNode(tmp->id);
+
+        // New scene
+        newScene({0});
+    }
 
     // New scene
     newScene({});

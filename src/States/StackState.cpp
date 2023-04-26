@@ -144,6 +144,15 @@ void StackState::populateRemove() {
                                       return true;
                                   });
     }
+
+    // Clear option
+    {
+        curTab->addActionSelector("Clear", {},
+                                  [this](ActionBox::InputData, bool) {
+                                      this->mAlgo.clear();
+                                      return true;
+                                  });
+    }
 }
 
 void StackState::populateSearch() {
