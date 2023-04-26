@@ -2,6 +2,7 @@
 #define STATES_HOMESTATE_H
 
 #include "../CategoryScroller.h"
+#include "../SettingsPanel.h"
 
 #include "State.h"
 
@@ -25,6 +26,8 @@ private:
     std::map<CategoryID, CategoryScroller::Ptr> mCategories;
 
 private:
+    SettingsPanel mSettings;
+
     Texture2D mHeroBanner;
     Rectangle mBannerRect;
 

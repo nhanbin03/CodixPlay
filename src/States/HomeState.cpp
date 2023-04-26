@@ -41,6 +41,7 @@ bool HomeState::update(float dt) {
     for (auto &category : mCategories) {
         category.second->update(dt);
     }
+    mSettings.update(dt);
     return true;
 }
 
@@ -51,6 +52,7 @@ void HomeState::draw() {
     for (auto &category : mCategories) {
         category.second->draw();
     }
+    mSettings.draw();
 }
 
 void HomeState::drawHeroBanner() {
