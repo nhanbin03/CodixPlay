@@ -80,6 +80,8 @@ void Application::loadTextures() {
                                       BASE_PATH + "NavSettingsButton.png");
     TextureHolder::getInstance().load(TextureID::HeroBanner,
                                       BASE_PATH + "HeroBanner.png");
+    TextureHolder::getInstance().load(TextureID::SettingIcon,
+                                      BASE_PATH + "SettingIcon.png");
     TextureHolder::getInstance().load(TextureID::StaticArrayCard,
                                       BASE_PATH + "StaticArrayCard.png");
     TextureHolder::getInstance().load(TextureID::DynamicArrayCard,
