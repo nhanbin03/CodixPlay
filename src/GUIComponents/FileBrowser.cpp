@@ -58,6 +58,7 @@ void FileBrowser::draw() {
 
 void FileBrowser::setBorderThickness(int thickness) {
     mBorderThickness = thickness;
+    mBrowseButton.setBorderThickness(thickness);
 }
 
 void FileBrowser::setCornerRoundness(float cornerRoundness) {

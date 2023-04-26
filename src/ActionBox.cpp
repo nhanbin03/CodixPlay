@@ -47,6 +47,9 @@ ActionBox::ActionBox(Rectangle bounds, std::string title,
             newBox->setBorderColor(AppColor::BACKGROUND_1);
             newBox->setBorderThickness(1);
             newBox->setCornerRoundness(0.75);
+            newBox->setButtonColor(AppColor::BACKGROUND_3);
+            newBox->setButtonBorderColor(AppColor::BACKGROUND_1);
+            newBox->setButtonContentColor(AppColor::TEXT);
 
             mFileBrowsers.push_back(std::move(newBox));
         }
