@@ -34,7 +34,7 @@ void VisualColor::setPrimaryColor(ColorID id) {
     replaceColor(OPTIONS[id], 0);
 }
 
-void VisualColor::setSecondaryColorr(ColorID id) {
+void VisualColor::setSecondaryColor(ColorID id) {
     replaceColor(OPTIONS[id], 1);
 }
 

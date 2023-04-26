@@ -23,7 +23,7 @@ public:
     static Color getReferenceColor();
 
     static void setPrimaryColor(ColorID id);
-    static void setSecondaryColorr(ColorID id);
+    static void setSecondaryColor(ColorID id);
     static void setTertiaryColor(ColorID id);
     static void setReferenceColor(ColorID id);
 
