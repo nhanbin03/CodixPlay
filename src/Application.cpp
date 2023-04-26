@@ -30,7 +30,7 @@ Application::Application()
         TextureHolder::getInstance().get(TextureID::IconLogo)));
 
     registerStates();
-    mStateStack.pushState(StateIDs::StaticArray);
+    mStateStack.pushState(StateIDs::Home);
 }
 
 Application::~Application() {
@@ -78,6 +78,20 @@ void Application::loadTextures() {
                                       BASE_PATH + "NavHomeButton.png");
     TextureHolder::getInstance().load(TextureID::NavSettingsButton,
                                       BASE_PATH + "NavSettingsButton.png");
+    TextureHolder::getInstance().load(TextureID::StaticArrayCard,
+                                      BASE_PATH + "StaticArrayCard.png");
+    TextureHolder::getInstance().load(TextureID::DynamicArrayCard,
+                                      BASE_PATH + "DynamicArrayCard.png");
+    TextureHolder::getInstance().load(TextureID::SinglyLinkedListCard,
+                                      BASE_PATH + "SinglyLinkedListCard.png");
+    TextureHolder::getInstance().load(TextureID::DoublyLinkedListCard,
+                                      BASE_PATH + "DoublyLinkedListCard.png");
+    TextureHolder::getInstance().load(TextureID::CircularLinkedListCard,
+                                      BASE_PATH + "CircularLinkedListCard.png");
+    TextureHolder::getInstance().load(TextureID::StackCard,
+                                      BASE_PATH + "StackCard.png");
+    TextureHolder::getInstance().load(TextureID::QueueCard,
+                                      BASE_PATH + "QueueCard.png");
     TextureHolder::getInstance().load(TextureID::RewindSceneButton,
                                       BASE_PATH + "RewindSceneButton.png");
     TextureHolder::getInstance().load(TextureID::PrevSceneButton,
