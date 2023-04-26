@@ -27,9 +27,9 @@ public:
     virtual Vector2 getSize() const;
     virtual void setSize(Vector2 size);
 
-    void setColor(Color color);
-    void setBorderThickness(int thickness);
-    void setBorderColor(Color color);
+    virtual void setColor(Color color);
+    virtual void setBorderThickness(int thickness);
+    virtual void setBorderColor(Color color);
 
 protected:
     Rectangle mRect;
