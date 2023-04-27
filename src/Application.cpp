@@ -108,6 +108,8 @@ void Application::loadTextures() {
                                       BASE_PATH + "NextSceneButton.png");
     TextureHolder::getInstance().load(TextureID::FowardSceneButton,
                                       BASE_PATH + "FowardSceneButton.png");
+    TextureHolder::getInstance().load(TextureID::SpeedSceneButton,
+                                      BASE_PATH + "SpeedSceneButton.png");
     TextureHolder::getInstance().load(TextureID::InitializeTab,
                                       BASE_PATH + "InitializeTab.png");
     TextureHolder::getInstance().load(TextureID::InsertTab,

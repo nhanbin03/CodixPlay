@@ -22,6 +22,7 @@ enum class TextureID {
     PauseSceneButton,
     NextSceneButton,
     FowardSceneButton,
+    SpeedSceneButton,
     InitializeTab,
     InsertTab,
     RemoveTab,

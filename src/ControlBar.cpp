@@ -48,11 +48,36 @@ ControlBar::ControlBar(std::vector<VisualScene>& sceneTrack,
         this->fowardScene();
     });
 
+    Button speedBtn = Button({875, 870, 52, 52});
+    formatButton(speedBtn, TextureID::SpeedSceneButton);
+    speedBtn.setCallback([this]() {
+        this->mSpeedModifierHidden = !(this->mSpeedModifierHidden);
+    });
+
     mBtnContainer.push_back(rewindBtn);
     mBtnContainer.push_back(prevBtn);
     mBtnContainer.push_back(pauseBtn);
     mBtnContainer.push_back(nextBtn);
     mBtnContainer.push_back(fowardBtn);
+    mBtnContainer.push_back(speedBtn);
+
+    mSpeedDownBtn.setRect({832, 796, 24, 24});
+    mSpeedDownBtn.setText("-");
+    mSpeedDownBtn.setTextSize(35);
+    mSpeedDownBtn.setColor(BLANK);
+    mSpeedDownBtn.setCallback([this]() {
+        if (this->mSpeedTracker - 1 >= 0)
+            this->mSpeedTracker--;
+    });
+
+    mSpeedUpBtn.setRect({947, 796, 24, 24});
+    mSpeedUpBtn.setText("+");
+    mSpeedUpBtn.setTextSize(35);
+    mSpeedUpBtn.setColor(BLANK);
+    mSpeedUpBtn.setCallback([this]() {
+        if (this->mSpeedTracker + 1 < this->FACTORS_SIZE)
+            this->mSpeedTracker++;
+    });
 }
 
 ControlBar::~ControlBar() {
@@ -63,6 +88,8 @@ void ControlBar::update(float dt) {
         btn.update(dt);
     }
     updateDisplayingScene(dt);
+    if (mSpeedModifierHidden == false)
+        updateSpeedModifier(dt);
 }
 
 void ControlBar::draw() {
@@ -70,6 +97,8 @@ void ControlBar::draw() {
     for (auto& btn : mBtnContainer) {
         btn.draw();
     }
+    if (mSpeedModifierHidden == false)
+        drawSpeedModifier();
 }
 
 void ControlBar::reset() {
@@ -124,10 +153,11 @@ void ControlBar::setPause(bool pause) {
 }
 
 void ControlBar::updateDisplayingScene(float dt) {
+    float speed = dt * FACTORS[mSpeedTracker];
     *mDisplayingScene = (*mSceneTrack)[mTracker];
     if (mActionStatus != Action::None || mIsPaused == false) {
         if (mTimeCounter < ANIMATION_TIME) {
-            mTimeCounter += dt;
+            mTimeCounter += speed;
             if (mTimeCounter > ANIMATION_TIME)
                 mTimeCounter = ANIMATION_TIME;
             int lastTracker;
@@ -148,6 +178,34 @@ void ControlBar::updateDisplayingScene(float dt) {
             }
         }
     }
+}
+
+void ControlBar::updateSpeedModifier(float dt) {
+    mSpeedDownBtn.update(dt);
+    mSpeedUpBtn.update(dt);
+}
+
+void ControlBar::drawSpeedModifier() {
+    DrawRectangleRounded({824, 729, 154, 132}, 0.5,
+                         GUIComponent::ROUNDED_SEGMENTS,
+                         ColorAlpha(AppColor::BACKGROUND_1, 0.6));
+
+    std::string title = "Speed";
+    int titleSize = 24;
+    Font titleFont = FontHolder::getInstance().get(FontID::Inter, titleSize);
+    Vector2 titleBounds = MeasureTextEx(titleFont, title.c_str(), titleSize, 0);
+    DrawTextEx(titleFont, title.c_str(), {901 - titleBounds.x / 2, 738},
+               titleSize, 0, AppColor::TEXT);
+
+    std::string speed = FACTORS_STR[mSpeedTracker];
+    int speedSize = 40;
+    Font speedFont = FontHolder::getInstance().get(FontID::Inter, speedSize);
+    Vector2 speedBounds = MeasureTextEx(speedFont, speed.c_str(), speedSize, 0);
+    DrawTextEx(speedFont, speed.c_str(), {901 - speedBounds.x / 2, 788},
+               speedSize, 0, AppColor::TEXT);
+
+    mSpeedDownBtn.draw();
+    mSpeedUpBtn.draw();
 }
 
 void ControlBar::formatButton(Button& btn, TextureID id) {
