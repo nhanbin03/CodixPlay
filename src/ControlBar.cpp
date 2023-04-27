@@ -97,6 +97,7 @@ void ControlBar::draw() {
     for (auto& btn : mBtnContainer) {
         btn.draw();
     }
+    drawPlayBar();
     if (mSpeedModifierHidden == false)
         drawSpeedModifier();
 }
@@ -155,6 +156,7 @@ void ControlBar::setPause(bool pause) {
 void ControlBar::updateDisplayingScene(float dt) {
     float speed = dt * FACTORS[mSpeedTracker];
     *mDisplayingScene = (*mSceneTrack)[mTracker];
+    mCurrentBarLength = getBarLength(mTracker);
     if (mActionStatus != Action::None || mIsPaused == false) {
         if (mTimeCounter < ANIMATION_TIME) {
             mTimeCounter += speed;
@@ -166,10 +168,14 @@ void ControlBar::updateDisplayingScene(float dt) {
             } else {
                 lastTracker = mTracker - 1;
             }
-            if (lastTracker < mSceneTrack->size())
+            if (lastTracker < mSceneTrack->size()) {
                 *mDisplayingScene = VisualScene::transitionScene(
                     (*mSceneTrack)[lastTracker], (*mSceneTrack)[mTracker],
                     mTimeCounter, ANIMATION_TIME);
+                mCurrentBarLength = VisualScene::easeInOut(
+                    getBarLength(lastTracker), getBarLength(mTracker),
+                    mTimeCounter, ANIMATION_TIME);
+            }
         } else {
             if (mIsPaused) {
                 mActionStatus = Action::None;
@@ -183,6 +189,11 @@ void ControlBar::updateDisplayingScene(float dt) {
 void ControlBar::updateSpeedModifier(float dt) {
     mSpeedDownBtn.update(dt);
     mSpeedUpBtn.update(dt);
+}
+
+void ControlBar::drawPlayBar() {
+    DrawRectangle(256, 825, PLAYER_BAR_LENGTH, 17, AppColor::TEXT_ACCENT);
+    DrawRectangle(256, 825, mCurrentBarLength, 17, AppColor::BACKGROUND_1);
 }
 
 void ControlBar::drawSpeedModifier() {
@@ -212,4 +223,10 @@ void ControlBar::formatButton(Button& btn, TextureID id) {
     btn.setColor(AppColor::BACKGROUND_3);
     btn.setContentColor(AppColor::TEXT);
     btn.setTexture(TextureHolder::getInstance().get(id));
+}
+
+int ControlBar::getBarLength(int tracker) {
+    if (mSceneTrack->size() <= 1)
+        return PLAYER_BAR_LENGTH;
+    return PLAYER_BAR_LENGTH * tracker / (mSceneTrack->size() - 1);
 }

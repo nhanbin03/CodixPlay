@@ -17,6 +17,7 @@ public:
     static constexpr float FACTORS[] = {0.25f, 0.5f, 1.0f, 2.0f, 3.0f, 4.0f};
     static constexpr char *FACTORS_STR[] = {"0.25", "0.5", "1.0",
                                             "2.0",  "3.0", "4.0"};
+    static constexpr int PLAYER_BAR_LENGTH = 611;
 
 public:
     ControlBar(std::vector<VisualScene> &sceneTrack,
@@ -48,6 +49,9 @@ private:
 
     Action mActionStatus{Action::None};
     float mTimeCounter{0};
+
+    int mCurrentBarLength;
+
     int mSpeedTracker{2};
     bool mSpeedModifierHidden{true};
     Button mSpeedUpBtn, mSpeedDownBtn;
@@ -64,8 +68,11 @@ private:
     void updateDisplayingScene(float dt);
     void updateSpeedModifier(float dt);
 
+    void drawPlayBar();
     void drawSpeedModifier();
 
     void formatButton(Button &btn, TextureID id);
+
+    int getBarLength(int tracker);
 };
 #endif // CONTROLBAR_H

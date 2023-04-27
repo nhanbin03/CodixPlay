@@ -23,6 +23,7 @@ public:
     static VisualScene transitionScene(const VisualScene& fromScene,
                                        const VisualScene& toScene, float time,
                                        float totalTime);
+    static float easeInOut(float from, float to, float time, float totalTime);
 
     void draw();
 
@@ -75,8 +76,6 @@ private:
 
     Label& getLabel(int labelID);
     const Label& getLabel(int labelID) const;
-
-    static float easeInOut(float from, float to, float time, float totalTime);
 
     static Color easeInOutColor(Color fromColor, Color toColor, float time,
                                 float totalTime);
