@@ -210,7 +210,6 @@ void StaticArrayAlgo::createArray(Array& arr, std::string name, int length,
     arr = Array();
     arr.nameId = mVisualization.createLabel(name + " :");
     mVisualization.setSizeLabel(arr.nameId, 40);
-    arr.array = new Block::Ptr[length];
     arr.capacity = length;
 
     for (int i = 0; i < length; i++) {

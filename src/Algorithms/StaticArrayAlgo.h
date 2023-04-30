@@ -49,7 +49,7 @@ private:
     public:
         int nameId{-1};
         int capacity;
-        Block::Ptr* array;
+        Block::Ptr array[MAX_DS_SIZE];
     };
 
 private:
