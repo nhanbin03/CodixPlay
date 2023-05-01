@@ -1,4 +1,4 @@
-TARGET := game
+TARGET := CodixPlay
 
 SRC := src
 BUILD := build
