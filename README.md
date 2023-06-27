@@ -1,6 +1,6 @@
 # CodixPlay
 
-A C++ project that helps users visualizing various data structures and algorithm.
+A C++ project that helps users visualizing various data structures and algorithms.
 
 ## Demo videos:
 
