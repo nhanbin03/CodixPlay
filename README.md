@@ -1,5 +1,7 @@
 # CodixPlay
 
+![](asset/texture/HeroBanner.png)
+
 CodixPlay is a C++ application project that offers a visual representation of various data structures. From static arrays to stacks and queues, CodixPlay provides an interactive visualization of these structures, allowing users to observe their behaviors and operations in real-time.
 
 ## Features
